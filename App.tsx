@@ -1,72 +1,80 @@
-import React, { useState } from 'react';
-import {
-  StatusBar,
-  StyleSheet,
-  Text,
-  useColorScheme,
-  View,
-} from 'react-native';
-import { GoogleSigninButton } from '@react-native-google-signin/google-signin';
-import { signIn } from './Auth/signin';
+import React, { useEffect, useState } from 'react';
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-function App(): React.JSX.Element {
-  const isDarkMode = useColorScheme() === 'dark';
-  interface User {
-    name: string;
-    email: string;
-  }
+import {jwtDecode} from 'jwt-decode';
+import { ActivityIndicator, View, StyleSheet } from 'react-native';
+import LoginScreen from './components/authstack/LoginScreen'; // Adjust the path to your LoginScreen component
+import HomeScreen from './components/homestack/HomeScreen'; // Adjust the path to your HomeScreen component
 
-  const [user, setUser] = useState<User | null>(null);
+export type RootStackParamList = {
+  Login: undefined;
+  Home: undefined;
+};
 
-  const handleSignIn = async () => {
-    const result = await signIn();
-    if (result) {
-      setUser(result.user); // Save authenticated user info
-      console.log('User info:', result.user);  
+const Stack = createNativeStackNavigator<RootStackParamList>();
+
+const App = () => {
+  const [isLoading, setIsLoading] = useState(true);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  const initializeApp = async () => {
+    try {
+      const token = await AsyncStorage.getItem('userToken');
+      if (token) {
+        const decoded = jwtDecode(token);
+        const isTokenExpired = decoded.exp && decoded.exp * 1000 < Date.now();
+        if (!isTokenExpired) {
+          setIsLoggedIn(true);
+        } else {
+          console.log('Token expired.');
+          await AsyncStorage.removeItem('userToken');
+        }
+      } else {
+        console.log('No token found.');
+      }
+    } catch (error) {
+      console.error('Error during initialization:', error);
+    } finally {
+      setIsLoading(false);
     }
   };
 
+  useEffect(() => {
+    initializeApp();
+  }, []);
+
+  if (isLoading) {
+    return (
+      <View style={styles.center}>
+        <ActivityIndicator size="large" color="#0000ff" />
+      </View>
+    );
+  }
+
   return (
-    <View style={styles.backgroundStyle}>
-      <StatusBar
-        barStyle={isDarkMode ? 'light-content' : 'dark-content'}
-        backgroundColor={isDarkMode ? 'black' : 'white'}
-      />
-      <Text style={styles.title}>Welcome to React Native!</Text>
-      {user ? (
-        <Text style={styles.userInfo}>
-          Signed in as: {user.name} ({user.email})
-        </Text>
-      ) : (
-        <GoogleSigninButton
-          size={GoogleSigninButton.Size.Wide}
-          color={GoogleSigninButton.Color.Dark}
-          onPress={handleSignIn}
-          disabled={false}
+    <NavigationContainer>
+      <Stack.Navigator initialRouteName={isLoggedIn ? "Home" : "Login"}>
+        <Stack.Screen 
+          name="Login" 
+          component={LoginScreen} 
+          options={{ headerShown: false }} 
         />
-      )}
-    </View>
+        <Stack.Screen 
+          name="Home" 
+          component={HomeScreen} 
+          options={{ headerShown: false }} 
+        />
+      </Stack.Navigator>
+    </NavigationContainer>
   );
-}
+};
 
 const styles = StyleSheet.create({
-  backgroundStyle: {
+  center: {
     flex: 1,
-    alignItems: 'center',
     justifyContent: 'center',
-    width: '100%',
-    padding: 20,
-    backgroundColor: 'white',
-  },
-  title: {
-    fontSize: 24,
-    marginBottom: 20,
-    fontWeight: '600',
-  },
-  userInfo: {
-    fontSize: 18,
-    marginTop: 20,
-    color: 'gray',
+    alignItems: 'center',
   },
 });
 
