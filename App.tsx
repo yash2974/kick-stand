@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import {jwtDecode} from 'jwt-decode';
 import { ActivityIndicator, View, StyleSheet } from 'react-native';
 import LoginScreen from './components/authstack/LoginScreen'; // Adjust the path to your LoginScreen component
 import HomeScreen from './components/homestack/HomeScreen'; // Adjust the path to your HomeScreen component
+import { GoogleSignin} from '@react-native-google-signin/google-signin';
+import { User } from '@react-native-google-signin/google-signin/src/types'; // Adjust the import based on your setup
+import { AuthContext, AuthProvider } from './components/authstack/AuthContext';
 
 export type RootStackParamList = {
   Login: undefined;
@@ -17,31 +18,22 @@ const Stack = createNativeStackNavigator<RootStackParamList>();
 const App = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-
-  const initializeApp = async () => {
-    try {
-      const token = await AsyncStorage.getItem('userToken');
-      if (token) {
-        const decoded = jwtDecode(token);
-        const isTokenExpired = decoded.exp && decoded.exp * 1000 < Date.now();
-        if (!isTokenExpired) {
-          setIsLoggedIn(true);
-        } else {
-          console.log('Token expired.');
-          await AsyncStorage.removeItem('userToken');
-        }
-      } else {
-        console.log('No token found.');
-      }
-    } catch (error) {
-      console.error('Error during initialization:', error);
-    } finally {
-      setIsLoading(false);
+  // const [userInfo, setUserInfo] = useState<User | null>(null);
+  const { setUserInfo } = React.useContext(AuthContext); // Use the context to set user info
+  const getCurrentUser = async () => {
+    const currentUser = await GoogleSignin.getCurrentUser();
+    if (currentUser) {
+      setUserInfo(currentUser);
+      setIsLoggedIn(true);
+    } else {
+      setUserInfo(null);
+      setIsLoggedIn(false);
     }
+    setIsLoading(false);
   };
-
+  
   useEffect(() => {
-    initializeApp();
+    getCurrentUser();
   }, []);
 
   if (isLoading) {
@@ -53,6 +45,7 @@ const App = () => {
   }
 
   return (
+    <AuthProvider>
     <NavigationContainer>
       <Stack.Navigator initialRouteName={isLoggedIn ? "Home" : "Login"}>
         <Stack.Screen 
@@ -67,6 +60,7 @@ const App = () => {
         />
       </Stack.Navigator>
     </NavigationContainer>
+    </AuthProvider>
   );
 };
 

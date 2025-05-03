@@ -1,10 +1,19 @@
-import AsyncStorage from "@react-native-async-storage/async-storage";
+import { AuthContext } from "../authstack/AuthContext";
 import { GoogleSignin, User } from "@react-native-google-signin/google-signin";
 import React, { useEffect } from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { Button, StyleSheet, Text, View } from "react-native";
+import { IOS_CLIENT_ID, WEB_CLIENT_ID } from "../../Auth/key"; // Adjust the path to your key file
+import { useNavigation } from "@react-navigation/native";
+GoogleSignin.configure({
+  webClientId: WEB_CLIENT_ID, // Required for getting the ID token
+  iosClientId: IOS_CLIENT_ID, // For iOS apps (optional but recommended)
+  offlineAccess: true, // Enables server-side API calls
+});
 
 
 export default function HomeScreen() {
+    const navigation = useNavigation(); // Use the navigation prop to navigate
+    const { userInfo, setUserInfo } = React.useContext(AuthContext); // Use the context to get user info
     const getCurrentUser = async () => {
         const currentUser = GoogleSignin.getCurrentUser();
         if (!currentUser) {
@@ -13,24 +22,27 @@ export default function HomeScreen() {
         }
         console.log("Current user:", currentUser);
     };
-    console.log("HomeScreen rendered");
-    try {
-        getCurrentUser();
-        const token = AsyncStorage.getItem("userToken");
-        if (token) {
-            console.log("Token found:", token);
+    const signOut = async () => {
+        try {
+            await GoogleSignin.signOut();
+            console.log("User signed out successfully.");
+            setUserInfo(null); // Clear user info in context
+            navigation.reset({
+                index: 0,
+                routes: [{ name: 'Login' as never }] // Navigate to the Login screen
+            });
+        } catch (error) {
+            console.error("Error signing out:", error);
         }
-        else {
-            console.log("No token found.");
-        }
-    }
-    catch (error) {
-        console.error("Error retrieving token:", error);
-    }
+    };
+
+    getCurrentUser();
     return (
         <View style={styles.container}>
             <Text style={styles.title}>Welcome to the Home Screen!</Text>
+            <Button title={"Log Out"} onPress={signOut}></Button>
         </View>
+        
     );
 }
 const styles = StyleSheet.create({
@@ -47,6 +59,4 @@ const styles = StyleSheet.create({
     },
 });
 
-function setState(currentUser: User | null) {
-    throw new Error("Function not implemented.");
-}
+

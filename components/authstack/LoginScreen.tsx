@@ -9,7 +9,7 @@ import { useNavigation } from "@react-navigation/native";
 import type { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { RootStackParamList } from "../../App"; // Adjust the path to match your project structure
 import { signIn } from "../../Auth/signin"; // Adjust the path to your signIn function
-import AsyncStorage from '@react-native-async-storage/async-storage';
+
 
 type LoginScreenNavigationProp = NativeStackNavigationProp<RootStackParamList, 'Login'>;
 
@@ -20,9 +20,7 @@ export default function LoginScreen() {
     try {
       const result = await signIn(); // Call your signIn function here
       if (result) {
-        // Store the token in AsyncStorage instead of directly navigating
-        await AsyncStorage.setItem('userToken', result.token);
-        // Reset the navigation stack to Home
+        console.log("User signed in successfully:", result);
         navigation.reset({
           index: 0,
           routes: [{ name: 'Home' }]
