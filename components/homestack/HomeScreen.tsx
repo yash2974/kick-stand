@@ -2,7 +2,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { GoogleSignin, User } from "@react-native-google-signin/google-signin";
 import React, { useEffect } from "react";
 import { StyleSheet, Text, View } from "react-native";
-import { get } from "react-native/Libraries/TurboModule/TurboModuleRegistry";
+
 
 export default function HomeScreen() {
     const getCurrentUser = async () => {
