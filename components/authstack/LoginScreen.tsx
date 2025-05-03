@@ -1,20 +1,15 @@
 import React from "react";
 import { StyleSheet, Text, View } from "react-native";
 import {
-  GoogleSignin,
   GoogleSigninButton,
   statusCodes,
 } from '@react-native-google-signin/google-signin';
 import { useNavigation } from "@react-navigation/native";
-import type { NativeStackNavigationProp } from "@react-navigation/native-stack";
-import { RootStackParamList } from "../../App"; // Adjust the path to match your project structure
 import { signIn } from "../../Auth/signin"; // Adjust the path to your signIn function
 
 
-type LoginScreenNavigationProp = NativeStackNavigationProp<RootStackParamList, 'Login'>;
-
 export default function LoginScreen() {
-  const navigation = useNavigation<LoginScreenNavigationProp>();
+  const navigation = useNavigation();
 
   const handleSignIn = async () => {
     try {
@@ -23,7 +18,7 @@ export default function LoginScreen() {
         console.log("User signed in successfully:", result);
         navigation.reset({
           index: 0,
-          routes: [{ name: 'Home' }]
+          routes: [{ name: 'Home' as never}]
         });
       }
     } catch (error) {
