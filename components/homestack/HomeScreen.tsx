@@ -14,14 +14,7 @@ GoogleSignin.configure({
 export default function HomeScreen() {
     const navigation = useNavigation(); // Use the navigation prop to navigate
     const { userInfo, setUserInfo } = React.useContext(AuthContext); // Use the context to get user info
-    const getCurrentUser = async () => {
-        const currentUser = GoogleSignin.getCurrentUser();
-        if (!currentUser) {
-            console.log("No user is currently signed in.");
-            return null;
-        }
-        console.log("Current user:", currentUser);
-    };
+    
     const signOut = async () => {
         try {
             await GoogleSignin.signOut();
@@ -36,7 +29,6 @@ export default function HomeScreen() {
         }
     };
 
-    getCurrentUser();
     return (
         <View style={styles.container}>
             <Text style={styles.title}>Welcome to the Home Screen!</Text>

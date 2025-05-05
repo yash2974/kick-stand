@@ -41,7 +41,7 @@ func verifyGoogleAndIssueJWT(c *gin.Context) {
 		"sub":   sub,
 		"email": email,
 		"name":  name,
-		"exp":   time.Now().Add(time.Hour * 24).Unix(), // expires in 1 day
+		"exp":   time.Now().Add(time.Hour * 168).Unix(), // expires in 1 day
 	})
 
 	signedToken, err := token.SignedString(jwtSecret)
