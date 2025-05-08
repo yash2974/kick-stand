@@ -1,49 +1,114 @@
-// import { User } from "@react-native-google-signin/google-signin";
-// import React from "react";
-
-// const [db_user, setDbUser] = React.useState<User | null>(null); // State to hold the user object
-    
-//     const userDetails = async () => {
-//         try {
-//             const response = await fetch("http://192.168.1.5:8001/users/{id}");
-//             const data = await response.json();
-//             setDbUser(data); // Set the user data in state
-//         }
-//         catch (error) {
-//             console.error("Error fetching user details:", error);
-//         }
-//     };
-
-import { useNavigation } from "@react-navigation/native";
-import React from "react";
+import React, { useState } from "react";
 import { View, Text, Button, StyleSheet } from "react-native";
+import { GestureHandlerRootView, TextInput } from "react-native-gesture-handler";
+import { AuthContext, AuthProvider } from '../authstack/AuthContext';
+import { useNavigation } from "@react-navigation/native";
 
 export default function NewUser() {
+    const navigation = useNavigation()
+    const [name, setName] = useState('');
+    const [email, setEmail] = useState('');
+    const [phone, setPhone] = useState('');
+    const { userInfo } = React.useContext(AuthContext);
+    const user_id = userInfo.user.id
+    console.log(user_id)
+
+    const userDetails = async () => {
+        
+        const userData = {name, email, phone, user_id}
+        try{
+            const response = await fetch('http://192.168.1.9:8001/users/',{
+                method:'POST',
+                headers:{
+                    'Content-Type':'application/json',
+                },
+                body: JSON.stringify(userData)
+            });
+            console.log(JSON.stringify(userData))
+            navigation.reset({
+                index: 0,
+                routes: [{ name: 'Home' as never }] 
+            });
+        
+            const result = await response.json();
+            if (response.ok) {
+                alert(result.message);
+                
+            }
+            else{
+                alert(result.message);
+            }
+        }
+        catch (error){
+            alert("Failed to send data");
+        }
+
+    };
+
     
 
     return (
+        <GestureHandlerRootView style={{ flex: 1 }}>
         <View style={styles.container}>
-            <Text style={styles.title}>Welcome, New User!</Text>
-            <Text style={styles.subtitle}>Please complete your profile.</Text>
-            
-        </View>
-    );
-}   
+            <Text style={styles.title}>Complete Your Profile</Text>
 
-const styles = StyleSheet.create({  
-    container: {
-        flex: 1,
-        justifyContent: "center",
-        alignItems: "center",
-        backgroundColor: "#f5f5f5",
-    },
-    title: {
-        fontSize: 24,
-        fontWeight: "bold",
-        marginBottom: 20,
-    },
-    subtitle: {
-        fontSize: 16,
-        marginBottom: 20,
-    },
+            <TextInput
+            placeholder="Full Name"
+            value={name}
+            onChangeText={setName}
+            style={styles.input}
+            placeholderTextColor="#000"
+            />
+
+            <TextInput
+            placeholder="Email"
+            value={email}
+            onChangeText={setEmail}
+            keyboardType="email-address"
+            autoCapitalize="none"
+            style={styles.input}
+            placeholderTextColor="#000"
+            />
+
+            <TextInput
+            placeholder="Phone Number"
+            value={phone}
+            onChangeText={setPhone}
+            keyboardType="phone-pad"
+            style={styles.input}
+            placeholderTextColor="#000"
+            />
+
+            <Button title="Submit" onPress={userDetails}></Button>
+        </View>
+        </GestureHandlerRootView>
+    );
+}
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: "center",
+    paddingHorizontal: 20,
+    backgroundColor: "#f5f5f5",
+  },
+  title: {
+    fontSize: 22,
+    fontWeight: "bold",
+    marginBottom: 20,
+    alignSelf: "center",
+  },
+  input: {
+    borderWidth: 1,
+    borderColor: "#ccc",
+    borderRadius: 8,
+    padding: 10,
+    marginBottom: 15,
+    backgroundColor: "#fff",
+    
+  },
 });
+
+function alert(message: any) {
+    throw new Error("Function not implemented.");
+}

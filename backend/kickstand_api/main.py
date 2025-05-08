@@ -27,5 +27,8 @@ def create_user(user: schema.UserCreate, db: Session = Depends(get_db)):
 def read_user(user_id: str, db: Session = Depends(get_db)):
     db_user = db.query(models.User).filter(models.User.user_id == user_id).first()
     if db_user is None:
-        raise HTTPException(status_code=404, detail="User not found")
+        return None
     return db_user
+
+
+    

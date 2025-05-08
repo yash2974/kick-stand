@@ -12,8 +12,11 @@ export default function LoginScreen() {
   const navigation = useNavigation();
 
   const handleSignIn = async () => {
+    
     try {
+      
       const result = await signIn(); // Call your signIn function here
+      
       if (result) {
         console.log("User signed in successfully:", result);
         navigation.reset({

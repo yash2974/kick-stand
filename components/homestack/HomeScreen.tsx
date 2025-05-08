@@ -1,9 +1,10 @@
-import { AuthContext } from "../authstack/AuthContext";
 import { GoogleSignin, User } from "@react-native-google-signin/google-signin";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Button, StyleSheet, Text, View } from "react-native";
 import { IOS_CLIENT_ID, WEB_CLIENT_ID } from "../../Auth/key"; // Adjust the path to your key file
 import { useNavigation } from "@react-navigation/native";
+import { AuthProvider, AuthContext } from "../authstack/AuthContext";
+
 GoogleSignin.configure({
   webClientId: WEB_CLIENT_ID, // Required for getting the ID token
   iosClientId: IOS_CLIENT_ID, // For iOS apps (optional but recommended)
@@ -14,7 +15,8 @@ GoogleSignin.configure({
 export default function HomeScreen() {
     const navigation = useNavigation(); // Use the navigation prop to navigate
     const { userInfo, setUserInfo } = React.useContext(AuthContext); // Use the context to get user info
-    
+    const [dbUser, setDbUser] = useState<User | null>(null); // State to hold the user object
+    console.log(userInfo)
     const signOut = async () => {
         try {
             await GoogleSignin.signOut();
