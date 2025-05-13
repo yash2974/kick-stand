@@ -1,9 +1,9 @@
 import { GoogleSignin } from '@react-native-google-signin/google-signin';
 
-const BACKEND_URL = 'http://192.168.1.9:8080/api/auth/google'; // Replace with your backend's URL
+const BACKEND_URL = 'http://192.168.1.4:8080/api/auth/google'; // Replace with your backend's URL
 
 import { IOS_CLIENT_ID, WEB_CLIENT_ID } from './key'; // Replace with your actual keys
-import AsyncStorage from '@react-native-async-storage/async-storage';
+
 
 
 GoogleSignin.configure({
@@ -12,11 +12,13 @@ GoogleSignin.configure({
   offlineAccess: true, // Enables server-side API calls
 });
 
-export const signIn = async () => {
+export const signIn = async (setUserInfo: (user: any) => void) => {
+  
   try {
     // Prompt user to sign in with Google
     await GoogleSignin.hasPlayServices();
-    const userInfo = await GoogleSignin.signIn();
+    const userSignIn = await GoogleSignin.signIn();
+    console.log('User signed in:', userSignIn);
     
 
     // Extract ID token
@@ -39,21 +41,9 @@ export const signIn = async () => {
 
     const data = await response.json();
     console.log('Authenticated user:', data);
-    // const storeToken = async (token: string) => {
-    //   try {
-    //     await AsyncStorage.setItem('userToken', token); // Store the token securely
-    //   }
-    //   catch (error) {   
-    //     if (error instanceof Error) {
-    //       console.error('Error storing token:', error.message);
-    //     } else {
-    //       console.error('Error storing token:', error);
-    //     }
-    //   }
-    // };
-
-
+    
     // Handle JWT and user info (e.g., save token in secure storage)
+    setUserInfo(userSignIn.data); // Set user info in context
     const { token, user } = data;
     console.log('JWT:', token);
     console.log('User:', user);

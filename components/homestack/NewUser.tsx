@@ -10,14 +10,16 @@ export default function NewUser() {
     const [email, setEmail] = useState('');
     const [phone, setPhone] = useState('');
     const { userInfo } = React.useContext(AuthContext);
-    const user_id = userInfo.user.id
+    
+    const user_id = userInfo?.user.id
+    
     console.log(user_id)
 
     const userDetails = async () => {
         
         const userData = {name, email, phone, user_id}
         try{
-            const response = await fetch('http://192.168.1.9:8001/users/',{
+            const response = await fetch('http://192.168.1.4:8001/users/',{
                 method:'POST',
                 headers:{
                     'Content-Type':'application/json',

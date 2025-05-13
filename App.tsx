@@ -18,68 +18,37 @@ export type RootStackParamList = {
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
 const AppContent = () => {
-  const [isLoading, setIsLoading] = useState(true);
+  
+ 
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [isCheckingUser, setIsCheckingUser] = useState(false)
-  const [dbUser, setDbUser] = useState<User | null>(null);
-  
-  const { userInfo, setUserInfo } = React.useContext(AuthContext) as {
-    userInfo: User | null;
-    setUserInfo: React.Dispatch<React.SetStateAction<User | null>>;
-  };
-  
-  const getCurrentUser = async () => {
-    const currentUser = await GoogleSignin.getCurrentUser();
-    if (currentUser) {
-      setIsCheckingUser(true)
-      setUserInfo(currentUser);
-      console.log("User is logged in:", currentUser.user.id);
-      console.log("state", userInfo); // This will log correctly after re-render
-      setIsLoggedIn(true);
-    } else {
-      setUserInfo(null);
-      setIsLoggedIn(false);
-      console.log("no user")
-    }
-    setIsLoading(false);
-  };
-
-  const isNewUser = async () => {
-    console.log("isnewuser")
-    try {
-      if (!userInfo) return; // Guard clause to prevent fetch if no userInfo
-      const response = await fetch(`http://192.168.1.9:8001/users/${userInfo.user.id}`);
-      const data = await response.json();
-      setDbUser(data);
-      console.log("User data:", data);
-    } catch (error) {
-      console.log("new user");
-    }
-    setIsCheckingUser(false)
-  };
-  
-  useEffect(() => {
-    getCurrentUser();
-  }, []);
+  const {userInfo, isAuthLoading} = React.useContext(AuthContext);
+  const [isLoading, setisLoading] = useState(true);
 
   useEffect(() => {
-    
+  if (!isAuthLoading) {
     if (userInfo) {
-      isNewUser();
+      setIsLoggedIn(true);
+      console.log("User is logged in:", userInfo);
+    } else {
+      setIsLoggedIn(false);
+      console.log("User is not logged in");
     }
-  }, [userInfo]); // Dependency on userInfo
+    setisLoading(false);
+  }
+}, [isAuthLoading, userInfo]);
 
-  if (isLoading || isCheckingUser) {
+  if (isAuthLoading || isLoading) {
     return (
       <View style={styles.center}>
         <ActivityIndicator size="large" color="#0000ff" />
       </View>
     );
   }
-
+  
+  
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName={isLoggedIn ? (dbUser ? "Home" : "NewUser") : "Login"}>
+      <Stack.Navigator initialRouteName={isLoggedIn ? "Home" : "Login"}>
         <Stack.Screen 
           name="NewUser" 
           component={NewUser}

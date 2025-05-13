@@ -15,8 +15,27 @@ GoogleSignin.configure({
 export default function HomeScreen() {
     const navigation = useNavigation(); // Use the navigation prop to navigate
     const { userInfo, setUserInfo } = React.useContext(AuthContext); // Use the context to get user info
-    const [dbUser, setDbUser] = useState<User | null>(null); // State to hold the user object
-    console.log(userInfo)
+    const [dbUser, setDbUser] = useState(null);
+    console.log(userInfo?.user.id)
+    
+    const getUserData = async () => {
+        try {
+            if (!userInfo) return; // Guard clause to prevent fetch if no userInfo
+            console.log("Fetching user data for ID:", userInfo.user.id);
+            const response = await fetch(`http://192.168.1.4:8001/users/${userInfo.user.id}`);
+            const data = await response.json();
+            setDbUser(data);
+            console.log("User data:", data);
+        } catch {
+            console.log("No user data found:");
+             navigation.reset({
+                index: 0,
+                routes: [{ name: 'NewUser' as never }] // Navigate to the NewUser screen
+            });
+        }
+    }
+
+
     const signOut = async () => {
         try {
             await GoogleSignin.signOut();
@@ -30,7 +49,9 @@ export default function HomeScreen() {
             console.error("Error signing out:", error);
         }
     };
-
+    useEffect(() => {
+        getUserData();
+    }, [userInfo]);
     return (
         <View style={styles.container}>
             <Text style={styles.title}>Welcome to the Home Screen!</Text>

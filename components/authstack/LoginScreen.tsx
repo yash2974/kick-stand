@@ -6,16 +6,17 @@ import {
 } from '@react-native-google-signin/google-signin';
 import { useNavigation } from "@react-navigation/native";
 import { signIn } from "../../Auth/signin"; // Adjust the path to your signIn function
+import { AuthContext } from "../authstack/AuthContext"; // Adjust the path to your AuthContext
 
 
 export default function LoginScreen() {
   const navigation = useNavigation();
-
+  const { setUserInfo } = React.useContext(AuthContext); // Use the context to set user info
   const handleSignIn = async () => {
     
     try {
       
-      const result = await signIn(); // Call your signIn function here
+      const result = await signIn(setUserInfo); // Call your signIn function here
       
       if (result) {
         console.log("User signed in successfully:", result);
