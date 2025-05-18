@@ -3,6 +3,7 @@ import { View,Image, FlatList, TextInput, Button, Modal} from "react-native";
 import { Text } from "react-native-gesture-handler";
 import { AuthContext } from "../authstack/AuthContext";
 import { useContext } from "react";
+import Icon from 'react-native-ionicons'
 
 type UserDetails = {
     name: string;
@@ -48,6 +49,9 @@ export default function Garage() {
                     <Text style={{ color: "#ffffff" }}>{userDetails?.name}</Text>
                     <Text style={{ color: "#ffffff" }}>{userDetails?.phone}</Text>
                     <Text style={{ color: "#ffffff" }}>{userDetails?.email}</Text>
+                    <Icon name="ios-body"  size={25} color="white"/>
+                    
+                    
                 </View>
             </View>
         </View>
