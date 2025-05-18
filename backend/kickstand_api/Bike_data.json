@@ -1,0 +1,1160 @@
+[
+    {
+        "Brand": "Royal Enfield",
+        "Bike Name": "Royal Enfield Classic 350",
+        "Price": "Rs.1.95 - 2.33 Lakh",
+        "Engine Capacity": "349 cc"
+    },
+    {
+        "Brand": "Royal Enfield",
+        "Bike Name": "Royal Enfield Hunter 350",
+        "Price": "Rs.1.50 - 1.82 Lakh",
+        "Engine Capacity": "349 cc"
+    },
+    {
+        "Brand": "Royal Enfield",
+        "Bike Name": "Royal Enfield Continental GT 650",
+        "Price": "Rs.3.23 - 3.49 Lakh",
+        "Engine Capacity": "647.95 cc"
+    },
+    {
+        "Brand": "Royal Enfield",
+        "Bike Name": "Royal Enfield Bullet 350",
+        "Price": "Rs.1.75 - 2.18 Lakh",
+        "Engine Capacity": "349 cc"
+    },
+    {
+        "Brand": "Royal Enfield",
+        "Bike Name": "Royal Enfield Meteor 350",
+        "Price": "Rs.2.08 - 2.33 Lakh",
+        "Engine Capacity": "349 cc"
+    },
+    {
+        "Brand": "Royal Enfield",
+        "Bike Name": "Royal Enfield Guerrilla 450",
+        "Price": "Rs.2.39 - 2.54 Lakh",
+        "Engine Capacity": "452 cc"
+    },
+    {
+        "Brand": "Royal Enfield",
+        "Bike Name": "Royal Enfield Himalayan 450",
+        "Price": "Rs.2.85 - 2.98 Lakh",
+        "Engine Capacity": "452 cc"
+    },
+    {
+        "Brand": "Royal Enfield",
+        "Bike Name": "Royal Enfield Classic 650",
+        "Price": "Rs.3.37 - 3.50 Lakh",
+        "Engine Capacity": "647.95 cc"
+    },
+    {
+        "Brand": "Royal Enfield",
+        "Bike Name": "Royal Enfield Bear 650",
+        "Price": "Rs.3.43 - 3.63 Lakh",
+        "Engine Capacity": "648 cc"
+    },
+    {
+        "Brand": "Royal Enfield",
+        "Bike Name": "Royal Enfield Interceptor 650",
+        "Price": "Rs.3.06 - 3.35 Lakh",
+        "Engine Capacity": "647.95 cc"
+    },
+    {
+        "Brand": "Royal Enfield",
+        "Bike Name": "Royal Enfield Shotgun 650",
+        "Price": "Rs.3.64 - 3.77 Lakh",
+        "Engine Capacity": "648 cc"
+    },
+    {
+        "Brand": "Royal Enfield",
+        "Bike Name": "Royal Enfield Super Meteor 650",
+        "Price": "Rs.3.68 - 3.99 Lakh",
+        "Engine Capacity": "648 cc"
+    },
+    {
+        "Brand": "Royal Enfield",
+        "Bike Name": "Royal Enfield Goan Classic 350",
+        "Price": "Rs.2.35 - 2.38 Lakh",
+        "Engine Capacity": "349 cc"
+    },
+    {
+        "Brand": "Royal Enfield",
+        "Bike Name": "Royal Enfield Scram 440",
+        "Price": "Rs.2.08 - 2.15 Lakh",
+        "Engine Capacity": "443 cc"
+    },
+    {
+        "Brand": "Honda",
+        "Bike Name": "Honda SP 125",
+        "Price": "Rs.89,468 - 1 Lakh",
+        "Engine Capacity": "123.94 cc"
+    },
+    {
+        "Brand": "Honda",
+        "Bike Name": "Honda Shine",
+        "Price": "Rs.83,251 - 89,772",
+        "Engine Capacity": "123.94 cc"
+    },
+    {
+        "Brand": "Honda",
+        "Bike Name": "Honda Hornet 2.0",
+        "Price": "Rs.1.43 - 1.57 Lakh",
+        "Engine Capacity": "184.4 cc"
+    },
+    {
+        "Brand": "Honda",
+        "Bike Name": "Honda SP160",
+        "Price": "Rs.1.21 - 1.28 Lakh",
+        "Engine Capacity": "162.71 cc"
+    },
+    {
+        "Brand": "Honda",
+        "Bike Name": "Honda Hness CB350",
+        "Price": "Rs.2.11 - 2.16 Lakh",
+        "Engine Capacity": "348.36 cc"
+    },
+    {
+        "Brand": "Honda",
+        "Bike Name": "Honda Unicorn",
+        "Price": "Rs.1.20 Lakh",
+        "Engine Capacity": "162.71 cc"
+    },
+    {
+        "Brand": "Honda",
+        "Bike Name": "Honda CB350",
+        "Price": "Rs.2 - 2.18 Lakh",
+        "Engine Capacity": "348.36 cc"
+    },
+    {
+        "Brand": "Honda",
+        "Bike Name": "Honda CB350RS",
+        "Price": "Rs.2.16 - 2.19 Lakh",
+        "Engine Capacity": "348.36 cc"
+    },
+    {
+        "Brand": "Honda",
+        "Bike Name": "Honda Livo",
+        "Price": "Rs.81,651 - 85,651",
+        "Engine Capacity": "109.51 cc"
+    },
+    {
+        "Brand": "Honda",
+        "Bike Name": "Honda Shine 100",
+        "Price": "Rs.66,900 - 68,794",
+        "Engine Capacity": "98.98 cc"
+    },
+    {
+        "Brand": "Honda",
+        "Bike Name": "Honda CBR650R",
+        "Price": "Rs.10.40 Lakh",
+        "Engine Capacity": "649 cc"
+    },
+    {
+        "Brand": "Honda",
+        "Bike Name": "Honda CB200X",
+        "Price": "Rs.1.51 Lakh",
+        "Engine Capacity": "184.4 cc"
+    },
+    {
+        "Brand": "Honda",
+        "Bike Name": "Honda CD 110 Dream",
+        "Price": "Rs.76,401",
+        "Engine Capacity": "109.51 cc"
+    },
+    {
+        "Brand": "Honda",
+        "Bike Name": "Honda CB300R",
+        "Price": "Rs.2.40 Lakh",
+        "Engine Capacity": "286.01 cc"
+    },
+    {
+        "Brand": "Honda",
+        "Bike Name": "Honda CB300F",
+        "Price": "Rs.1.70 Lakh",
+        "Engine Capacity": "293.52 cc"
+    },
+    {
+        "Brand": "Honda",
+        "Bike Name": "Honda CB650R",
+        "Price": "Rs.9.60 Lakh",
+        "Engine Capacity": "649 cc"
+    },
+    {
+        "Brand": "Honda",
+        "Bike Name": "Honda NX200",
+        "Price": "Rs.1.69 Lakh",
+        "Engine Capacity": "184.4 cc"
+    },
+    {
+        "Brand": "Honda",
+        "Bike Name": "Honda Gold Wing",
+        "Price": "Rs.39.16 Lakh",
+        "Engine Capacity": "1833 cc"
+    },
+    {
+        "Brand": "Honda",
+        "Bike Name": "Honda NX500",
+        "Price": "Rs.5.90 Lakh",
+        "Engine Capacity": "471 cc"
+    },
+    {
+        "Brand": "Honda",
+        "Bike Name": "Honda CB300F Flex-Fuel",
+        "Price": "Rs.1.70 Lakh",
+        "Engine Capacity": "293.52 cc"
+    },
+    {
+        "Brand": "Honda",
+        "Bike Name": "Honda CRF1100L Africa Twin",
+        "Price": "Rs.15.97 - 17.51 Lakh",
+        "Engine Capacity": "1082.96 cc"
+    },
+    {
+        "Brand": "Honda",
+        "Bike Name": "Honda XL750 Transalp",
+        "Price": "Rs.11 Lakh",
+        "Engine Capacity": "755 cc"
+    },
+    {
+        "Brand": "TVS",
+        "Bike Name": "TVS Raider",
+        "Price": "Rs.87,010 - 1.02 Lakh",
+        "Engine Capacity": "124.8 cc"
+    },
+    {
+        "Brand": "TVS",
+        "Bike Name": "TVS Apache RTR 160",
+        "Price": "Rs.1.21 - 1.31 Lakh",
+        "Engine Capacity": "160 cc"
+    },
+    {
+        "Brand": "TVS",
+        "Bike Name": "TVS Apache RTR 160 4V",
+        "Price": "Rs.1.25 - 1.40 Lakh",
+        "Engine Capacity": "159.7 cc"
+    },
+    {
+        "Brand": "TVS",
+        "Bike Name": "TVS Ronin",
+        "Price": "Rs.1.36 - 1.73 Lakh",
+        "Engine Capacity": "225.9 cc"
+    },
+    {
+        "Brand": "TVS",
+        "Bike Name": "TVS Apache RR 310",
+        "Price": "Rs.2.78 - 3 Lakh",
+        "Engine Capacity": "312.2 cc"
+    },
+    {
+        "Brand": "TVS",
+        "Bike Name": "TVS Sport",
+        "Price": "Rs.59,881 - 71,785",
+        "Engine Capacity": "109.7 cc"
+    },
+    {
+        "Brand": "TVS",
+        "Bike Name": "TVS Apache RTR 310",
+        "Price": "Rs.2.50 - 2.72 Lakh",
+        "Engine Capacity": "312.12 cc"
+    },
+    {
+        "Brand": "TVS",
+        "Bike Name": "TVS Apache RTR 200 4V",
+        "Price": "Rs.1.49 Lakh",
+        "Engine Capacity": "197.75 cc"
+    },
+    {
+        "Brand": "TVS",
+        "Bike Name": "TVS Apache RTR 180",
+        "Price": "Rs.1.35 Lakh",
+        "Engine Capacity": "177.4 cc"
+    },
+    {
+        "Brand": "TVS",
+        "Bike Name": "TVS Radeon",
+        "Price": "Rs.59,880 - 83,384",
+        "Engine Capacity": "109.7 cc"
+    },
+    {
+        "Brand": "TVS",
+        "Bike Name": "TVS Star City Plus",
+        "Price": "Rs.76,791 - 79,791",
+        "Engine Capacity": "109.7 cc"
+    },
+    {
+        "Brand": "Yamaha",
+        "Bike Name": "Yamaha MT 15 V2",
+        "Price": "Rs.1.70 - 1.74 Lakh",
+        "Engine Capacity": "155 cc"
+    },
+    {
+        "Brand": "Yamaha",
+        "Bike Name": "Yamaha R15 V4",
+        "Price": "Rs.1.84 - 2.12 Lakh",
+        "Engine Capacity": "155 cc"
+    },
+    {
+        "Brand": "Yamaha",
+        "Bike Name": "Yamaha Aerox 155",
+        "Price": "Rs.1.50 - 1.53 Lakh",
+        "Engine Capacity": "155 cc"
+    },
+    {
+        "Brand": "Yamaha",
+        "Bike Name": "2025 Yamaha FZ-S Fi",
+        "Price": "Rs.1.35 - 1.45 Lakh",
+        "Engine Capacity": "149 cc"
+    },
+    {
+        "Brand": "Yamaha",
+        "Bike Name": "Yamaha FZS-FI V4",
+        "Price": "Rs.1.31 - 1.31 Lakh",
+        "Engine Capacity": "149 cc"
+    },
+    {
+        "Brand": "Yamaha",
+        "Bike Name": "Yamaha R15S",
+        "Price": "Rs.1.67 Lakh",
+        "Engine Capacity": "155 cc"
+    },
+    {
+        "Brand": "Yamaha",
+        "Bike Name": "Yamaha RayZR 125 Fi Hybrid",
+        "Price": "Rs.86,430 - 99,970",
+        "Engine Capacity": "125 cc"
+    },
+    {
+        "Brand": "Yamaha",
+        "Bike Name": "Yamaha FZ-FI V3",
+        "Price": "Rs.1.18 Lakh",
+        "Engine Capacity": "149 cc"
+    },
+    {
+        "Brand": "Yamaha",
+        "Bike Name": "Yamaha Fascino 125 Fi Hybrid",
+        "Price": "Rs.80,430 - 96,650",
+        "Engine Capacity": "125 cc"
+    },
+    {
+        "Brand": "Yamaha",
+        "Bike Name": "Yamaha FZ X",
+        "Price": "Rs.1.38 - 1.42 Lakh",
+        "Engine Capacity": "149 cc"
+    },
+    {
+        "Brand": "Yamaha",
+        "Bike Name": "Yamaha MT-03",
+        "Price": "Rs.3.50 Lakh",
+        "Engine Capacity": "321 cc"
+    },
+    {
+        "Brand": "Yamaha",
+        "Bike Name": "Yamaha FZS-FI V3",
+        "Price": "Rs.1.23 - 1.24 Lakh",
+        "Engine Capacity": "149 cc"
+    },
+    {
+        "Brand": "Yamaha",
+        "Bike Name": "Yamaha R3",
+        "Price": "Rs.3.60 Lakh",
+        "Engine Capacity": "321 cc"
+    },
+    {
+        "Brand": "Hero",
+        "Bike Name": "Hero Splendor Plus",
+        "Price": "Rs.77,176 - 80,176",
+        "Engine Capacity": "97.2 cc"
+    },
+    {
+        "Brand": "Hero",
+        "Bike Name": "Hero Xtreme 125R",
+        "Price": "Rs.96,425 - 1.02 Lakh",
+        "Engine Capacity": "124.7 cc"
+    },
+    {
+        "Brand": "Hero",
+        "Bike Name": "Hero Splendor Plus XTEC",
+        "Price": "Rs.81,001 - 86,051",
+        "Engine Capacity": "97.2 cc"
+    },
+    {
+        "Brand": "Hero",
+        "Bike Name": "Hero HF Deluxe",
+        "Price": "Rs.59,998 - 69,518",
+        "Engine Capacity": "97.2 cc"
+    },
+    {
+        "Brand": "Hero",
+        "Bike Name": "Hero Xtreme 250R",
+        "Price": "Rs.1.80 Lakh",
+        "Engine Capacity": "249.03 cc"
+    },
+    {
+        "Brand": "Hero",
+        "Bike Name": "Hero XPulse 200 4V",
+        "Price": "Rs.1.52 - 1.68 Lakh",
+        "Engine Capacity": "199.6 cc"
+    },
+    {
+        "Brand": "Hero",
+        "Bike Name": "Hero Xtreme 160R",
+        "Price": "Rs.1.12 - 1.13 Lakh",
+        "Engine Capacity": "163.2 cc"
+    },
+    {
+        "Brand": "Hero",
+        "Bike Name": "Hero XPulse 210",
+        "Price": "Rs.1.76 - 1.86 Lakh",
+        "Engine Capacity": "210 cc"
+    },
+    {
+        "Brand": "Hero",
+        "Bike Name": "Hero Super Splendor XTEC",
+        "Price": "Rs.86,128 - 92,028",
+        "Engine Capacity": "124.7 cc"
+    },
+    {
+        "Brand": "Hero",
+        "Bike Name": "Hero Glamour",
+        "Price": "Rs.84,698 - 90,698",
+        "Engine Capacity": "125 cc"
+    },
+    {
+        "Brand": "Hero",
+        "Bike Name": "Hero Destini 125",
+        "Price": "Rs.80,450 - 91,700",
+        "Engine Capacity": "124.6 cc"
+    },
+    {
+        "Brand": "Hero",
+        "Bike Name": "Hero Glamour XTEC",
+        "Price": "Rs.89,998 - 94,598",
+        "Engine Capacity": "124.7 cc"
+    },
+    {
+        "Brand": "Hero",
+        "Bike Name": "Hero Super Splendor",
+        "Price": "Rs.80,848 - 84,748",
+        "Engine Capacity": "124.7 cc"
+    },
+    {
+        "Brand": "Hero",
+        "Bike Name": "Hero Karizma XMR",
+        "Price": "Rs.1.81 - 2.02 Lakh",
+        "Engine Capacity": "210 cc"
+    },
+    {
+        "Brand": "Hero",
+        "Bike Name": "Hero Xoom 110",
+        "Price": "Rs.72,284 - 84,017",
+        "Engine Capacity": "110.9 cc"
+    },
+    {
+        "Brand": "Hero",
+        "Bike Name": "Hero Xoom 125",
+        "Price": "Rs.86,900 - 92,900",
+        "Engine Capacity": "124.6 cc"
+    },
+    {
+        "Brand": "Hero",
+        "Bike Name": "Hero Mavrick 440",
+        "Price": "Rs.2 - 2.25 Lakh",
+        "Engine Capacity": "440 cc"
+    },
+    {
+        "Brand": "Hero",
+        "Bike Name": "Hero Pleasure Plus",
+        "Price": "Rs.71,763 - 83,813",
+        "Engine Capacity": "110.9 cc"
+    },
+    {
+        "Brand": "Hero",
+        "Bike Name": "Hero Passion Plus",
+        "Price": "Rs.79,901 - 81,651",
+        "Engine Capacity": "97.2 cc"
+    },
+    {
+        "Brand": "Hero",
+        "Bike Name": "Hero Xtreme 160R 4V",
+        "Price": "Rs.1.39 - 1.41 Lakh",
+        "Engine Capacity": "163.2 cc"
+    },
+    {
+        "Brand": "Hero",
+        "Bike Name": "Hero Xoom 160",
+        "Price": "Rs.1.49 Lakh",
+        "Engine Capacity": "156 cc"
+    },
+    {
+        "Brand": "Hero",
+        "Bike Name": "Hero HF 100",
+        "Price": "Rs.59,018 - 60,118",
+        "Engine Capacity": "97.2 cc"
+    },
+    {
+        "Brand": "Hero",
+        "Bike Name": "Hero Destini Prime",
+        "Price": "Rs.72,799 - 74,199",
+        "Engine Capacity": "124.6 cc"
+    },
+    {
+        "Brand": "Bajaj",
+        "Bike Name": "Bajaj Pulsar NS200",
+        "Price": "Rs.1.60 Lakh",
+        "Engine Capacity": "199.5 cc"
+    },
+    {
+        "Brand": "Bajaj",
+        "Bike Name": "Bajaj Pulsar RS200",
+        "Price": "Rs.1.84 Lakh",
+        "Engine Capacity": "199.5 cc"
+    },
+    {
+        "Brand": "Bajaj",
+        "Bike Name": "Bajaj Chetak 3501",
+        "Price": "Rs.1.35 - 1.40 Lakh",
+        "Engine Capacity": "N/A"
+    },
+    {
+        "Brand": "Bajaj",
+        "Bike Name": "Bajaj Pulsar NS160",
+        "Price": "Rs.1.49 Lakh",
+        "Engine Capacity": "160.3 cc"
+    },
+    {
+        "Brand": "Bajaj",
+        "Bike Name": "Bajaj Pulsar 150",
+        "Price": "Rs.1.13 - 1.20 Lakh",
+        "Engine Capacity": "149.5 cc"
+    },
+    {
+        "Brand": "Bajaj",
+        "Bike Name": "Bajaj Pulsar N160",
+        "Price": "Rs.1.22 - 1.43 Lakh",
+        "Engine Capacity": "164.82 cc"
+    },
+    {
+        "Brand": "Bajaj",
+        "Bike Name": "Bajaj Pulsar NS400Z",
+        "Price": "Rs.1.86 Lakh",
+        "Engine Capacity": "373.27 cc"
+    },
+    {
+        "Brand": "Bajaj",
+        "Bike Name": "Bajaj Pulsar 125",
+        "Price": "Rs.85,549 - 93,613",
+        "Engine Capacity": "124.4 cc"
+    },
+    {
+        "Brand": "Bajaj",
+        "Bike Name": "Bajaj Pulsar NS 125",
+        "Price": "Rs.99,994 - 1.07 Lakh",
+        "Engine Capacity": "124.45 cc"
+    },
+    {
+        "Brand": "Bajaj",
+        "Bike Name": "Bajaj Freedom 125",
+        "Price": "Rs.90,272 - 1.10 Lakh",
+        "Engine Capacity": "124.58 cc"
+    },
+    {
+        "Brand": "Bajaj",
+        "Bike Name": "Bajaj Dominar 400",
+        "Price": "Rs.2.33 Lakh",
+        "Engine Capacity": "373.3 cc"
+    },
+    {
+        "Brand": "Bajaj",
+        "Bike Name": "Bajaj Pulsar N150",
+        "Price": "Rs.1.25 Lakh",
+        "Engine Capacity": "149.68 cc"
+    },
+    {
+        "Brand": "Bajaj",
+        "Bike Name": "Bajaj Pulsar 220 F",
+        "Price": "Rs.1.42 Lakh",
+        "Engine Capacity": "220 cc"
+    },
+    {
+        "Brand": "Bajaj",
+        "Bike Name": "Bajaj Pulsar N250",
+        "Price": "Rs.1.53 Lakh",
+        "Engine Capacity": "249.07 cc"
+    },
+    {
+        "Brand": "Bajaj",
+        "Bike Name": "Bajaj Platina 110",
+        "Price": "Rs.71,558 - 74,214",
+        "Engine Capacity": "115.45 cc"
+    },
+    {
+        "Brand": "Bajaj",
+        "Bike Name": "Bajaj Pulsar N125",
+        "Price": "Rs.93,158 - 98,355",
+        "Engine Capacity": "124.58 cc"
+    },
+    {
+        "Brand": "Bajaj",
+        "Bike Name": "Bajaj Platina 100",
+        "Price": "Rs.68,890",
+        "Engine Capacity": "102 cc"
+    },
+    {
+        "Brand": "Bajaj",
+        "Bike Name": "Bajaj Dominar 250",
+        "Price": "Rs.1.86 Lakh",
+        "Engine Capacity": "248.77 cc"
+    },
+    {
+        "Brand": "Bajaj",
+        "Bike Name": "Bajaj CT 110X",
+        "Price": "Rs.70,381",
+        "Engine Capacity": "115.45 cc"
+    },
+    {
+        "Brand": "Bajaj",
+        "Bike Name": "Bajaj Avenger Street 160",
+        "Price": "Rs.1.20 Lakh",
+        "Engine Capacity": "160 cc"
+    },
+    {
+        "Brand": "Bajaj",
+        "Bike Name": "Bajaj Chetak 2903",
+        "Price": "Rs.1.02 - 1.06 Lakh",
+        "Engine Capacity": "N/A"
+    },
+    {
+        "Brand": "Bajaj",
+        "Bike Name": "Bajaj Chetak 3503",
+        "Price": "Rs.1.10 Lakh",
+        "Engine Capacity": "N/A"
+    },
+    {
+        "Brand": "Bajaj",
+        "Bike Name": "Bajaj Chetak 3502",
+        "Price": "Rs.1.23 - 1.28 Lakh",
+        "Engine Capacity": "N/A"
+    },
+    {
+        "Brand": "Bajaj",
+        "Bike Name": "Bajaj Avenger Cruise 220",
+        "Price": "Rs.1.47 Lakh",
+        "Engine Capacity": "220 cc"
+    },
+    {
+        "Brand": "Bajaj",
+        "Bike Name": "Bajaj Avenger 220 Street",
+        "Price": "Rs.1.43 Lakh",
+        "Engine Capacity": "220 cc"
+    },
+    {
+        "Brand": "KTM",
+        "Bike Name": "KTM 200 Duke",
+        "Price": "Rs.2.07 Lakh",
+        "Engine Capacity": "199.5 cc"
+    },
+    {
+        "Brand": "KTM",
+        "Bike Name": "KTM Duke 390",
+        "Price": "Rs.2.97 Lakh",
+        "Engine Capacity": "398.63 cc"
+    },
+    {
+        "Brand": "KTM",
+        "Bike Name": "KTM 250 Duke",
+        "Price": "Rs.2.30 Lakh",
+        "Engine Capacity": "249.07 cc"
+    },
+    {
+        "Brand": "KTM",
+        "Bike Name": "KTM RC 390",
+        "Price": "Rs.3.23 Lakh",
+        "Engine Capacity": "373.27 cc"
+    },
+    {
+        "Brand": "KTM",
+        "Bike Name": "KTM 390 Adventure",
+        "Price": "Rs.3.68 Lakh",
+        "Engine Capacity": "398.63 cc"
+    },
+    {
+        "Brand": "KTM",
+        "Bike Name": "KTM 1390 Super Duke R",
+        "Price": "Rs.22.96 Lakh",
+        "Engine Capacity": "1350 cc"
+    },
+    {
+        "Brand": "KTM",
+        "Bike Name": "KTM 250 Adventure",
+        "Price": "Rs.2.60 Lakh",
+        "Engine Capacity": "249.07 cc"
+    },
+    {
+        "Brand": "KTM",
+        "Bike Name": "KTM RC 200",
+        "Price": "Rs.2.23 Lakh",
+        "Engine Capacity": "199.5 cc"
+    },
+    {
+        "Brand": "KTM",
+        "Bike Name": "KTM 390 Enduro R",
+        "Price": "Rs.3.39 Lakh",
+        "Engine Capacity": "399 cc"
+    },
+    {
+        "Brand": "KTM",
+        "Bike Name": "KTM 390 Adventure X",
+        "Price": "Rs.2.91 Lakh",
+        "Engine Capacity": "398.63 cc"
+    },
+    {
+        "Brand": "KTM",
+        "Bike Name": "KTM 890 Duke",
+        "Price": "Rs.14.50 Lakh",
+        "Engine Capacity": "889 cc"
+    },
+    {
+        "Brand": "KTM",
+        "Bike Name": "KTM 350 EXC-F",
+        "Price": "Rs.12.96 Lakh",
+        "Engine Capacity": "349.7 cc"
+    },
+    {
+        "Brand": "KTM",
+        "Bike Name": "KTM 250 SX-F",
+        "Price": "Rs.9.58 Lakh",
+        "Engine Capacity": "249.9 cc"
+    },
+    {
+        "Brand": "KTM",
+        "Bike Name": "KTM 450 SX-F",
+        "Price": "Rs.10.25 Lakh",
+        "Engine Capacity": "449.9 cc"
+    },
+    {
+        "Brand": "KTM",
+        "Bike Name": "KTM 65 SX",
+        "Price": "Rs.5.47 Lakh",
+        "Engine Capacity": "64.9 cc"
+    },
+    {
+        "Brand": "KTM",
+        "Bike Name": "KTM 1290 Super Adventure S",
+        "Price": "Rs.22.74 Lakh",
+        "Engine Capacity": "1301 cc"
+    },
+    {
+        "Brand": "KTM",
+        "Bike Name": "KTM 50 SX",
+        "Price": "Rs.4.75 Lakh",
+        "Engine Capacity": "49.9 cc"
+    },
+    {
+        "Brand": "KTM",
+        "Bike Name": "KTM 85 SX",
+        "Price": "Rs.6.69 Lakh",
+        "Engine Capacity": "84.9 cc"
+    },
+    {
+        "Brand": "KTM",
+        "Bike Name": "KTM 890 Adventure R",
+        "Price": "Rs.15.80 Lakh",
+        "Engine Capacity": "889 cc"
+    },
+    {
+        "Brand": "Aprilia",
+        "Bike Name": "Aprilia RS 457",
+        "Price": "Rs.4.23 Lakh",
+        "Engine Capacity": "457 cc"
+    },
+    {
+        "Brand": "Aprilia",
+        "Bike Name": "Aprilia Tuono 457",
+        "Price": "Rs.3.95 Lakh",
+        "Engine Capacity": "457 cc"
+    },
+    {
+        "Brand": "Aprilia",
+        "Bike Name": "Aprilia SR 160",
+        "Price": "Rs.1.32 - 1.41 Lakh",
+        "Engine Capacity": "160.03 cc"
+    },
+    {
+        "Brand": "Aprilia",
+        "Bike Name": "Aprilia RSV4",
+        "Price": "Rs.31.26 Lakh",
+        "Engine Capacity": "1099 cc"
+    },
+    {
+        "Brand": "Aprilia",
+        "Bike Name": "Aprilia RS 660",
+        "Price": "Rs.17.74 Lakh",
+        "Engine Capacity": "659 cc"
+    },
+    {
+        "Brand": "Aprilia",
+        "Bike Name": "Aprilia SR 125",
+        "Price": "Rs.1.23 Lakh",
+        "Engine Capacity": "124.45 cc"
+    },
+    {
+        "Brand": "Aprilia",
+        "Bike Name": "Aprilia SXR 160",
+        "Price": "Rs.1.44 Lakh",
+        "Engine Capacity": "160.03 cc"
+    },
+    {
+        "Brand": "Aprilia",
+        "Bike Name": "Aprilia SXR 125",
+        "Price": "Rs.1.33 Lakh",
+        "Engine Capacity": "125 cc"
+    },
+    {
+        "Brand": "Aprilia",
+        "Bike Name": "Aprilia Tuareg 660",
+        "Price": "Rs.18.85 - 19.16 Lakh",
+        "Engine Capacity": "659 cc"
+    },
+    {
+        "Brand": "Aprilia",
+        "Bike Name": "Aprilia SR Storm",
+        "Price": "Rs.1.15 Lakh",
+        "Engine Capacity": "124.49 cc"
+    },
+    {
+        "Brand": "Aprilia",
+        "Bike Name": "Aprilia Tuono 660",
+        "Price": "Rs.17.74 Lakh",
+        "Engine Capacity": "659 cc"
+    },
+    {
+        "Brand": "BMW",
+        "Bike Name": "BMW G 310 RR",
+        "Price": "Rs.3.05 Lakh",
+        "Engine Capacity": "312.12 cc"
+    },
+    {
+        "Brand": "BMW",
+        "Bike Name": "BMW S 1000 RR",
+        "Price": "Rs.20.75 - 25.60 Lakh",
+        "Engine Capacity": "999 cc"
+    },
+    {
+        "Brand": "BMW",
+        "Bike Name": "BMW C 400 GT",
+        "Price": "Rs.11.50 Lakh",
+        "Engine Capacity": "350 cc"
+    },
+    {
+        "Brand": "BMW",
+        "Bike Name": "BMW M 1000 RR",
+        "Price": "Rs.49 - 55 Lakh",
+        "Engine Capacity": "999 cc"
+    },
+    {
+        "Brand": "BMW",
+        "Bike Name": "BMW R 1300 GS",
+        "Price": "Rs.21.20 Lakh",
+        "Engine Capacity": "1300 cc"
+    },
+    {
+        "Brand": "BMW",
+        "Bike Name": "BMW CE 02",
+        "Price": "Rs.4.50 Lakh",
+        "Engine Capacity": "N/A"
+    },
+    {
+        "Brand": "BMW",
+        "Bike Name": "BMW K 1600 Grand America",
+        "Price": "Rs.33.33 Lakh",
+        "Engine Capacity": "1649 cc"
+    },
+    {
+        "Brand": "BMW",
+        "Bike Name": "BMW R 12 nineT",
+        "Price": "Rs.21.10 Lakh",
+        "Engine Capacity": "1170 cc"
+    },
+    {
+        "Brand": "BMW",
+        "Bike Name": "BMW K 1600 GTL",
+        "Price": "Rs.33.33 Lakh",
+        "Engine Capacity": "1649 cc"
+    },
+    {
+        "Brand": "BMW",
+        "Bike Name": "BMW R 1250 RT",
+        "Price": "Rs.24.95 Lakh",
+        "Engine Capacity": "1254 cc"
+    },
+    {
+        "Brand": "BMW",
+        "Bike Name": "BMW R 18 Transcontinental",
+        "Price": "Rs.32.50 Lakh",
+        "Engine Capacity": "1802 cc"
+    },
+    {
+        "Brand": "BMW",
+        "Bike Name": "BMW S 1000 R",
+        "Price": "Rs.19 - 23.30 Lakh",
+        "Engine Capacity": "999 cc"
+    },
+    {
+        "Brand": "BMW",
+        "Bike Name": "BMW M 1000 R",
+        "Price": "Rs.33 - 38 Lakh",
+        "Engine Capacity": "999 cc"
+    },
+    {
+        "Brand": "BMW",
+        "Bike Name": "BMW K 1600 Bagger",
+        "Price": "Rs.33.33 Lakh",
+        "Engine Capacity": "1649 cc"
+    },
+    {
+        "Brand": "BMW",
+        "Bike Name": "BMW R 1300 GS Adventure",
+        "Price": "Rs.22.95 - 26.25 Lakh",
+        "Engine Capacity": "1300 cc"
+    },
+    {
+        "Brand": "BMW",
+        "Bike Name": "BMW S 1000 XR",
+        "Price": "Rs.22.75 Lakh",
+        "Engine Capacity": "999 cc"
+    },
+    {
+        "Brand": "BMW",
+        "Bike Name": "BMW M 1000 XR",
+        "Price": "Rs.45.50 Lakh",
+        "Engine Capacity": "999 cc"
+    },
+    {
+        "Brand": "BMW",
+        "Bike Name": "BMW F 900 XR",
+        "Price": "Rs.12.55 Lakh",
+        "Engine Capacity": "895 cc"
+    },
+    {
+        "Brand": "BMW",
+        "Bike Name": "BMW CE 04",
+        "Price": "Rs.15.25 Lakh",
+        "Engine Capacity": "N/A"
+    },
+    {
+        "Brand": "BMW",
+        "Bike Name": "BMW F 900 GS",
+        "Price": "Rs.13.75 - 14.75 Lakh",
+        "Engine Capacity": "895 cc"
+    },
+    {
+        "Brand": "BMW",
+        "Bike Name": "BMW R 12",
+        "Price": "Rs.20.10 Lakh",
+        "Engine Capacity": "1170 cc"
+    },
+    {
+        "Brand": "Ducati",
+        "Bike Name": "Ducati Panigale V4",
+        "Price": "Rs.29.99 - 36.50 Lakh",
+        "Engine Capacity": "1103 cc"
+    },
+    {
+        "Brand": "Ducati",
+        "Bike Name": "Ducati Monster",
+        "Price": "Rs.12.95 - 15.95 Lakh",
+        "Engine Capacity": "937 cc"
+    },
+    {
+        "Brand": "Ducati",
+        "Bike Name": "Ducati Streetfighter V4",
+        "Price": "Rs.24.62 - 28 Lakh",
+        "Engine Capacity": "1103 cc"
+    },
+    {
+        "Brand": "Ducati",
+        "Bike Name": "Ducati Diavel V4",
+        "Price": "Rs.27.21 Lakh",
+        "Engine Capacity": "1158 cc"
+    },
+    {
+        "Brand": "Ducati",
+        "Bike Name": "Ducati Scrambler 800",
+        "Price": "Rs.9.97 - 12.60 Lakh",
+        "Engine Capacity": "803 cc"
+    },
+    {
+        "Brand": "Ducati",
+        "Bike Name": "Ducati SuperSport 950",
+        "Price": "Rs.16.06 - 19.11 Lakh",
+        "Engine Capacity": "937 cc"
+    },
+    {
+        "Brand": "Ducati",
+        "Bike Name": "Ducati Multistrada V2",
+        "Price": "Rs.16.35 - 18.99 Lakh",
+        "Engine Capacity": "937 cc"
+    },
+    {
+        "Brand": "Ducati",
+        "Bike Name": "Ducati DesertX",
+        "Price": "Rs.18.33 - 23.71 Lakh",
+        "Engine Capacity": "937 cc"
+    },
+    {
+        "Brand": "Ducati",
+        "Bike Name": "Ducati Hypermotard 950",
+        "Price": "Rs.16 - 19.05 Lakh",
+        "Engine Capacity": "937 cc"
+    },
+    {
+        "Brand": "Ducati",
+        "Bike Name": "Ducati Streetfighter V2",
+        "Price": "Rs.18.50 Lakh",
+        "Engine Capacity": "955 cc"
+    },
+    {
+        "Brand": "Ducati",
+        "Bike Name": "Ducati Scrambler 1100",
+        "Price": "Rs.13.40 - 15.99 Lakh",
+        "Engine Capacity": "1079 cc"
+    },
+    {
+        "Brand": "Ducati",
+        "Bike Name": "Ducati Panigale V2",
+        "Price": "Rs.20.98 - 24.13 Lakh",
+        "Engine Capacity": "955 cc"
+    },
+    {
+        "Brand": "Ducati",
+        "Bike Name": "Ducati Hypermotard 698 Mono",
+        "Price": "Rs.16.50 - 17.50 Lakh",
+        "Engine Capacity": "659 cc"
+    },
+    {
+        "Brand": "Ducati",
+        "Bike Name": "Ducati Multistrada V4",
+        "Price": "Rs.21.48 - 40.67 Lakh",
+        "Engine Capacity": "1103 cc"
+    },
+    {
+        "Brand": "Jawa",
+        "Bike Name": "Jawa 42 Bobber",
+        "Price": "Rs.2.10 - 2.30 Lakh",
+        "Engine Capacity": "334 cc"
+    },
+    {
+        "Brand": "Jawa",
+        "Bike Name": "Jawa 42 FJ",
+        "Price": "Rs.2.10 - 2.20 Lakh",
+        "Engine Capacity": "334 cc"
+    },
+    {
+        "Brand": "Jawa",
+        "Bike Name": "Jawa 42",
+        "Price": "Rs.1.73 - 1.98 Lakh",
+        "Engine Capacity": "294.72 cc"
+    },
+    {
+        "Brand": "Jawa",
+        "Bike Name": "Jawa Perak",
+        "Price": "Rs.2.40 Lakh",
+        "Engine Capacity": "334 cc"
+    },
+    {
+        "Brand": "Jawa",
+        "Bike Name": "Jawa 350",
+        "Price": "Rs.1.99 - 2.29 Lakh",
+        "Engine Capacity": "334 cc"
+    },
+    {
+        "Brand": "Yezdi",
+        "Bike Name": "Yezdi Roadster",
+        "Price": "Rs.2.06 - 2.13 Lakh",
+        "Engine Capacity": "334 cc"
+    },
+    {
+        "Brand": "Yezdi",
+        "Bike Name": "Yezdi Adventure",
+        "Price": "Rs.2.10 - 2.20 Lakh",
+        "Engine Capacity": "334 cc"
+    },
+    {
+        "Brand": "Yezdi",
+        "Bike Name": "Yezdi Scrambler",
+        "Price": "Rs.2.10 - 2.16 Lakh",
+        "Engine Capacity": "334 cc"
+    },
+    {
+        "Brand": "Husqvarna",
+        "Bike Name": "Husqvarna Vitpilen 250",
+        "Price": "Rs.2.24 Lakh",
+        "Engine Capacity": "249.07 cc"
+    },
+    {
+        "Brand": "Husqvarna",
+        "Bike Name": "Husqvarna Svartpilen 401",
+        "Price": "Rs.2.97 Lakh",
+        "Engine Capacity": "398.63 cc"
+    },
+    {
+        "Brand": "Harley Davidson",
+        "Bike Name": "Harley Davidson X440",
+        "Price": "Rs.2.40 - 2.80 Lakh",
+        "Engine Capacity": "440 cc"
+    },
+    {
+        "Brand": "Harley Davidson",
+        "Bike Name": "Harley Davidson Sportster S",
+        "Price": "Rs.16.49 Lakh",
+        "Engine Capacity": "1252 cc"
+    },
+    {
+        "Brand": "Harley Davidson",
+        "Bike Name": "Harley Davidson Fat Boy 114",
+        "Price": "Rs.25.69 Lakh",
+        "Engine Capacity": "1868 cc"
+    },
+    {
+        "Brand": "Harley Davidson",
+        "Bike Name": "Harley Davidson Nightster",
+        "Price": "Rs.13.39 - 14.09 Lakh",
+        "Engine Capacity": "975 cc"
+    },
+    {
+        "Brand": "Harley Davidson",
+        "Bike Name": "Harley Davidson Fat Bob 114",
+        "Price": "Rs.21.49 Lakh",
+        "Engine Capacity": "1868 cc"
+    },
+    {
+        "Brand": "Harley Davidson",
+        "Bike Name": "Harley-Davidson Breakout 117",
+        "Price": "Rs.30.99 Lakh",
+        "Engine Capacity": "1923 cc"
+    },
+    {
+        "Brand": "Harley Davidson",
+        "Bike Name": "Harley Davidson Pan America 1250",
+        "Price": "Rs.24.64 Lakh",
+        "Engine Capacity": "1252 cc"
+    },
+    {
+        "Brand": "Harley Davidson",
+        "Bike Name": "Harley Davidson Road Glide",
+        "Price": "Rs.41.79 Lakh",
+        "Engine Capacity": "1868 cc"
+    },
+    {
+        "Brand": "Harley Davidson",
+        "Bike Name": "Harley Davidson Heritage Classic",
+        "Price": "Rs.27.19 Lakh",
+        "Engine Capacity": "1868 cc"
+    },
+    {
+        "Brand": "Harley Davidson",
+        "Bike Name": "Harley Davidson Street Glide",
+        "Price": "Rs.38.79 Lakh",
+        "Engine Capacity": "1868 cc"
+    }
+]

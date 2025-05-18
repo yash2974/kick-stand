@@ -3,9 +3,19 @@ from sqlalchemy.orm import Session
 import models
 import schema
 import database
+from fastapi import FastAPI, HTTPException
+from pydantic import BaseModel
+from motor.motor_asyncio import AsyncIOMotorClient
+from bson import ObjectId
+from typing import List
 
 models.Base.metadata.create_all(bind=database.engine)
 app = FastAPI()
+
+client = AsyncIOMotorClient("mongodb+srv://kickstand:Yashprerna%4093105@cluster0.wb4qw2d.mongodb.net/")
+db = client["kickstand"]
+users_collection = db["users"]
+vehicles_collection = db["bike_data"]
 
 def get_db():
     db = database.SessionLocal()
@@ -30,5 +40,45 @@ def read_user(user_id: str, db: Session = Depends(get_db)):
         return None
     return db_user
 
+@app.get("/vehicles/{user_id}", response_model=List[schema.VehicleOut])
+async def get_vehicle_by_user_id(user_id: str, db: Session = Depends(get_db)):
+    vehicles = db.query(models.Vehicle).filter(models.Vehicle.user_id == user_id).all()
+    if not vehicles:
+        raise HTTPException(status_code=404, detail="Vehicle not found")
+    return vehicles
 
+
+@app.post("/vehicles/", response_model=schema.VehicleCreate)
+def create_vehicle(vehicle: schema.VehicleCreate, db: Session = Depends(get_db)):
+    vehicle_data = vehicle.model_dump()
+    db_vehicle = models.Vehicle(**vehicle_data)
+    db.add(db_vehicle)
+    db.commit()
+    db.refresh(db_vehicle)
+    return db_vehicle
+
+
+@app.get("/vehicles_details/{user_id}")
+async def get_vehicle_details(user_id: str, db: Session = Depends(get_db)):
+    vehicle = db.query(models.Vehicle).filter(models.Vehicle.user_id == user_id).first()
+    if not vehicle:
+        raise HTTPException(status_code=404, detail="Vehicle not found")
     
+    name = vehicle.model_name.strip()
+    details = await vehicles_collection.find_one({"model_name": name})
+    
+    if not details:
+        raise HTTPException(status_code=404, detail="Vehicle details not found")
+
+    # Convert ObjectId to string and ensure all values are serializable
+    details["_id"] = str(details["_id"])
+    return details
+
+@app.post("/expenses/", response_model=schema.ExpenseCreate)
+def create_expense(expense: schema.ExpenseCreate, db: Session = Depends(get_db)):
+    expense_data = expense.model_dump()
+    db_expense = models.Expense(**expense_data)
+    db.add(db_expense)
+    db.commit()
+    db.refresh(db_expense)
+    return db_expense

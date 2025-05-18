@@ -1,6 +1,8 @@
-from typing import Union
+from typing import Optional, Union
 from pydantic import BaseModel, EmailStr, ConfigDict
-from datetime import datetime
+from datetime import date, datetime
+
+from sqlalchemy.types import Date
 
 class UserCreate(BaseModel):
     user_id: str
@@ -18,3 +20,22 @@ class UserOut(BaseModel):
     model_config = ConfigDict(
         from_attributes=True
     )
+
+class VehicleCreate(BaseModel):
+    vehicle_id: str
+    model_name: str
+    user_id: str
+    
+
+class VehicleOut(BaseModel):
+    vehicle_id: str
+    model_name: str
+    user_id: str
+    
+class ExpenseCreate(BaseModel):
+    expense_id: int
+    vehicle_id: str
+    user_id: str
+    amount: float
+    category: str
+    date: date  

@@ -1,6 +1,6 @@
 import { GoogleSignin } from '@react-native-google-signin/google-signin';
 
-const BACKEND_URL = 'http://192.168.1.4:8080/api/auth/google'; // Replace with your backend's URL
+const BACKEND_URL = 'http://192.168.1.6:8080/api/auth/google'; // Replace with your backend's URL
 
 import { IOS_CLIENT_ID, WEB_CLIENT_ID } from './key'; // Replace with your actual keys
 
