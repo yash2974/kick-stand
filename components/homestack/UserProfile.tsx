@@ -45,7 +45,9 @@ export default function Garage() {
                     style={{ width: 80, height: 80, borderRadius: 50 }}
                 />
                 <View style={{ flex: 1, marginLeft: 10 }}>
-                    <Image src=/>
+                    <Text style={{ color: "#ffffff" }}>{userDetails?.name}</Text>
+                    <Text style={{ color: "#ffffff" }}>{userDetails?.phone}</Text>
+                    <Text style={{ color: "#ffffff" }}>{userDetails?.email}</Text>
                 </View>
             </View>
         </View>
