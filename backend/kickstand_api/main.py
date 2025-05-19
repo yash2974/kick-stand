@@ -1,4 +1,5 @@
-from fastapi import FastAPI, Depends, HTTPException
+from datetime import date
+from fastapi import FastAPI, Depends, HTTPException, Query
 from sqlalchemy.orm import Session
 import models
 import schema
@@ -7,7 +8,7 @@ from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
 from motor.motor_asyncio import AsyncIOMotorClient
 from bson import ObjectId
-from typing import List
+from typing import List, Optional
 
 models.Base.metadata.create_all(bind=database.engine)
 app = FastAPI()
@@ -82,3 +83,26 @@ def create_expense(expense: schema.ExpenseCreate, db: Session = Depends(get_db))
     db.commit()
     db.refresh(db_expense)
     return db_expense
+
+@app.get("/expenses/{user_id}", response_model=List[schema.ExpenseCreate])
+def get_expenses_by_user_id(
+    user_id: str, 
+    vehicle_id: Optional[str] = Query(None, description="Filter by vehicle ID"),
+    start_date: Optional[date] = Query(None, description="Filter by start date"),
+    end_date: Optional[date] = Query(None, description="Filter by end date"),
+    category: Optional[str] = Query(None, description="Filter by category"),
+    db: Session = Depends(get_db)):
+    expenses = db.query(models.Expense).filter(models.Expense.user_id == user_id)
+    if vehicle_id:
+        expenses = expenses.filter(models.Expense.vehicle_id == vehicle_id)
+    if start_date:
+        expenses = expenses.filter(models.Expense.date >= start_date)
+    if end_date:
+        expenses = expenses.filter(models.Expense.date <= end_date)
+    if category:
+        expenses = expenses.filter(models.Expense.category == category)
+
+    expenses = expenses.all()
+    if not expenses:
+        raise HTTPException(status_code=404, detail="No expenses found")
+    return expenses

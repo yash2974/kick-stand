@@ -26,4 +26,3 @@ class Expense(Base):
     date = Column(Date, server_default=func.current_date()) 
 
 
-    
