@@ -64,7 +64,6 @@ async def get_vehicle_details(user_id: str, db: Session = Depends(get_db)):
     vehicle = db.query(models.Vehicle).filter(models.Vehicle.user_id == user_id).first()
     if not vehicle:
         raise HTTPException(status_code=404, detail="Vehicle not found")
-    
     name = vehicle.model_name.strip()
     details = await vehicles_collection.find_one({"model_name": name})
     

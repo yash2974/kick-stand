@@ -12,6 +12,59 @@
 		761780ED2CA45674006654EE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 761780EC2CA45674006654EE /* AppDelegate.swift */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
 		94C3230BCCD344638E73B505 /* Inter_18pt-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 698F82617DB1460ABED07DC1 /* Inter_18pt-Bold.ttf */; };
+		FA5242AA76804409BEECFFAE /* Inter_18pt-Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D3DD1D2C86CE4501920AB35C /* Inter_18pt-Black.ttf */; };
+		3DD87E1277294AD6A9675C99 /* Inter_18pt-BlackItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C881A82E63F14ADA9FA32AE4 /* Inter_18pt-BlackItalic.ttf */; };
+		21D12D08BE0F48CC941B422C /* Inter_18pt-BoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 04B2006BE2454E47B83F8DDF /* Inter_18pt-BoldItalic.ttf */; };
+		37DF3469E0B343A09E052924 /* Inter_18pt-ExtraBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E951DFE5631C43FCA823A707 /* Inter_18pt-ExtraBold.ttf */; };
+		83D8F859D861437C88CDE041 /* Inter_18pt-ExtraBoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7F8AB1056F834D698F5994B5 /* Inter_18pt-ExtraBoldItalic.ttf */; };
+		21E4E3A18FAF4A5EB4FE6ED5 /* Inter_18pt-ExtraLight.ttf in Resources */ = {isa = PBXBuildFile; fileRef = DEBDE4135D2F42FD9EAC4084 /* Inter_18pt-ExtraLight.ttf */; };
+		93103660A76D4F1ABC0FF689 /* Inter_18pt-ExtraLightItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5C9289110B78484EADCD372D /* Inter_18pt-ExtraLightItalic.ttf */; };
+		088C5A14A0404D34BBB9E8FF /* Inter_18pt-Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5F2CF27CD6CF46E5B4F0C7D0 /* Inter_18pt-Italic.ttf */; };
+		37052102FBAF48E59749328A /* Inter_18pt-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9B039009525A495BB89C2630 /* Inter_18pt-Light.ttf */; };
+		B7B422F7E8644DF1B9D74503 /* Inter_18pt-LightItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 780D184F57EC49EE8AE168F2 /* Inter_18pt-LightItalic.ttf */; };
+		64933CE4F82C4FADAD6899F7 /* Inter_18pt-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F305D0EF316140FEBBB1EA84 /* Inter_18pt-Medium.ttf */; };
+		99234198A095456D91AE2070 /* Inter_18pt-MediumItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8E7447E3659E4C139FA8434D /* Inter_18pt-MediumItalic.ttf */; };
+		FC3F93845ED44066A723B4D5 /* Inter_18pt-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 25F4EBF0466A4BD59662B446 /* Inter_18pt-Regular.ttf */; };
+		E8E5B3AAD1AE4FDC8D28F362 /* Inter_18pt-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 27A9ED67B5D146BB842F6567 /* Inter_18pt-SemiBold.ttf */; };
+		28A17515C88C441D849393AC /* Inter_18pt-SemiBoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D9F3B6CF783F47338C14AB5B /* Inter_18pt-SemiBoldItalic.ttf */; };
+		117BD369B29F45E4B4E7BB38 /* Inter_18pt-Thin.ttf in Resources */ = {isa = PBXBuildFile; fileRef = BD3325B4E27D4CA9975C2A0E /* Inter_18pt-Thin.ttf */; };
+		DAFC0E89342F4269B1CD189E /* Inter_18pt-ThinItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6FFF9386F50F4099B2698071 /* Inter_18pt-ThinItalic.ttf */; };
+		40E3983B30474945B7439E3D /* Inter_24pt-Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1D54C81A3AE247E9959EAF7E /* Inter_24pt-Black.ttf */; };
+		C6182B7511534495BB58772E /* Inter_24pt-BlackItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3FB332BBA4E84B8C87ABFE31 /* Inter_24pt-BlackItalic.ttf */; };
+		DCDA8DFAC8E540E9BC84BD38 /* Inter_24pt-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D742227D9C494202A8ABC7C4 /* Inter_24pt-Bold.ttf */; };
+		6B4D7144840B4568AD8C5538 /* Inter_24pt-BoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0F3296785A6C42A385541572 /* Inter_24pt-BoldItalic.ttf */; };
+		B6C9EF60B8FC437A881F0D56 /* Inter_24pt-ExtraBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4BC0692EDF3343AE943F9A9A /* Inter_24pt-ExtraBold.ttf */; };
+		EF124ACCFB914CF2912ACD33 /* Inter_24pt-ExtraBoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3CE14F50E0F44DBE8846E558 /* Inter_24pt-ExtraBoldItalic.ttf */; };
+		257F0CCD1FF64C8085D455C6 /* Inter_24pt-ExtraLight.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 72FFADC30A8B489EB54FD88C /* Inter_24pt-ExtraLight.ttf */; };
+		4C0992B89AE744E7A390C23A /* Inter_24pt-ExtraLightItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5F0723B5E983423D8A2B27D5 /* Inter_24pt-ExtraLightItalic.ttf */; };
+		B81B4D19BC8A4903832FF44E /* Inter_24pt-Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 66EB0B8F7DD446F5836E7C78 /* Inter_24pt-Italic.ttf */; };
+		CE9F5AADE8CE4CFBBBA07614 /* Inter_24pt-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 45F06D2E2AA7461FA36D121E /* Inter_24pt-Light.ttf */; };
+		BA4E3B5481D34BFCA566DDE4 /* Inter_24pt-LightItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F0F1713349B34E3EB3FED98F /* Inter_24pt-LightItalic.ttf */; };
+		2DF793EFB205465188B22DEC /* Inter_24pt-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = AA72C0700072489DA58F7D16 /* Inter_24pt-Medium.ttf */; };
+		3A61A8CC674E4163BCA7FF1C /* Inter_24pt-MediumItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 33D9862145CB430FA1D3183A /* Inter_24pt-MediumItalic.ttf */; };
+		910FEF2C8B584168B7558D25 /* Inter_24pt-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 84B2B8F214C342C1B6171360 /* Inter_24pt-Regular.ttf */; };
+		0C76D1276F4244F1A08DD6B3 /* Inter_24pt-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = AAA44C25C0BD4D2CAEF50D4F /* Inter_24pt-SemiBold.ttf */; };
+		180BC5346B8C401587F88123 /* Inter_24pt-SemiBoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F305DBEC7B734791AC6EA611 /* Inter_24pt-SemiBoldItalic.ttf */; };
+		1FB3B1A3647B4047A56BC2AB /* Inter_24pt-Thin.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 81AAD856C4CD4A35ADB43CF2 /* Inter_24pt-Thin.ttf */; };
+		89C680339D5B49B7B063C39E /* Inter_24pt-ThinItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2F8EB5FF323443108EA0A085 /* Inter_24pt-ThinItalic.ttf */; };
+		2E55E15F6B904D829A8D72D1 /* Inter_28pt-Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E26403134AAE43F1B3FCC2C3 /* Inter_28pt-Black.ttf */; };
+		5BB6768C4C5F4033A835D5CC /* Inter_28pt-BlackItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 010B8E5BCCCE4510B9BED5A5 /* Inter_28pt-BlackItalic.ttf */; };
+		45933ADAF53C4DC1ADCC4D7A /* Inter_28pt-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F90CB00237B64929BEC9881B /* Inter_28pt-Bold.ttf */; };
+		0F1A7846DA7D4E0187D0756D /* Inter_28pt-BoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 64876EF2F4D4406E93125EFE /* Inter_28pt-BoldItalic.ttf */; };
+		D71836FADAB747269A663B4A /* Inter_28pt-ExtraBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = DF124593DA1B442D941CD5F1 /* Inter_28pt-ExtraBold.ttf */; };
+		25488CBD2BC94BFEA592B26A /* Inter_28pt-ExtraBoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 688AA3609C4F42598A3237C9 /* Inter_28pt-ExtraBoldItalic.ttf */; };
+		1A6F8960734E4362AAFE725E /* Inter_28pt-ExtraLight.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B3654D03FDC740B3819403E8 /* Inter_28pt-ExtraLight.ttf */; };
+		E49BC79AF05A420B88AD8DF8 /* Inter_28pt-ExtraLightItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1633FECB05FD4D1998D7244B /* Inter_28pt-ExtraLightItalic.ttf */; };
+		98092AD28D744555A5DFDF17 /* Inter_28pt-Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C11E83E60D2C427AB6ECEABD /* Inter_28pt-Italic.ttf */; };
+		DF0345765AE04585989A9CCA /* Inter_28pt-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = BA7173A6104E4968BF5B30D5 /* Inter_28pt-Light.ttf */; };
+		0C992EB085414631884B0B16 /* Inter_28pt-LightItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1B7860E8ADE24CD2BA86AC95 /* Inter_28pt-LightItalic.ttf */; };
+		F085A2CFD0C940FA9BFE73E0 /* Inter_28pt-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 66F650DD07314475A391EC79 /* Inter_28pt-Medium.ttf */; };
+		40D2A326015446F4A06AA63E /* Inter_28pt-MediumItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 79E7B33ECBF242B090C0DBC2 /* Inter_28pt-MediumItalic.ttf */; };
+		62E75707E3BF4CADB428A342 /* Inter_28pt-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2FEEAC03C58A4743A3AC4193 /* Inter_28pt-Regular.ttf */; };
+		0F6614F8342041D2BB7FC933 /* Inter_28pt-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A72CDFC666784D02902592E8 /* Inter_28pt-SemiBold.ttf */; };
+		13A809F4CC9743729C2950CD /* Inter_28pt-SemiBoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 573CB1F67EC4420781AB643B /* Inter_28pt-SemiBoldItalic.ttf */; };
+		A8AE2795AA574F038CFCF41D /* Inter_28pt-Thin.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6C0B82F3E434447190EF8B84 /* Inter_28pt-Thin.ttf */; };
+		7145528B84FB40CF8F275C9D /* Inter_28pt-ThinItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D879C5C2E33646F1B2133FED /* Inter_28pt-ThinItalic.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -37,6 +90,59 @@
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = kickstand/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		698F82617DB1460ABED07DC1 /* Inter_18pt-Bold.ttf */ = {isa = PBXFileReference; name = "Inter_18pt-Bold.ttf"; path = "../assets/fonts/Inter_18pt-Bold.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		D3DD1D2C86CE4501920AB35C /* Inter_18pt-Black.ttf */ = {isa = PBXFileReference; name = "Inter_18pt-Black.ttf"; path = "../assets/fonts/Inter_18pt-Black.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		C881A82E63F14ADA9FA32AE4 /* Inter_18pt-BlackItalic.ttf */ = {isa = PBXFileReference; name = "Inter_18pt-BlackItalic.ttf"; path = "../assets/fonts/Inter_18pt-BlackItalic.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		04B2006BE2454E47B83F8DDF /* Inter_18pt-BoldItalic.ttf */ = {isa = PBXFileReference; name = "Inter_18pt-BoldItalic.ttf"; path = "../assets/fonts/Inter_18pt-BoldItalic.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		E951DFE5631C43FCA823A707 /* Inter_18pt-ExtraBold.ttf */ = {isa = PBXFileReference; name = "Inter_18pt-ExtraBold.ttf"; path = "../assets/fonts/Inter_18pt-ExtraBold.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		7F8AB1056F834D698F5994B5 /* Inter_18pt-ExtraBoldItalic.ttf */ = {isa = PBXFileReference; name = "Inter_18pt-ExtraBoldItalic.ttf"; path = "../assets/fonts/Inter_18pt-ExtraBoldItalic.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		DEBDE4135D2F42FD9EAC4084 /* Inter_18pt-ExtraLight.ttf */ = {isa = PBXFileReference; name = "Inter_18pt-ExtraLight.ttf"; path = "../assets/fonts/Inter_18pt-ExtraLight.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		5C9289110B78484EADCD372D /* Inter_18pt-ExtraLightItalic.ttf */ = {isa = PBXFileReference; name = "Inter_18pt-ExtraLightItalic.ttf"; path = "../assets/fonts/Inter_18pt-ExtraLightItalic.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		5F2CF27CD6CF46E5B4F0C7D0 /* Inter_18pt-Italic.ttf */ = {isa = PBXFileReference; name = "Inter_18pt-Italic.ttf"; path = "../assets/fonts/Inter_18pt-Italic.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		9B039009525A495BB89C2630 /* Inter_18pt-Light.ttf */ = {isa = PBXFileReference; name = "Inter_18pt-Light.ttf"; path = "../assets/fonts/Inter_18pt-Light.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		780D184F57EC49EE8AE168F2 /* Inter_18pt-LightItalic.ttf */ = {isa = PBXFileReference; name = "Inter_18pt-LightItalic.ttf"; path = "../assets/fonts/Inter_18pt-LightItalic.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		F305D0EF316140FEBBB1EA84 /* Inter_18pt-Medium.ttf */ = {isa = PBXFileReference; name = "Inter_18pt-Medium.ttf"; path = "../assets/fonts/Inter_18pt-Medium.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		8E7447E3659E4C139FA8434D /* Inter_18pt-MediumItalic.ttf */ = {isa = PBXFileReference; name = "Inter_18pt-MediumItalic.ttf"; path = "../assets/fonts/Inter_18pt-MediumItalic.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		25F4EBF0466A4BD59662B446 /* Inter_18pt-Regular.ttf */ = {isa = PBXFileReference; name = "Inter_18pt-Regular.ttf"; path = "../assets/fonts/Inter_18pt-Regular.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		27A9ED67B5D146BB842F6567 /* Inter_18pt-SemiBold.ttf */ = {isa = PBXFileReference; name = "Inter_18pt-SemiBold.ttf"; path = "../assets/fonts/Inter_18pt-SemiBold.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		D9F3B6CF783F47338C14AB5B /* Inter_18pt-SemiBoldItalic.ttf */ = {isa = PBXFileReference; name = "Inter_18pt-SemiBoldItalic.ttf"; path = "../assets/fonts/Inter_18pt-SemiBoldItalic.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		BD3325B4E27D4CA9975C2A0E /* Inter_18pt-Thin.ttf */ = {isa = PBXFileReference; name = "Inter_18pt-Thin.ttf"; path = "../assets/fonts/Inter_18pt-Thin.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		6FFF9386F50F4099B2698071 /* Inter_18pt-ThinItalic.ttf */ = {isa = PBXFileReference; name = "Inter_18pt-ThinItalic.ttf"; path = "../assets/fonts/Inter_18pt-ThinItalic.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		1D54C81A3AE247E9959EAF7E /* Inter_24pt-Black.ttf */ = {isa = PBXFileReference; name = "Inter_24pt-Black.ttf"; path = "../assets/fonts/Inter_24pt-Black.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		3FB332BBA4E84B8C87ABFE31 /* Inter_24pt-BlackItalic.ttf */ = {isa = PBXFileReference; name = "Inter_24pt-BlackItalic.ttf"; path = "../assets/fonts/Inter_24pt-BlackItalic.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		D742227D9C494202A8ABC7C4 /* Inter_24pt-Bold.ttf */ = {isa = PBXFileReference; name = "Inter_24pt-Bold.ttf"; path = "../assets/fonts/Inter_24pt-Bold.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		0F3296785A6C42A385541572 /* Inter_24pt-BoldItalic.ttf */ = {isa = PBXFileReference; name = "Inter_24pt-BoldItalic.ttf"; path = "../assets/fonts/Inter_24pt-BoldItalic.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		4BC0692EDF3343AE943F9A9A /* Inter_24pt-ExtraBold.ttf */ = {isa = PBXFileReference; name = "Inter_24pt-ExtraBold.ttf"; path = "../assets/fonts/Inter_24pt-ExtraBold.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		3CE14F50E0F44DBE8846E558 /* Inter_24pt-ExtraBoldItalic.ttf */ = {isa = PBXFileReference; name = "Inter_24pt-ExtraBoldItalic.ttf"; path = "../assets/fonts/Inter_24pt-ExtraBoldItalic.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		72FFADC30A8B489EB54FD88C /* Inter_24pt-ExtraLight.ttf */ = {isa = PBXFileReference; name = "Inter_24pt-ExtraLight.ttf"; path = "../assets/fonts/Inter_24pt-ExtraLight.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		5F0723B5E983423D8A2B27D5 /* Inter_24pt-ExtraLightItalic.ttf */ = {isa = PBXFileReference; name = "Inter_24pt-ExtraLightItalic.ttf"; path = "../assets/fonts/Inter_24pt-ExtraLightItalic.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		66EB0B8F7DD446F5836E7C78 /* Inter_24pt-Italic.ttf */ = {isa = PBXFileReference; name = "Inter_24pt-Italic.ttf"; path = "../assets/fonts/Inter_24pt-Italic.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		45F06D2E2AA7461FA36D121E /* Inter_24pt-Light.ttf */ = {isa = PBXFileReference; name = "Inter_24pt-Light.ttf"; path = "../assets/fonts/Inter_24pt-Light.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		F0F1713349B34E3EB3FED98F /* Inter_24pt-LightItalic.ttf */ = {isa = PBXFileReference; name = "Inter_24pt-LightItalic.ttf"; path = "../assets/fonts/Inter_24pt-LightItalic.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		AA72C0700072489DA58F7D16 /* Inter_24pt-Medium.ttf */ = {isa = PBXFileReference; name = "Inter_24pt-Medium.ttf"; path = "../assets/fonts/Inter_24pt-Medium.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		33D9862145CB430FA1D3183A /* Inter_24pt-MediumItalic.ttf */ = {isa = PBXFileReference; name = "Inter_24pt-MediumItalic.ttf"; path = "../assets/fonts/Inter_24pt-MediumItalic.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		84B2B8F214C342C1B6171360 /* Inter_24pt-Regular.ttf */ = {isa = PBXFileReference; name = "Inter_24pt-Regular.ttf"; path = "../assets/fonts/Inter_24pt-Regular.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		AAA44C25C0BD4D2CAEF50D4F /* Inter_24pt-SemiBold.ttf */ = {isa = PBXFileReference; name = "Inter_24pt-SemiBold.ttf"; path = "../assets/fonts/Inter_24pt-SemiBold.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		F305DBEC7B734791AC6EA611 /* Inter_24pt-SemiBoldItalic.ttf */ = {isa = PBXFileReference; name = "Inter_24pt-SemiBoldItalic.ttf"; path = "../assets/fonts/Inter_24pt-SemiBoldItalic.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		81AAD856C4CD4A35ADB43CF2 /* Inter_24pt-Thin.ttf */ = {isa = PBXFileReference; name = "Inter_24pt-Thin.ttf"; path = "../assets/fonts/Inter_24pt-Thin.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		2F8EB5FF323443108EA0A085 /* Inter_24pt-ThinItalic.ttf */ = {isa = PBXFileReference; name = "Inter_24pt-ThinItalic.ttf"; path = "../assets/fonts/Inter_24pt-ThinItalic.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		E26403134AAE43F1B3FCC2C3 /* Inter_28pt-Black.ttf */ = {isa = PBXFileReference; name = "Inter_28pt-Black.ttf"; path = "../assets/fonts/Inter_28pt-Black.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		010B8E5BCCCE4510B9BED5A5 /* Inter_28pt-BlackItalic.ttf */ = {isa = PBXFileReference; name = "Inter_28pt-BlackItalic.ttf"; path = "../assets/fonts/Inter_28pt-BlackItalic.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		F90CB00237B64929BEC9881B /* Inter_28pt-Bold.ttf */ = {isa = PBXFileReference; name = "Inter_28pt-Bold.ttf"; path = "../assets/fonts/Inter_28pt-Bold.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		64876EF2F4D4406E93125EFE /* Inter_28pt-BoldItalic.ttf */ = {isa = PBXFileReference; name = "Inter_28pt-BoldItalic.ttf"; path = "../assets/fonts/Inter_28pt-BoldItalic.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		DF124593DA1B442D941CD5F1 /* Inter_28pt-ExtraBold.ttf */ = {isa = PBXFileReference; name = "Inter_28pt-ExtraBold.ttf"; path = "../assets/fonts/Inter_28pt-ExtraBold.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		688AA3609C4F42598A3237C9 /* Inter_28pt-ExtraBoldItalic.ttf */ = {isa = PBXFileReference; name = "Inter_28pt-ExtraBoldItalic.ttf"; path = "../assets/fonts/Inter_28pt-ExtraBoldItalic.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		B3654D03FDC740B3819403E8 /* Inter_28pt-ExtraLight.ttf */ = {isa = PBXFileReference; name = "Inter_28pt-ExtraLight.ttf"; path = "../assets/fonts/Inter_28pt-ExtraLight.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		1633FECB05FD4D1998D7244B /* Inter_28pt-ExtraLightItalic.ttf */ = {isa = PBXFileReference; name = "Inter_28pt-ExtraLightItalic.ttf"; path = "../assets/fonts/Inter_28pt-ExtraLightItalic.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		C11E83E60D2C427AB6ECEABD /* Inter_28pt-Italic.ttf */ = {isa = PBXFileReference; name = "Inter_28pt-Italic.ttf"; path = "../assets/fonts/Inter_28pt-Italic.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		BA7173A6104E4968BF5B30D5 /* Inter_28pt-Light.ttf */ = {isa = PBXFileReference; name = "Inter_28pt-Light.ttf"; path = "../assets/fonts/Inter_28pt-Light.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		1B7860E8ADE24CD2BA86AC95 /* Inter_28pt-LightItalic.ttf */ = {isa = PBXFileReference; name = "Inter_28pt-LightItalic.ttf"; path = "../assets/fonts/Inter_28pt-LightItalic.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		66F650DD07314475A391EC79 /* Inter_28pt-Medium.ttf */ = {isa = PBXFileReference; name = "Inter_28pt-Medium.ttf"; path = "../assets/fonts/Inter_28pt-Medium.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		79E7B33ECBF242B090C0DBC2 /* Inter_28pt-MediumItalic.ttf */ = {isa = PBXFileReference; name = "Inter_28pt-MediumItalic.ttf"; path = "../assets/fonts/Inter_28pt-MediumItalic.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		2FEEAC03C58A4743A3AC4193 /* Inter_28pt-Regular.ttf */ = {isa = PBXFileReference; name = "Inter_28pt-Regular.ttf"; path = "../assets/fonts/Inter_28pt-Regular.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		A72CDFC666784D02902592E8 /* Inter_28pt-SemiBold.ttf */ = {isa = PBXFileReference; name = "Inter_28pt-SemiBold.ttf"; path = "../assets/fonts/Inter_28pt-SemiBold.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		573CB1F67EC4420781AB643B /* Inter_28pt-SemiBoldItalic.ttf */ = {isa = PBXFileReference; name = "Inter_28pt-SemiBoldItalic.ttf"; path = "../assets/fonts/Inter_28pt-SemiBoldItalic.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		6C0B82F3E434447190EF8B84 /* Inter_28pt-Thin.ttf */ = {isa = PBXFileReference; name = "Inter_28pt-Thin.ttf"; path = "../assets/fonts/Inter_28pt-Thin.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		D879C5C2E33646F1B2133FED /* Inter_28pt-ThinItalic.ttf */ = {isa = PBXFileReference; name = "Inter_28pt-ThinItalic.ttf"; path = "../assets/fonts/Inter_28pt-ThinItalic.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -123,6 +229,59 @@
 			isa = "PBXGroup";
 			children = (
 				698F82617DB1460ABED07DC1 /* Inter_18pt-Bold.ttf */,
+				D3DD1D2C86CE4501920AB35C /* Inter_18pt-Black.ttf */,
+				C881A82E63F14ADA9FA32AE4 /* Inter_18pt-BlackItalic.ttf */,
+				04B2006BE2454E47B83F8DDF /* Inter_18pt-BoldItalic.ttf */,
+				E951DFE5631C43FCA823A707 /* Inter_18pt-ExtraBold.ttf */,
+				7F8AB1056F834D698F5994B5 /* Inter_18pt-ExtraBoldItalic.ttf */,
+				DEBDE4135D2F42FD9EAC4084 /* Inter_18pt-ExtraLight.ttf */,
+				5C9289110B78484EADCD372D /* Inter_18pt-ExtraLightItalic.ttf */,
+				5F2CF27CD6CF46E5B4F0C7D0 /* Inter_18pt-Italic.ttf */,
+				9B039009525A495BB89C2630 /* Inter_18pt-Light.ttf */,
+				780D184F57EC49EE8AE168F2 /* Inter_18pt-LightItalic.ttf */,
+				F305D0EF316140FEBBB1EA84 /* Inter_18pt-Medium.ttf */,
+				8E7447E3659E4C139FA8434D /* Inter_18pt-MediumItalic.ttf */,
+				25F4EBF0466A4BD59662B446 /* Inter_18pt-Regular.ttf */,
+				27A9ED67B5D146BB842F6567 /* Inter_18pt-SemiBold.ttf */,
+				D9F3B6CF783F47338C14AB5B /* Inter_18pt-SemiBoldItalic.ttf */,
+				BD3325B4E27D4CA9975C2A0E /* Inter_18pt-Thin.ttf */,
+				6FFF9386F50F4099B2698071 /* Inter_18pt-ThinItalic.ttf */,
+				1D54C81A3AE247E9959EAF7E /* Inter_24pt-Black.ttf */,
+				3FB332BBA4E84B8C87ABFE31 /* Inter_24pt-BlackItalic.ttf */,
+				D742227D9C494202A8ABC7C4 /* Inter_24pt-Bold.ttf */,
+				0F3296785A6C42A385541572 /* Inter_24pt-BoldItalic.ttf */,
+				4BC0692EDF3343AE943F9A9A /* Inter_24pt-ExtraBold.ttf */,
+				3CE14F50E0F44DBE8846E558 /* Inter_24pt-ExtraBoldItalic.ttf */,
+				72FFADC30A8B489EB54FD88C /* Inter_24pt-ExtraLight.ttf */,
+				5F0723B5E983423D8A2B27D5 /* Inter_24pt-ExtraLightItalic.ttf */,
+				66EB0B8F7DD446F5836E7C78 /* Inter_24pt-Italic.ttf */,
+				45F06D2E2AA7461FA36D121E /* Inter_24pt-Light.ttf */,
+				F0F1713349B34E3EB3FED98F /* Inter_24pt-LightItalic.ttf */,
+				AA72C0700072489DA58F7D16 /* Inter_24pt-Medium.ttf */,
+				33D9862145CB430FA1D3183A /* Inter_24pt-MediumItalic.ttf */,
+				84B2B8F214C342C1B6171360 /* Inter_24pt-Regular.ttf */,
+				AAA44C25C0BD4D2CAEF50D4F /* Inter_24pt-SemiBold.ttf */,
+				F305DBEC7B734791AC6EA611 /* Inter_24pt-SemiBoldItalic.ttf */,
+				81AAD856C4CD4A35ADB43CF2 /* Inter_24pt-Thin.ttf */,
+				2F8EB5FF323443108EA0A085 /* Inter_24pt-ThinItalic.ttf */,
+				E26403134AAE43F1B3FCC2C3 /* Inter_28pt-Black.ttf */,
+				010B8E5BCCCE4510B9BED5A5 /* Inter_28pt-BlackItalic.ttf */,
+				F90CB00237B64929BEC9881B /* Inter_28pt-Bold.ttf */,
+				64876EF2F4D4406E93125EFE /* Inter_28pt-BoldItalic.ttf */,
+				DF124593DA1B442D941CD5F1 /* Inter_28pt-ExtraBold.ttf */,
+				688AA3609C4F42598A3237C9 /* Inter_28pt-ExtraBoldItalic.ttf */,
+				B3654D03FDC740B3819403E8 /* Inter_28pt-ExtraLight.ttf */,
+				1633FECB05FD4D1998D7244B /* Inter_28pt-ExtraLightItalic.ttf */,
+				C11E83E60D2C427AB6ECEABD /* Inter_28pt-Italic.ttf */,
+				BA7173A6104E4968BF5B30D5 /* Inter_28pt-Light.ttf */,
+				1B7860E8ADE24CD2BA86AC95 /* Inter_28pt-LightItalic.ttf */,
+				66F650DD07314475A391EC79 /* Inter_28pt-Medium.ttf */,
+				79E7B33ECBF242B090C0DBC2 /* Inter_28pt-MediumItalic.ttf */,
+				2FEEAC03C58A4743A3AC4193 /* Inter_28pt-Regular.ttf */,
+				A72CDFC666784D02902592E8 /* Inter_28pt-SemiBold.ttf */,
+				573CB1F67EC4420781AB643B /* Inter_28pt-SemiBoldItalic.ttf */,
+				6C0B82F3E434447190EF8B84 /* Inter_28pt-Thin.ttf */,
+				D879C5C2E33646F1B2133FED /* Inter_28pt-ThinItalic.ttf */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -198,6 +357,59 @@
 				81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 				94C3230BCCD344638E73B505 /* Inter_18pt-Bold.ttf in Resources */,
+				FA5242AA76804409BEECFFAE /* Inter_18pt-Black.ttf in Resources */,
+				3DD87E1277294AD6A9675C99 /* Inter_18pt-BlackItalic.ttf in Resources */,
+				21D12D08BE0F48CC941B422C /* Inter_18pt-BoldItalic.ttf in Resources */,
+				37DF3469E0B343A09E052924 /* Inter_18pt-ExtraBold.ttf in Resources */,
+				83D8F859D861437C88CDE041 /* Inter_18pt-ExtraBoldItalic.ttf in Resources */,
+				21E4E3A18FAF4A5EB4FE6ED5 /* Inter_18pt-ExtraLight.ttf in Resources */,
+				93103660A76D4F1ABC0FF689 /* Inter_18pt-ExtraLightItalic.ttf in Resources */,
+				088C5A14A0404D34BBB9E8FF /* Inter_18pt-Italic.ttf in Resources */,
+				37052102FBAF48E59749328A /* Inter_18pt-Light.ttf in Resources */,
+				B7B422F7E8644DF1B9D74503 /* Inter_18pt-LightItalic.ttf in Resources */,
+				64933CE4F82C4FADAD6899F7 /* Inter_18pt-Medium.ttf in Resources */,
+				99234198A095456D91AE2070 /* Inter_18pt-MediumItalic.ttf in Resources */,
+				FC3F93845ED44066A723B4D5 /* Inter_18pt-Regular.ttf in Resources */,
+				E8E5B3AAD1AE4FDC8D28F362 /* Inter_18pt-SemiBold.ttf in Resources */,
+				28A17515C88C441D849393AC /* Inter_18pt-SemiBoldItalic.ttf in Resources */,
+				117BD369B29F45E4B4E7BB38 /* Inter_18pt-Thin.ttf in Resources */,
+				DAFC0E89342F4269B1CD189E /* Inter_18pt-ThinItalic.ttf in Resources */,
+				40E3983B30474945B7439E3D /* Inter_24pt-Black.ttf in Resources */,
+				C6182B7511534495BB58772E /* Inter_24pt-BlackItalic.ttf in Resources */,
+				DCDA8DFAC8E540E9BC84BD38 /* Inter_24pt-Bold.ttf in Resources */,
+				6B4D7144840B4568AD8C5538 /* Inter_24pt-BoldItalic.ttf in Resources */,
+				B6C9EF60B8FC437A881F0D56 /* Inter_24pt-ExtraBold.ttf in Resources */,
+				EF124ACCFB914CF2912ACD33 /* Inter_24pt-ExtraBoldItalic.ttf in Resources */,
+				257F0CCD1FF64C8085D455C6 /* Inter_24pt-ExtraLight.ttf in Resources */,
+				4C0992B89AE744E7A390C23A /* Inter_24pt-ExtraLightItalic.ttf in Resources */,
+				B81B4D19BC8A4903832FF44E /* Inter_24pt-Italic.ttf in Resources */,
+				CE9F5AADE8CE4CFBBBA07614 /* Inter_24pt-Light.ttf in Resources */,
+				BA4E3B5481D34BFCA566DDE4 /* Inter_24pt-LightItalic.ttf in Resources */,
+				2DF793EFB205465188B22DEC /* Inter_24pt-Medium.ttf in Resources */,
+				3A61A8CC674E4163BCA7FF1C /* Inter_24pt-MediumItalic.ttf in Resources */,
+				910FEF2C8B584168B7558D25 /* Inter_24pt-Regular.ttf in Resources */,
+				0C76D1276F4244F1A08DD6B3 /* Inter_24pt-SemiBold.ttf in Resources */,
+				180BC5346B8C401587F88123 /* Inter_24pt-SemiBoldItalic.ttf in Resources */,
+				1FB3B1A3647B4047A56BC2AB /* Inter_24pt-Thin.ttf in Resources */,
+				89C680339D5B49B7B063C39E /* Inter_24pt-ThinItalic.ttf in Resources */,
+				2E55E15F6B904D829A8D72D1 /* Inter_28pt-Black.ttf in Resources */,
+				5BB6768C4C5F4033A835D5CC /* Inter_28pt-BlackItalic.ttf in Resources */,
+				45933ADAF53C4DC1ADCC4D7A /* Inter_28pt-Bold.ttf in Resources */,
+				0F1A7846DA7D4E0187D0756D /* Inter_28pt-BoldItalic.ttf in Resources */,
+				D71836FADAB747269A663B4A /* Inter_28pt-ExtraBold.ttf in Resources */,
+				25488CBD2BC94BFEA592B26A /* Inter_28pt-ExtraBoldItalic.ttf in Resources */,
+				1A6F8960734E4362AAFE725E /* Inter_28pt-ExtraLight.ttf in Resources */,
+				E49BC79AF05A420B88AD8DF8 /* Inter_28pt-ExtraLightItalic.ttf in Resources */,
+				98092AD28D744555A5DFDF17 /* Inter_28pt-Italic.ttf in Resources */,
+				DF0345765AE04585989A9CCA /* Inter_28pt-Light.ttf in Resources */,
+				0C992EB085414631884B0B16 /* Inter_28pt-LightItalic.ttf in Resources */,
+				F085A2CFD0C940FA9BFE73E0 /* Inter_28pt-Medium.ttf in Resources */,
+				40D2A326015446F4A06AA63E /* Inter_28pt-MediumItalic.ttf in Resources */,
+				62E75707E3BF4CADB428A342 /* Inter_28pt-Regular.ttf in Resources */,
+				0F6614F8342041D2BB7FC933 /* Inter_28pt-SemiBold.ttf in Resources */,
+				13A809F4CC9743729C2950CD /* Inter_28pt-SemiBoldItalic.ttf in Resources */,
+				A8AE2795AA574F038CFCF41D /* Inter_28pt-Thin.ttf in Resources */,
+				7145528B84FB40CF8F275C9D /* Inter_28pt-ThinItalic.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
