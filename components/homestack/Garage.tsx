@@ -3,6 +3,8 @@ import { View,Image, FlatList, TextInput, Button, Modal} from "react-native";
 import { Text } from "react-native-gesture-handler";
 import { AuthContext } from "../authstack/AuthContext";
 import { useContext } from "react";
+import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
+import FontAwesome5 from "react-native-vector-icons/FontAwesome5";
 
 type UserDetails = {
     name: string;
@@ -14,6 +16,7 @@ export default function Garage() {
     const { userInfo } = useContext(AuthContext);
     const [userDetails, setUserDetails] = React.useState<UserDetails | null>(null);
     const [monthly_expenditure, setMonthlyExpenditure] = React.useState<number>(0);
+    const [expenditure, setExpenditure] = React.useState<any[]>([]);
     
     const user_id = userInfo?.user.id;
     const profile_picture = userInfo?.user.photo;
@@ -40,7 +43,7 @@ export default function Garage() {
         console.log("User details", data);
     }
 
-    const get_user_expenditure = async () => {
+    const get_user_expenditure_monthly = async () => {
         const params = {
             start_date: `${year}-${month}-01`,
             end_date: `${year}-${month}-31`,
@@ -56,9 +59,23 @@ export default function Garage() {
         setMonthlyExpenditure(totalExpenditure);
         console.log("Monthly expenditure", totalExpenditure);
     }
+
+    const get_user_expenditure = async () => {
+        const response = await fetch(`http://192.168.1.5:8001/expenses/${user_id}`, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+            },
+        });
+        const data = await response.json();
+        setExpenditure(data);
+        console.log("Expenditure", data);
+    }
+
     
     useEffect(() => {
         get_user_details();
+        get_user_expenditure_monthly();
         get_user_expenditure();
     }, []);
 
@@ -102,8 +119,18 @@ export default function Garage() {
                     <Text style={{fontSize: 34, fontFamily: "Inter_18pt-Bold", color: "#ECEFF1"}}>₹{monthly_expenditure}</Text>
                 </View>
             </View>
-            <View style={{ marginTop: 30, flexDirection:"column", backgroundColor:"#424242", opacity: 0.7137, width:"100%", height: 200, borderRadius: 10, padding: 20 }}>
-                <Text style={{fontFamily: "Inter_18pt-SemiBold", color: "#8E8E93"}}>Expenses</Text>
+            <View style={{ marginTop: 30, flexDirection:"column", backgroundColor:"#424242", opacity: 0.7137, width:"100%", height: 200, borderRadius: 10, padding: 15 }}>
+                <Text style={{fontFamily: "Inter_18pt-SemiBold", color: "#8E8E93", fontSize: 20, margin: 0}}>Expenses</Text>
+                <View style={{flexDirection:"row"} }>
+                    <View style={{flexDirection:"column", marginTop: 10}}>
+                        <MaterialCommunityIcons name="fuel" size={20} color="#FF6B6B" /> 
+                        <MaterialCommunityIcons name="tools" size={20} color="#FFA726" />
+                        <MaterialCommunityIcons name="file-document-multiple" size={20} color="#4CAF50" />
+                        <MaterialCommunityIcons name="view-grid-plus" size={20} color="#FFD700" />  
+                        <MaterialCommunityIcons name="circle-double" size={20} color="#4FC3F7" />
+                        <MaterialCommunityIcons name="beaker-question" size={20} color="#9575CD" />
+                    </View>
+                </View>
             </View>
         </View>
     );
