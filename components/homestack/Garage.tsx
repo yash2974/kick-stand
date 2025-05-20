@@ -70,6 +70,12 @@ export default function Garage() {
         const data = await response.json();
         setExpenditure(data);
         console.log("Expenditure", data);
+        const categoryTotals: { [key: string]: number } = {};
+        data.forEach((item) => {
+            const { category, amount } = item;
+            categoryTotals[category] = (categoryTotals[category] || 0) + amount;
+        });
+        console.log("Category totals", categoryTotals);
     }
 
     
