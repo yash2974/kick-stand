@@ -71,7 +71,7 @@ export default function Garage() {
         setExpenditure(data);
         console.log("Expenditure", data);
         const categoryTotals: { [key: string]: number } = {};
-        data.forEach((item) => {
+        data.forEach((item: { category: any; amount: any; }) => {
             const { category, amount } = item;
             categoryTotals[category] = (categoryTotals[category] || 0) + amount;
         });
