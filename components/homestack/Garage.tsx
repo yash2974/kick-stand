@@ -26,10 +26,8 @@ export default function Garage() {
     const [monthly_expenditure, setMonthlyExpenditure] = React.useState<number>(0);
     const [expenditure, setExpenditure] = React.useState<Expense[]>([]);
     const [isLoading, setIsLoading] = React.useState(true)
-    
     const user_id = userInfo?.user.id;
     const profile_picture = userInfo?.user.photo;
-    const user_name = userInfo?.user.name;
     const today = new Date();
     const year = today.getFullYear();
     const month = String(today.getMonth() + 1).padStart(2, '0'); // add leading zero
@@ -240,7 +238,7 @@ const series = generatePieChartData();
                                 ) : null;
                             })}
                         </View>
-                        <View>
+                        <View style={{ paddingHorizontal:10}}>
                             {isLoading?(
                                 <ActivityIndicator></ActivityIndicator>
                             ): (

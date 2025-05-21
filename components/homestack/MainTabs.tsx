@@ -4,16 +4,22 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Forums from './Forums'; // Extract Forums into a separate component
 import Garage from './Garage'; // Extract Garage into a separate component
 import UserProfile from './UserProfile'; // Extract UserProfile into a separate component
-import StartSession from './StartSession';
-import { Text } from 'react-native';
+import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
+import { View } from 'react-native';
+
 
 const Tab = createBottomTabNavigator();
 
 export default function MainTabs() {
   return (
     <Tab.Navigator
-      screenOptions={{
+      screenOptions={({route})=>({
         headerShown: false,
+        tabBarLabelStyle: {
+          fontSize: 12,
+          fontFamily: 'Inter_18pt-SemiBold',
+          marginTop: 1,
+        },
         tabBarStyle: {
           position: 'absolute',
           bottom: 0,
@@ -22,19 +28,56 @@ export default function MainTabs() {
           elevation: 0,
           backgroundColor: '#1a1a1a',
           borderTopWidth: 0,
+          borderTopLeftRadius: 20,
+          borderTopRightRadius: 20,
+          height: 70,
+          paddingTop: 2,
+          paddingBottom: 2,
         },
-      }}>
+        tabBarItemStyle: {
+          justifyContent: 'center',
+          alignItems: 'center',
+          paddingVertical: 5,
+        },
+        tabBarIcon: ({focused, color, size}) => {
+          let iconName = '';
+            switch (route.name) {
+                    case 'Forums':
+                      iconName = 'forum';
+                      break;
+                    case 'Rides':
+                      iconName = 'motorbike';
+                      break;
+                    case 'Start Session':
+                      iconName = 'play-circle-outline';
+                      break;
+                    case 'Garage':
+                      iconName = 'garage';
+                      break;
+                    case 'User':
+                      iconName = 'account';
+                      break;
+            }
+      return (
+        <View style={{ 
+          justifyContent: 'center', 
+          alignItems: 'center',
+          marginBottom: 2,
+        }}>
+          <MaterialCommunityIcons
+            name={iconName}
+            size={focused ? 26 : 24}
+            color={focused ? '#C62828' : '#888'}
+          />
+        </View>
+      );
+    },
+    tabBarActiveTintColor: '#C62828',
+    tabBarInactiveTintColor: '#888',
+  })}>
       <Tab.Screen name="Forums" component={Forums} />
       <Tab.Screen name="Rides" component={Forums} />
-      <Tab.Screen
-        name="Start Session"
-        component={Forums}
-        options={{
-          tabBarButton: (props) => <StartSession {...props} />,
-          tabBarIcon: ({ focused }) => (
-            <Text style={{ color: focused ? '#fff' : '#aaa' }}>+</Text> 
-          ),
-        }} />
+      <Tab.Screen name="Start Session" component={Forums}/>
       <Tab.Screen name="Garage" component={Garage} />
       <Tab.Screen name="User" component={UserProfile} />
       {/* Add more tabs as needed */}
