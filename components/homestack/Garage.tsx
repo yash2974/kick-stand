@@ -1,6 +1,6 @@
 import React, { use, useEffect } from "react";
-import { View,Image, FlatList, TextInput, Button, Modal, ActivityIndicator} from "react-native";
-import { Text } from "react-native-gesture-handler";
+import { View, Image, FlatList, TextInput, Button, Modal, ActivityIndicator, StyleSheet} from "react-native";
+import { ScrollView, Text, GestureHandlerRootView} from "react-native-gesture-handler";
 import { AuthContext } from "../authstack/AuthContext";
 import { useContext } from "react";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
@@ -12,11 +12,19 @@ type UserDetails = {
     email: string;
 };
 
+type Expense = {
+    vehicle_id: string;
+    user_id: string;
+    amount: number;
+    category: string;
+    date: string;
+};
+
 export default function Garage() {
     const { userInfo } = useContext(AuthContext);
     const [userDetails, setUserDetails] = React.useState<UserDetails | null>(null);
     const [monthly_expenditure, setMonthlyExpenditure] = React.useState<number>(0);
-    const [expenditure, setExpenditure] = React.useState<any[]>([]);
+    const [expenditure, setExpenditure] = React.useState<Expense[]>([]);
     const [isLoading, setIsLoading] = React.useState(true)
     
     const user_id = userInfo?.user.id;
@@ -77,14 +85,16 @@ export default function Garage() {
             categoryTotals[category] = (categoryTotals[category] || 0) + amount;
         });
         console.log("Category totals", categoryTotals);
-        if (expenditure){
-            setIsLoading(false)
-        }
+        
+        setIsLoading(false)
+        
+        
     }
 
     const categoryIconMap: { [key: string]: { name: string; color: string } } = {
-        Fuel: { name: 'fuel', color: '#FF6B6B'  },
-        Service: { name: 'tools',        Documents: { name: 'file-document-multiple', color: '#4CAF50' },
+        Fuel: { name: 'fuel', color: '#FF6B6B' },
+        Service: { name: 'tools', color: '#FFA726' },
+        Documents: { name: 'file-document-multiple', color: '#4CAF50' },
         Accessories: { name: 'view-grid-plus', color: '#FFD700' },
         Tyres : { name:"circle-double", color:"#4FC3F7" },
         Other: { name: 'beaker-question', color: '#9575CD' },
@@ -130,12 +140,19 @@ const generatePieChartData = () => {
 
 const widthAndHeight = 130;
 const series = generatePieChartData();
+
+    // Format date to display as "May 21"
+    const formatDate = (dateString: string) => {
+        const date = new Date(dateString);
+        return date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+    };
     
     useEffect(() => {
         get_user_details();
         get_user_expenditure_monthly();
         get_user_expenditure();
     }, []);
+    
 
 
 
@@ -145,7 +162,7 @@ const series = generatePieChartData();
                 <Text style={{ color : "#C62828" ,fontFamily:"Inter_18pt-Bold",fontSize: 17 }}>Hello </Text>
                 {/* <Text style={{ color : "#9E9E9E" ,fontFamily:"Inter_18pt-Regular",fontSize: 17 }}>{user_name}</Text> */}
             </View>
-            <View style={{ flexDirection: "row", alignItems: "center", marginTop: 10, justifyContent: "space-between" }}>
+            <View style={{ flexDirection: "row", alignItems: "center", justifyContent: "space-between" }}>
                 <Text style={{ color : "#C62828", fontFamily: "Inter_18pt-Bold", fontSize : 34}}>Garage</Text>
                 <Image
                     source={profile_picture ? { uri: profile_picture } : undefined}
@@ -179,63 +196,190 @@ const series = generatePieChartData();
                     <Text style={{fontSize: 34, fontFamily: "Inter_18pt-Bold", color: "#ECEFF1"}}>₹{monthly_expenditure}</Text>
                 </View>
             </View>
-            <View style={{ marginTop: 30, flexDirection:"column", backgroundColor:"#424242", opacity: 0.7137, width:"100%", height: 200, borderRadius: 10, padding: 15 }}>
-                <Text style={{fontFamily: "Inter_18pt-SemiBold", color: "#8E8E93", fontSize: 20, margin: 0}}>Expenses</Text>
-                <View style={{flexDirection:"row", justifyContent:"space-between", alignContent:"center"} }>
-                    <View style={{flexDirection:"column", marginTop: 10, justifyContent:"center"}}>
-                        {presentCategories.map((category) => {
-    const icon = categoryIconMap[category];
-    return icon ? (
-        <View
-            key={category}
-            style={{
-                flexDirection: "row",
-                alignItems: "center",
-                marginVertical: 4,
-            }}
-        >
-            <View
-                style={{
-                    width: iconSize,
-                    height: iconSize,
-                    justifyContent: "center",
-                    alignItems: "center",
-                    marginRight: 8,
-                }}
-            >
-                <MaterialCommunityIcons
-                    name={icon.name}
-                    size={iconSize}
-                    color={icon.color}
-                />
-            </View>
-            <Text
-                style={{
-                    color: "#ECEFF1",
-                    fontSize: 14,
-                    fontFamily: "Inter_18pt-Regular",
-                }}
-            >
-                {category}
-            </Text>
-        </View>
-    ) : null;
-})}
-
-                    </View>
-                    <View>
-                        {isLoading?(
-                            <ActivityIndicator></ActivityIndicator>
-                        ): (
-            <PieChart
-                widthAndHeight={widthAndHeight}
-                series={series}
-                cover={0.7}
-            />)}
-        
+            <View style={{justifyContent:"center", alignItems:"center"}}>
+                <View style={{ marginTop: 30, flexDirection:"column", backgroundColor:"#424242", opacity: 0.7137, width:"100%", height: 200, borderRadius: 10, padding: 15}}>
+                    <Text style={{fontFamily: "Inter_18pt-SemiBold", color: "#8E8E93", fontSize: 20, margin: 0}}>Expenses</Text>
+                    <View style={{flexDirection:"row", justifyContent:"space-between", alignContent:"center",alignItems:"center"} }>
+                        <View style={{flexDirection:"column", marginTop: 10, justifyContent:"center"}}>
+                            {presentCategories.map((category) => {
+                                const icon = categoryIconMap[category];
+                                return icon ? (
+                                    <View
+                                        key={category}
+                                        style={{
+                                            flexDirection: "row",
+                                            alignItems: "center",
+                                            marginVertical: 4,
+                                        }}
+                                    >
+                                        <View
+                                            style={{
+                                                width: iconSize,
+                                                height: iconSize,
+                                                justifyContent: "center",
+                                                alignItems: "center",
+                                                marginRight: 8,
+                                            }}
+                                        >
+                                            <MaterialCommunityIcons
+                                                name={icon.name}
+                                                size={iconSize}
+                                                color={icon.color}
+                                            />
+                                        </View>
+                                        <Text
+                                            style={{
+                                                color: "#AEAEB2",
+                                                fontSize: 14,
+                                                fontFamily: "Inter_18pt-Regular",
+                                            }}
+                                        >
+                                            {category}
+                                        </Text>
+                                    </View>
+                                ) : null;
+                            })}
+                        </View>
+                        <View>
+                            {isLoading?(
+                                <ActivityIndicator></ActivityIndicator>
+                            ): (
+                                <PieChart
+                                    widthAndHeight={widthAndHeight}
+                                    series={series}
+                                    cover={0.65}
+                                    
+                                />)}
+                        </View>
                     </View>
                 </View>
+                <View style={{ backgroundColor:"#1F1F1F", height:10, width:"90%", borderBottomEndRadius:10,borderBottomLeftRadius:10}}>
+                </View>
             </View>
+            <View style={{flexDirection:"column", marginTop:15}}>
+                <View style={{ flexDirection:"row", justifyContent:"space-between", alignItems:"baseline"}}>
+                    <View>
+                        <Text style={{ fontFamily :"Inter_18pt-Bold", fontSize:22, color:"#C62828"}}>Wallet</Text>
+                    </View>
+                    <View style={{flexDirection:"row"}}>
+                        <Text style={{fontFamily:"Inter_18pt-Regular", color:"#AEAEB2", fontSize:15, marginRight:6}}>
+                            Filter    
+                        </Text>
+                        <Text style={{fontFamily:"Inter_18pt-Regular", color:"#ECEFF1", fontSize:15}}>
+                            See all
+                        </Text>
+                    </View>
+                </View>
+                <GestureHandlerRootView style={{height: 160}}>
+                    <ScrollView style={{marginTop: 15}}>
+                        {expenditure.map((expense, index) => (
+                            <View key={index} style={styles.expenseItem}>
+                                <View style={styles.expenseLeftSection}>
+                                    <View style={[styles.categoryIcon, {backgroundColor: categoryIconMap[expense.category]?.color || '#9E9E9E'}]}>
+                                        <MaterialCommunityIcons
+                                            name={categoryIconMap[expense.category]?.name || 'cash'}
+                                            size={20}
+                                            color="#FFFFFF"
+                                        />
+                                    </View>
+                                    <View style={styles.expenseDetails}>
+                                        <Text style={styles.expenseCategory}>{expense.category}</Text>
+                                        <Text style={styles.vehicleId}>{expense.vehicle_id}</Text>
+                                    </View>
+                                </View>
+                                <View style={styles.expenseRightSection}>
+                                    <Text style={styles.expenseAmount}>₹{expense.amount}</Text>
+                                    <Text style={styles.expenseDate}>{formatDate(expense.date)}</Text>
+                                </View>
+                            </View>
+                        ))}
+                        {expenditure.length === 0 && !isLoading && (
+                            <View style={styles.noExpensesContainer}>
+                                <Text style={styles.noExpensesText}>No expenses found</Text>
+                            </View>
+                        )}
+                        {isLoading && (
+                            <View style={styles.loadingContainer}>
+                                <ActivityIndicator color="#C62828" />
+                                <Text style={styles.loadingText}>Loading expenses...</Text>
+                            </View>
+                        )}
+                    </ScrollView>
+                </GestureHandlerRootView>
+            </View>
+        
+            
         </View>
     );
 }
+
+const styles = StyleSheet.create({
+    expenseItem: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        backgroundColor: '#1F1F1F',
+        borderRadius: 12,
+        padding: 16,
+        marginBottom: 12,
+    },
+    expenseLeftSection: {
+        flexDirection: 'row',
+        alignItems: 'center',
+    },
+    categoryIcon: {
+        width: 40,
+        height: 40,
+        borderRadius: 20,
+        justifyContent: 'center',
+        alignItems: 'center',
+        marginRight: 12,
+    },
+    expenseDetails: {
+        flexDirection: 'column',
+    },
+    expenseCategory: {
+        color: '#FFFFFF',
+        fontSize: 16,
+        fontFamily: 'Inter_18pt-SemiBold',
+    },
+    vehicleId: {
+        color: '#8E8E93',
+        fontSize: 14,
+        fontFamily: 'Inter_18pt-Regular',
+        marginTop: 4,
+    },
+    expenseRightSection: {
+        alignItems: 'flex-end',
+    },
+    expenseAmount: {
+        color: '#FFFFFF',
+        fontSize: 16,
+        fontFamily: 'Inter_18pt-SemiBold',
+    },
+    expenseDate: {
+        color: '#8E8E93',
+        fontSize: 14,
+        fontFamily: 'Inter_18pt-Regular',
+        marginTop: 4,
+    },
+    noExpensesContainer: {
+        padding: 20,
+        alignItems: 'center',
+    },
+    noExpensesText: {
+        color: '#8E8E93',
+        fontFamily: 'Inter_18pt-Regular',
+        fontSize: 16,
+    },
+    loadingContainer: {
+        padding: 20,
+        alignItems: 'center',
+    },
+    loadingText: {
+        color: '#8E8E93',
+        fontFamily: 'Inter_18pt-Regular',
+        fontSize: 16,
+        marginTop: 8,
+    },
+});
