@@ -1,10 +1,14 @@
 import React, { use, useEffect } from "react";
-import { View, Image, FlatList, TextInput, Button, Modal, ActivityIndicator, StyleSheet} from "react-native";
+import { View, Image, FlatList, TextInput, Button, Modal, ActivityIndicator, StyleSheet, TouchableOpacity} from "react-native";
 import { ScrollView, Text, GestureHandlerRootView} from "react-native-gesture-handler";
 import { AuthContext } from "../authstack/AuthContext";
 import { useContext } from "react";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import PieChart from "react-native-pie-chart";
+import DropdownComponent from "../Elements/DropDownComponent";
+import DropdownComponentVehicle from "../Elements/DropDownComponentVehicle";
+import CalenderComponent from "../Elements/CalenderComponent";
+
 
 type UserDetails = {
     name: string;
@@ -26,17 +30,21 @@ export default function Garage() {
     const [monthly_expenditure, setMonthlyExpenditure] = React.useState<number>(0);
     const [expenditure, setExpenditure] = React.useState<Expense[]>([]);
     const [isLoading, setIsLoading] = React.useState(true)
+    const [isModalVisible, setIsModalVisible] = React.useState(false)
+    const [isSeeAllVisible, setIsSeeAllVisible] = React.useState(false)
     const user_id = userInfo?.user.id;
     const profile_picture = userInfo?.user.photo;
     const today = new Date();
     const year = today.getFullYear();
     const month = String(today.getMonth() + 1).padStart(2, '0'); // add leading zero
     const monthName = new Date().toLocaleString('default', { month: 'long' });
-    console.log(monthName); // 👉 "May"
-    const day = String(today.getDate()).padStart(2, '0');
-    const formattedDate = `${year}-${month}-${day}`;
-    console.log("Current date:", formattedDate); 
-    console.log(month)
+    const [categoryValue, setCategoryValue] = React.useState<string | null>(null)
+    const [vehicleValue, setVehicleValue] = React.useState<string | null>(null)
+    const [startDate, setStartDate] = React.useState<string | null>(null)
+    const [endDate, setEndDate] = React.useState<string | null>(null)
+    const [monthly_expenditure_data, setMonthlyExpenditureData] = React.useState<Expense[]>([]);
+
+    
 
     const get_user_details = async () => {
         const response = await fetch(`http://192.168.1.8:8001/users/${user_id}`, {
@@ -50,11 +58,8 @@ export default function Garage() {
         console.log("User details", data);
     }
 
-    const get_user_expenditure_monthly = async () => {
-        const params = {
-            start_date: `${year}-${month}-01`,
-            end_date: `${year}-${month}-31`,
-        }
+    const get_user_expenditure_monthly = async (params: { start_date: string; end_date: string; }) => {
+        
         const response = await fetch(`http://192.168.1.8:8001/expenses/${user_id}?${params}`, {
             method: "GET",
             headers: {
@@ -62,6 +67,7 @@ export default function Garage() {
             },
         });
         const data = await response.json();
+        setMonthlyExpenditureData(data)
         const totalExpenditure = data.reduce((acc: number, expense: { amount: number }) => acc + expense.amount, 0);
         setMonthlyExpenditure(totalExpenditure);
         console.log("Monthly expenditure", totalExpenditure);
@@ -88,6 +94,30 @@ export default function Garage() {
         
         
     }
+
+    const setFilters = async (params: {categoryValue?: string, vehicleValue?: string, startDate?: string, endDate?: string}) => {
+    const searchParams = new URLSearchParams();
+    
+    // Add parameters only if they exist
+    if (params.categoryValue) searchParams.append('category', params.categoryValue);
+    if (params.vehicleValue) searchParams.append('vehicle_id', params.vehicleValue);
+    if (params.startDate) searchParams.append('start_date', params.startDate);
+    if (params.endDate) searchParams.append('end_date', params.endDate);
+    
+    const queryString = searchParams.toString();
+    const url = `http://192.168.1.8:8001/expenses/${user_id}${queryString ? `?${queryString}` : ''}`;
+    
+    const response = await fetch(url, {
+        method: "GET",
+        headers: {
+            "Content-Type": "application/json",
+        },
+    });
+    const data = await response.json();
+    setExpenditure(data);
+    console.log("Filtered data:", data);
+    console.log("URL used:", url);
+}
 
     const categoryIconMap: { [key: string]: { name: string; color: string } } = {
         Fuel: { name: 'fuel', color: '#FF6B6B' },
@@ -144,12 +174,20 @@ const series = generatePieChartData();
         const date = new Date(dateString);
         return date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
     };
+
+    const paramsAll = {
+            start_date: `${year}-${month}-01`,
+            end_date: `${year}-${month}-31`,
+        }
+    
     
     useEffect(() => {
         get_user_details();
-        get_user_expenditure_monthly();
+        get_user_expenditure_monthly(paramsAll);
         get_user_expenditure();
     }, []);
+    
+
     
 
 
@@ -260,12 +298,21 @@ const series = generatePieChartData();
                         <Text style={{ fontFamily :"Inter_18pt-Bold", fontSize:22, color:"#C62828"}}>Wallet</Text>
                     </View>
                     <View style={{flexDirection:"row"}}>
+                        <TouchableOpacity onPress={()=>{
+                            setIsModalVisible(true)
+                            }}>
                         <Text style={{fontFamily:"Inter_18pt-Regular", color:"#AEAEB2", fontSize:15, marginRight:6}}>
                             Filter    
                         </Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity onPress={()=>{
+                            get_user_expenditure_monthly(paramsAll)
+                            setIsSeeAllVisible(true)
+                        }}>
                         <Text style={{fontFamily:"Inter_18pt-Regular", color:"#ECEFF1", fontSize:15}}>
                             See all
                         </Text>
+                        </TouchableOpacity>
                     </View>
                 </View>
                 <GestureHandlerRootView style={{height: 160}}>
@@ -299,12 +346,94 @@ const series = generatePieChartData();
                         {isLoading && (
                             <View style={styles.loadingContainer}>
                                 <ActivityIndicator color="#C62828" />
-                                <Text style={styles.loadingText}>Loading expenses...</Text>
+                                <Text style={styles.loadingText}>Putting on Kickstand...</Text>
                             </View>
                         )}
                     </ScrollView>
                 </GestureHandlerRootView>
             </View>
+            <Modal transparent={true} visible={isModalVisible} animationType="fade" onRequestClose={()=>{setIsModalVisible(false)} }>
+                
+                <View style={{flex:1, justifyContent: 'center', alignItems:'center',backgroundColor:"rgba(0, 0, 0, 0.8)" }}>
+                <View style={{flexDirection:"column",width: 300,backgroundColor:"#121212",borderRadius:10, padding:20}}>
+                    <View style={{flexDirection:"row", justifyContent:"space-between", alignItems:"center"}}>
+                    <Text style={{fontFamily:"Inter_18pt-SemiBold", fontSize:20, color:"#C62828"}}>Filter</Text>
+                    <TouchableOpacity onPress={()=>{setIsModalVisible(false)}}>
+                    <MaterialCommunityIcons style={{marginTop:8}}name="close" size={20} color="#900" />
+                    </TouchableOpacity>
+                    </View>
+                    <View style={{justifyContent:"center", alignItems:"center"}}>
+                        <View style={{flexDirection:"row", justifyContent:"space-between",width:"100%",marginTop:10}}>
+                            <DropdownComponent categoryValue={categoryValue} setCategoryValue={setCategoryValue}></DropdownComponent>
+                            <DropdownComponentVehicle vehicleValue={vehicleValue} setVehicleValue={setVehicleValue}></DropdownComponentVehicle>
+                        </View>
+                        <CalenderComponent startDate={startDate} setStartDate={setStartDate} endDate={endDate} setEndDate={setEndDate}></CalenderComponent>
+                    <TouchableOpacity style={{backgroundColor:"#C62828", width:110, height:30, justifyContent:"center",alignItems:"center", borderRadius:10,marginTop:10, }} 
+                        onPress={()=>{
+                            const paramsFilter = {
+                                categoryValue: categoryValue ?? undefined,
+                                vehicleValue: vehicleValue ?? undefined,
+                                startDate: startDate ?? undefined,
+                                endDate: endDate ?? undefined
+                            }
+                            setFilters(paramsFilter)
+                            setIsModalVisible(false)
+                    }}>
+                        <Text style={{fontFamily:"Inter_18pt-SemiBold", color:"#ECEFF1"}}>Apply Filters</Text>
+                    </TouchableOpacity>
+                    
+                    </View>
+                </View>
+                </View>
+            </Modal>
+            <Modal transparent={true} visible={isSeeAllVisible} animationType="fade" onRequestClose={()=>{setIsSeeAllVisible(false)} }>
+                <View style={{flex: 1, backgroundColor: "#121212", padding:20 }}>
+                    <View style={{ flexDirection:"row", justifyContent:"space-between", alignItems:"baseline"}}>
+                        <Text style={{ fontFamily :"Inter_18pt-Bold", fontSize:22, color:"#C62828"}}>Wallet</Text>
+                        <TouchableOpacity onPress={()=>{setIsSeeAllVisible(false)}}>
+                            <MaterialCommunityIcons style={{marginTop:8}}name="close" size={20} color="#900" />
+                        </TouchableOpacity>
+                    </View>
+                    <View>
+                    <GestureHandlerRootView style={{flexGrow:1}}>
+                    <ScrollView style={{marginTop: 15}}>
+                        {monthly_expenditure_data.map((expense, index) => (
+                            <View key={index} style={styles.expenseItem}>
+                                <View style={styles.expenseLeftSection}>
+                                    <View style={[styles.categoryIcon, {backgroundColor: categoryIconMap[expense.category]?.color || '#9E9E9E'}]}>
+                                        <MaterialCommunityIcons
+                                            name={categoryIconMap[expense.category]?.name || 'cash'}
+                                            size={20}
+                                            color="#FFFFFF"
+                                        />
+                                    </View>
+                                    <View style={styles.expenseDetails}>
+                                        <Text style={styles.expenseCategory}>{expense.category}</Text>
+                                        <Text style={styles.vehicleId}>{expense.vehicle_id}</Text>
+                                    </View>
+                                </View>
+                                <View style={styles.expenseRightSection}>
+                                    <Text style={styles.expenseAmount}>₹{expense.amount}</Text>
+                                    <Text style={styles.expenseDate}>{formatDate(expense.date)}</Text>
+                                </View>
+                            </View>
+                        ))}
+                        {expenditure.length === 0 && !isLoading && (
+                            <View style={styles.noExpensesContainer}>
+                                <Text style={styles.noExpensesText}>No expenses found</Text>
+                            </View>
+                        )}
+                        {isLoading && (
+                            <View style={styles.loadingContainer}>
+                                <ActivityIndicator color="#C62828" />
+                                <Text style={styles.loadingText}>Putting on Kickstand...</Text>
+                            </View>
+                        )}
+                    </ScrollView>
+                    </GestureHandlerRootView>
+                    </View>
+                </View>
+            </Modal>
         
             
         </View>

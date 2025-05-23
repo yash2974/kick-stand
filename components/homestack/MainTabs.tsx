@@ -48,8 +48,8 @@ export default function MainTabs() {
                     case 'Rides':
                       iconName = 'motorbike';
                       break;
-                    case 'Start Session':
-                      iconName = 'play-circle-outline';
+                    case 'Host':
+                      iconName = 'bullhorn-variant';
                       break;
                     case 'Garage':
                       iconName = 'garage';
@@ -77,7 +77,7 @@ export default function MainTabs() {
   })}>
       <Tab.Screen name="Forums" component={Forums} />
       <Tab.Screen name="Rides" component={Forums} />
-      <Tab.Screen name="Start Session" component={Forums}/>
+      <Tab.Screen name="Host" component={Forums}/>
       <Tab.Screen name="Garage" component={Garage} />
       <Tab.Screen name="User" component={UserProfile} />
       {/* Add more tabs as needed */}
