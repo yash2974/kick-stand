@@ -3,16 +3,17 @@ package main
 import (
 	"context"
 	"net/http"
+	"os"
 	"time"
 
 	"github.com/gin-gonic/gin"
 	"github.com/golang-jwt/jwt/v5"
+	"github.com/joho/godotenv"
 	"google.golang.org/api/idtoken"
 )
 
-var googleClientID = "1051316255409-0e7k2761dcklb6o31blgp8hfukvj8sae.apps.googleusercontent.com"
-var jwtSecret = []byte("L2hv13NzP2+1LRqeo5Fy/6WX4sykYXkBs7+ld7g/mjE=")
-
+var googleClientID string
+var jwtSecret []byte
 
 type TokenRequest struct {
 	IdToken string `json:"idToken"`
@@ -31,17 +32,15 @@ func verifyGoogleAndIssueJWT(c *gin.Context) {
 		return
 	}
 
-	// Extract user info
 	email := payload.Claims["email"].(string)
 	name := payload.Claims["name"].(string)
-	sub := payload.Claims["sub"].(string) // Google's user ID
+	sub := payload.Claims["sub"].(string)
 
-	// Create your JWT
 	token := jwt.NewWithClaims(jwt.SigningMethodHS256, jwt.MapClaims{
 		"sub":   sub,
 		"email": email,
 		"name":  name,
-		"exp":   time.Now().Add(time.Hour * 168).Unix(), // expires in 1 day
+		"exp":   time.Now().Add(time.Hour * 168).Unix(),
 	})
 
 	signedToken, err := token.SignedString(jwtSecret)
@@ -53,14 +52,23 @@ func verifyGoogleAndIssueJWT(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{
 		"token": signedToken,
 		"user": gin.H{
-			"email":  email,
-			"name":   name,
+			"email":     email,
+			"name":      name,
 			"google_id": sub,
 		},
 	})
 }
 
 func main() {
+	// Load .env
+	if err := godotenv.Load(); err != nil {
+		panic("Error loading .env file")
+	}
+
+	// Read from env
+	googleClientID = os.Getenv("GOOGLE_CLIENT_ID")
+	jwtSecret = []byte(os.Getenv("JWT_SECRET"))
+
 	r := gin.Default()
 	r.POST("/api/auth/google", verifyGoogleAndIssueJWT)
 	r.Run(":8080")

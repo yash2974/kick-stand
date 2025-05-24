@@ -9,11 +9,16 @@ from pydantic import BaseModel
 from motor.motor_asyncio import AsyncIOMotorClient
 from bson import ObjectId
 from typing import List, Optional
+import os
+from dotenv import load_dotenv
+
+load_dotenv()
 
 models.Base.metadata.create_all(bind=database.engine)
 app = FastAPI()
 
-client = AsyncIOMotorClient("mongodb+srv://kickstand:Yashprerna%4093105@cluster0.wb4qw2d.mongodb.net/")
+mongo_uri = os.getenv("MONGO_URI")
+client = AsyncIOMotorClient(mongo_uri)
 db = client["kickstand"]
 users_collection = db["users"]
 vehicles_collection = db["bike_data"]

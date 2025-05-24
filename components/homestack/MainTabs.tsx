@@ -4,6 +4,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Forums from './Forums'; // Extract Forums into a separate component
 import Garage from './Garage'; // Extract Garage into a separate component
 import UserProfile from './UserProfile'; // Extract UserProfile into a separate component
+import Host from './Host';
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import { View } from 'react-native';
 
