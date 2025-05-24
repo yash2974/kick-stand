@@ -110,3 +110,4 @@ def get_expenses_by_user_id(
     if not expenses:
         raise HTTPException(status_code=404, detail="No expenses found")
     return expenses
+
