@@ -1,5 +1,6 @@
 from datetime import date
 from fastapi import FastAPI, Depends, HTTPException, Query
+from sqlalchemy import func
 from sqlalchemy.orm import Session
 import models
 import schema
@@ -111,3 +112,83 @@ def get_expenses_by_user_id(
         raise HTTPException(status_code=404, detail="No expenses found")
     return expenses
 
+@app.post("/rides/", response_model=schema.Ride)
+def create_ride(ride: schema.Ride, db: Session = Depends(get_db)):
+    ride_data = ride.model_dump()
+    db_ride = models.Ride(**ride_data)
+    db.add(db_ride)
+    db.commit()
+    db.refresh(db_ride)
+    return db_ride  
+
+@app.get("/rides/", response_model=List[schema.RideWithInviteCount])
+def get_rides(created_by: Optional[str] = Query(None), db: Session = Depends(get_db)):
+    # Build the base query with LEFT JOIN and COUNT
+    query = db.query(
+        models.Ride.ride_id,
+        models.Ride.created_by,
+        models.Ride.title,
+        models.Ride.description,
+        models.Ride.start_location,
+        models.Ride.end_location,
+        models.Ride.start_time,
+        models.Ride.end_time,
+        models.Ride.current_riders,
+        models.Ride.created_at,
+        models.Ride.image_url,
+        # Add any other fields from your Ride model here
+        func.count(models.RideJoinRequest.request_id).label('invite_count')
+    ).outerjoin(
+        models.RideJoinRequest, 
+        models.Ride.ride_id == models.RideJoinRequest.ride_id
+    ).group_by(
+        models.Ride.ride_id,
+        models.Ride.created_by,
+        models.Ride.title,
+        models.Ride.description,
+        models.Ride.start_location,
+        models.Ride.end_location,
+        models.Ride.start_time,
+        models.Ride.end_time,
+        models.Ride.current_riders,
+        models.Ride.created_at,
+        models.Ride.image_url
+        # Include all the same fields in GROUP BY
+    )
+    
+    # Apply filter if created_by is provided
+    if created_by:
+        query = query.filter(models.Ride.created_by == created_by)
+    
+    # Order by start_time descending
+    query = query.order_by(models.Ride.start_time.desc())
+    
+    # Execute the query
+    rides = query.all()
+    
+    if not rides:
+        raise HTTPException(status_code=404, detail="No rides found")
+    
+    return rides
+
+@app.get("/rides/ridejoinrequests/{ride_id}", response_model=List[schema.RideJoinRequests])
+def get_ride_join_requests(ride_id: int, db: Session = Depends(get_db)):
+   
+    requests = db.query(models.RideJoinRequest).filter(models.RideJoinRequest.ride_id == ride_id).all()
+    if not requests:
+        raise HTTPException(status_code=404, detail="No join requests found for this ride")
+    return requests
+
+
+@app.post("/rides/ridejoinrequests/", response_model=schema.RideJoinRequests)
+def create_ride_join_request(request: schema.RideJoinRequests, db: Session = Depends(get_db)):
+    request_data = request.model_dump()
+    db_request = models.RideJoinRequest(**request_data)
+    db.add(db_request)
+    db.commit()
+    db.refresh(db_request)
+    return db_request
+
+
+
+# need to join the riderequests output table with the users table to get the user details so that i can the username also

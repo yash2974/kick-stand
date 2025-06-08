@@ -37,6 +37,7 @@ class Ride(Base):
     end_time = Column(DateTime, nullable=True)
     current_riders = Column(Integer, default=1)
     created_at = Column(DateTime, server_default=func.now())
+    image_url = Column(String, nullable=True)
 
 class RideParticipant(Base):
     __tablename__ = "rideparticipants"
@@ -56,7 +57,7 @@ class RideJoinRequest(Base):
     user_id = Column(String, ForeignKey("users.user_id"), nullable=False)
     status = Column(String, nullable=False, default="pending")  # 'pending', 'approved', 'rejected'
     requested_at = Column(DateTime, server_default=func.now())
-
+    
     __table_args__ = (
         UniqueConstraint("ride_id", "user_id", name="uq_ride_user_request"),
     )

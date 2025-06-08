@@ -4,7 +4,8 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Forums from './Forums'; // Extract Forums into a separate component
 import Garage from './Garage'; // Extract Garage into a separate component
 import UserProfile from './UserProfile'; // Extract UserProfile into a separate component
-import Host from './Host';
+import Rides from './Rides'; // Extract Rides into a separate component
+import Host from './Host'; // Extract Host into a separate component
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import { View } from 'react-native';
 
@@ -77,8 +78,8 @@ export default function MainTabs() {
     tabBarInactiveTintColor: '#888',
   })}>
       <Tab.Screen name="Forums" component={Forums} />
-      <Tab.Screen name="Rides" component={Forums} />
-      <Tab.Screen name="Host" component={Forums}/>
+      <Tab.Screen name="Rides" component={Rides} />
+      <Tab.Screen name="Host" component={Host}/>
       <Tab.Screen name="Garage" component={Garage} />
       <Tab.Screen name="User" component={UserProfile} />
       {/* Add more tabs as needed */}
