@@ -229,7 +229,9 @@ const series = generatePieChartData();
 
 
     return (
-        <View style={{ flex: 1, flexDirection:"column", backgroundColor: "#121212", padding: 25,position:"relative" }}>
+        <View style={{ flex: 1, backgroundColor: "#121212", position: "relative" }}>
+  <ScrollView contentContainerStyle={{ flexGrow: 1, padding: 25, justifyContent: "space-between" }}>
+
             <View style={{ flexDirection: "row", alignItems:"center" }}>
                 <Text style={{ color : "#C62828" ,fontFamily:"Inter_18pt-Bold",fontSize: 17 }}>Hello </Text>
                 {/* <Text style={{ color : "#9E9E9E" ,fontFamily:"Inter_18pt-Regular",fontSize: 17 }}>{user_name}</Text> */}
@@ -518,13 +520,14 @@ const series = generatePieChartData();
                     </View>
                 </View>
             </Modal>
+        </ScrollView>
         
         <View style={{ flex: 1,opacity: 0.8}}>
         <TouchableOpacity
             style={{
             position: 'absolute',
-            bottom: 70, 
-            right: 0,
+            bottom: 80, 
+            right: 20,
             backgroundColor: '#C62828',
             borderRadius: 50,
             padding: 16,
