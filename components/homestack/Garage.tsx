@@ -229,7 +229,7 @@ const series = generatePieChartData();
 
 
     return (
-        <View style={{ flex: 1, flexDirection:"column", backgroundColor: "#121212", padding: 25 }}>
+        <View style={{ flex: 1, flexDirection:"column", backgroundColor: "#121212", padding: 25,position:"relative" }}>
             <View style={{ flexDirection: "row", alignItems:"center" }}>
                 <Text style={{ color : "#C62828" ,fontFamily:"Inter_18pt-Bold",fontSize: 17 }}>Hello </Text>
                 {/* <Text style={{ color : "#9E9E9E" ,fontFamily:"Inter_18pt-Regular",fontSize: 17 }}>{user_name}</Text> */}

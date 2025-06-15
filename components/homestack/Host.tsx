@@ -147,7 +147,7 @@ if (!response.ok) {
 
     return (
         <View style={{ flex: 1, justifyContent: "flex-start", backgroundColor : "#121212" , padding: 25}}>
-          <View style={{ height : "60%" }}>
+          <View style={{ flex:3}}>
             <View>
                 <Text style={{ fontSize: 24, fontFamily: "Inter_18pt-SemiBold", color: "#C62828", marginBottom: 10 }}>
                     Active Rides
@@ -168,7 +168,7 @@ if (!response.ok) {
                 }
             />
           </View>
-          <View>
+          <View style={{flex:2}}>
             <Text style={{ fontSize: 24, fontFamily: "Inter_18pt-SemiBold", color: "#C62828", marginBottom: 10 }}>
                 Create Ride
             </Text>
