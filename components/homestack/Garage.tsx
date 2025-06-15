@@ -32,6 +32,7 @@ export default function Garage() {
     const [isLoading, setIsLoading] = React.useState(true)
     const [isModalVisible, setIsModalVisible] = React.useState(false)
     const [isSeeAllVisible, setIsSeeAllVisible] = React.useState(false)
+    const [expenseVisible, setExpenseVisible] = React.useState(false)
     const user_id = userInfo?.user.id;
     const profile_picture = userInfo?.user.photo;
     const today = new Date();
@@ -39,7 +40,10 @@ export default function Garage() {
     const month = String(today.getMonth() + 1).padStart(2, '0'); // add leading zero
     const monthName = new Date().toLocaleString('default', { month: 'long' });
     const [categoryValue, setCategoryValue] = React.useState<string | null>(null)
+    const [expenseCategory, setExpenseCategory] = React.useState<string | null>(null)
     const [vehicleValue, setVehicleValue] = React.useState<string | null>(null)
+    const [expenseVehicle, setExpenseVehicle] = React.useState<number | null>(null)
+    const [expenseVehicleValue, setExpenseVehicleValue] = React.useState<string | null>(null)
     const [startDate, setStartDate] = React.useState<string | null>(null)
     const [endDate, setEndDate] = React.useState<string | null>(null)
     const [monthly_expenditure_data, setMonthlyExpenditureData] = React.useState<Expense[]>([]);
@@ -59,8 +63,8 @@ export default function Garage() {
     }
 
     const get_user_expenditure_monthly = async (params: { start_date: string; end_date: string; }) => {
-        
-        const response = await fetch(`http://192.168.1.8:8001/expenses/${user_id}?${params}`, {
+        const searchParams = new URLSearchParams(params as Record<string, string>).toString();
+        const response = await fetch(`http://192.168.1.8:8001/expenses/${user_id}?${searchParams}`, {
             method: "GET",
             headers: {
                 "Content-Type": "application/json",
@@ -145,7 +149,7 @@ const generatePieChartData = () => {
   const categoryTotals: { [key: string]: number } = {};
   
   // Sum up amounts by category
-  expenditure.forEach((item) => {
+  monthly_expenditure_data.forEach((item) => {
     const { category, amount } = item;
     categoryTotals[category] = (categoryTotals[category] || 0) + amount;
   });
@@ -166,6 +170,32 @@ const generatePieChartData = () => {
   }));
 };
 
+const addExpense = async () => {
+    const response = await fetch(`http://192.168.1.8:8001/expenses/`, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+            user_id: user_id,
+            vehicle_id: expenseVehicleValue,
+            amount: expenseVehicle, 
+            category: expenseCategory,
+            date: new Date().toLocaleDateString('en-CA'), // Local YYYY-MM-DD
+
+        }),
+    });
+    if (response.ok) {
+        const newExpense = await response.json();
+        setExpenditure((prevExpenses) => [...prevExpenses, newExpense]);
+        setExpenseCategory(null);
+        setExpenseVehicleValue(null);
+        console.log("Expense added successfully", newExpense);
+    } else {
+        console.error("Failed to add expense");
+    }
+}
+
 const widthAndHeight = 130;
 const series = generatePieChartData();
 
@@ -175,10 +205,16 @@ const series = generatePieChartData();
         return date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
     };
 
+    const getLastDayOfMonth = (year: number, month: number) => {
+    return new Date(year, month, 0).getDate(); // month is 1-based here
+    };
+
+    const lastDay = getLastDayOfMonth(year, parseInt(month)); // month as number
+
     const paramsAll = {
-            start_date: `${year}-${month}-01`,
-            end_date: `${year}-${month}-31`,
-        }
+        start_date: `${year}-${month}-01`,
+        end_date: `${year}-${month}-${String(lastDay).padStart(2, '0')}`,
+    };
     
     
     useEffect(() => {
@@ -266,7 +302,7 @@ const series = generatePieChartData();
                                         <Text
                                             style={{
                                                 color: "#AEAEB2",
-                                                fontSize: 14,
+                                                fontSize: 13,
                                                 fontFamily: "Inter_18pt-Regular",
                                             }}
                                         >
@@ -397,7 +433,7 @@ const series = generatePieChartData();
                     <View>
                     <GestureHandlerRootView style={{flexGrow:1}}>
                     <ScrollView style={{marginTop: 15}}>
-                        {monthly_expenditure_data.map((expense, index) => (
+                        {expenditure.map((expense, index) => (
                             <View key={index} style={styles.expenseItem}>
                                 <View style={styles.expenseLeftSection}>
                                     <View style={[styles.categoryIcon, {backgroundColor: categoryIconMap[expense.category]?.color || '#9E9E9E'}]}>
@@ -434,8 +470,79 @@ const series = generatePieChartData();
                     </View>
                 </View>
             </Modal>
+            <Modal visible={expenseVisible} animationType="fade" transparent={true} onRequestClose={() => setExpenseVisible(false)}>
+                <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: 'rgba(0, 0, 0, 0.8)' }}>
+                    <View style={{ width: 300, backgroundColor: '#121212', borderRadius: 10, padding: 20 }}>
+                        <View style={{ flexDirection: "row", justifyContent: "space-between", alignItems: "center", marginBottom: 10 }}>
+                        <Text style={{ fontFamily: 'Inter_18pt-SemiBold', fontSize: 20, color: '#C62828' }}>
+                            Add Expense
+                        </Text>
+                        <TouchableOpacity onPress={() => setExpenseVisible(false)}>
+                            <MaterialCommunityIcons name="close" size={22} color="#900" />
+                        </TouchableOpacity>
+                        </View>
+
+                        <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginBottom: 10 }}>
+                        <DropdownComponent categoryValue={expenseCategory} setCategoryValue={setExpenseCategory}></DropdownComponent>
+                        <DropdownComponentVehicle vehicleValue={expenseVehicleValue} setVehicleValue={setExpenseVehicleValue}></DropdownComponentVehicle>
+                        </View>
+                        <TextInput
+                        placeholder="Amount"
+                        placeholderTextColor="#ECEFF1"
+                        keyboardType="numeric"
+                        value={expenseVehicle !== null ? expenseVehicle.toString() : ''}
+                        onChangeText={(text) => {
+                            const numeric = text.replace(/[^0-9]/g, '');
+                            setExpenseVehicle(numeric ? parseInt(numeric, 10) : null);
+                        }}
+                        style={{
+                            backgroundColor: '#424242',
+                            paddingHorizontal: 8,
+                            borderRadius: 10,
+                            borderColor: '#C62828',
+                            borderWidth: 0.5,
+                            fontFamily: 'Inter_18pt-Regular',
+                            marginBottom: 10,
+                            color: '#ECEFF1',
+                        }}
+                        />
+                        <TouchableOpacity
+                            style={{ backgroundColor: '#C62828', paddingVertical: 10, borderRadius: 5, alignItems: 'center' }}
+                            onPress={() => {
+                                addExpense();
+                                setExpenseVisible(false);
+                            }}
+                        >
+                            <Text style={{ color: '#ECEFF1', fontFamily: 'Inter_18pt-SemiBold' }}>Add Expense</Text>
+                        </TouchableOpacity>
+                    </View>
+                </View>
+            </Modal>
         
-            
+        <View style={{ flex: 1,opacity: 0.8}}>
+        <TouchableOpacity
+            style={{
+            position: 'absolute',
+            bottom: 70, 
+            right: 0,
+            backgroundColor: '#C62828',
+            borderRadius: 50,
+            padding: 16,
+            elevation: 5,
+            shadowColor: '#000',
+            shadowOffset: { width: 0, height: 2 },
+            shadowOpacity: 0.3,
+            shadowRadius: 4,
+            }}
+            onPress={() => {
+                setExpenseVisible(true);
+            }}
+        >
+            <MaterialCommunityIcons name="plus" size={32} color="#ECEFF1" />
+        </TouchableOpacity>
+        </View>
+
+
         </View>
     );
 }

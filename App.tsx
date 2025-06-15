@@ -8,6 +8,7 @@ import NewUser from './components/homestack/NewUser';
 import { GoogleSignin } from '@react-native-google-signin/google-signin';
 import { User } from '@react-native-google-signin/google-signin/src/types';
 import { AuthContext, AuthProvider } from './components/authstack/AuthContext';
+import { Gesture, GestureHandlerRootView } from 'react-native-gesture-handler';
 
 export type RootStackParamList = {
   Login: undefined;
@@ -71,9 +72,11 @@ const AppContent = () => {
 
 const App = () => {
   return (
+    <GestureHandlerRootView style={{ flex: 1 }}>
     <AuthProvider>
       <AppContent />
     </AuthProvider>
+    </GestureHandlerRootView>
   );
 };
 

@@ -3,6 +3,7 @@ import {View, Text, TextInput, Image, TouchableOpacity, StyleSheet, FlatList} fr
 import { AuthContext } from "../authstack/AuthContext";
 import { get } from "react-native/Libraries/TurboModule/TurboModuleRegistry";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
+import Invitations from "../Elements/Invitations";
 
 type Ride = {
   image_url: string;
@@ -13,7 +14,8 @@ type Ride = {
   start_time: string;
   end_time: string;
   current_riders: number;
-invite_count: number;
+  ride_id: string;
+  invite_count: number;
 };
 
 export default function Host() {
@@ -27,19 +29,27 @@ export default function Host() {
     const { userInfo } = React.useContext(AuthContext);
     const [rides, setRides] = React.useState([]);
     const [loading, setLoading] = React.useState(true);
+    const [invitationsVisible, setInvitationsVisible] = React.useState(false);
     
-    console.log("User in Host component:", userInfo);
+
     const getRides = async (userId?: string) => {
         try {
         const params = new URLSearchParams();
         if (userId) {
-            params.append("user_id", userId);
+            params.append("created_by", userId);
         }
 
         const response = await fetch(`http://192.168.1.8:8001/rides/?${params.toString()}`);
-        if (!response.ok) {
-            throw new Error("Network response was not ok");
-        }
+        if (response.status === 404) {
+        setRides([]);
+        setLoading(false);
+        return;
+}
+
+if (!response.ok) {
+  throw new Error("Network response was not ok");
+}
+
 
         const data = await response.json();
         setRides(data);
@@ -115,11 +125,11 @@ export default function Host() {
                 <TouchableOpacity style={{ flexDirection: 'row', alignItems: 'center', marginRight: 10, backgroundColor: "#C62828", borderRadius: 20, padding: 5, paddingHorizontal: 10 }}>
                 <Text style={{ color: "#ECEFF1", fontSize: 12 }}>Exit Ride</Text>
                 </TouchableOpacity>
-                <TouchableOpacity style={{ flexDirection: 'row', alignItems: 'center', marginRight: 10, backgroundColor: "#C62828", borderRadius: 20, padding: 5, paddingHorizontal: 10 }}>
+                <TouchableOpacity onPress={()=>setInvitationsVisible(true)} style={{ flexDirection: 'row', alignItems: 'center', marginRight: 10, backgroundColor: "#C62828", borderRadius: 20, padding: 5, paddingHorizontal: 10 }}>
                 <Text style={{ color: "#ECEFF1", fontSize: 12 }}>Invitations {item.invite_count?`(${item.invite_count})`:'' }</Text>
                 </TouchableOpacity>
             </View>
-            
+            <Invitations visible={invitationsVisible} onClose={() => setInvitationsVisible(false)} ride_id ={item.ride_id }></Invitations>
             <View style={{ flexDirection: 'row', alignItems: 'center' }}>
               <MaterialCommunityIcons name="account-group" size={20} color="#9c908f" />
               <Text style={{ color:"#9c908f"}}> {item.current_riders}</Text>
@@ -137,6 +147,7 @@ export default function Host() {
 
     return (
         <View style={{ flex: 1, justifyContent: "flex-start", backgroundColor : "#121212" , padding: 25}}>
+          <View style={{ height : "60%" }}>
             <View>
                 <Text style={{ fontSize: 24, fontFamily: "Inter_18pt-SemiBold", color: "#C62828", marginBottom: 10 }}>
                     Active Rides
@@ -156,9 +167,16 @@ export default function Host() {
                     )
                 }
             />
-            <View>
+          </View>
+          <View>
+            <Text style={{ fontSize: 24, fontFamily: "Inter_18pt-SemiBold", color: "#C62828", marginBottom: 10 }}>
+                Create Ride
+            </Text>
+          </View>
 
-            </View>
+            
+
+        
         </View>
     );
 }
