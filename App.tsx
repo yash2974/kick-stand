@@ -9,6 +9,7 @@ import { GoogleSignin } from '@react-native-google-signin/google-signin';
 import { User } from '@react-native-google-signin/google-signin/src/types';
 import { AuthContext, AuthProvider } from './components/authstack/AuthContext';
 import { Gesture, GestureHandlerRootView } from 'react-native-gesture-handler';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 export type RootStackParamList = {
   Login: undefined;
@@ -48,6 +49,7 @@ const AppContent = () => {
   
   
   return (
+
     <NavigationContainer>
       <Stack.Navigator initialRouteName={isLoggedIn ? "Home" : "Login"}>
         <Stack.Screen 
@@ -73,9 +75,11 @@ const AppContent = () => {
 const App = () => {
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
+    <SafeAreaView style={{flex: 1}}>
     <AuthProvider>
       <AppContent />
     </AuthProvider>
+    </SafeAreaView>
     </GestureHandlerRootView>
   );
 };

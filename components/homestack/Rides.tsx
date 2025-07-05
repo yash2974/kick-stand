@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { View, Text, TextInput, FlatList, StyleSheet, Image, TouchableOpacity } from "react-native";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
+import SafeScreenWrapper from "./SafeScreenWrapper";
 
 type Ride = {
   image_url: string;
@@ -21,7 +22,7 @@ export default function Rides() {
   useEffect(() => { 
     const fetchRides = async () => {
       try {
-        const response = await fetch("http://192.168.1.8:8001/rides/");
+        const response = await fetch("http://192.168.1.9:8001/rides/");
         const data = await response.json();
         setRides(data);
       } catch (error) {
@@ -84,6 +85,8 @@ export default function Rides() {
 
 
   return (
+    <View style={{flex:1, backgroundColor: "#121212"}}>
+    <SafeScreenWrapper>
     <View style={{ flex: 1, justifyContent: "flex-start", backgroundColor : "#121212" , padding: 25}}>
       
         <View>
@@ -113,6 +116,8 @@ export default function Rides() {
             </View>
 
         </View>   
+    </View>
+    </SafeScreenWrapper>
     </View>
       
     

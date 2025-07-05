@@ -51,7 +51,7 @@ export default function Garage() {
     
 
     const get_user_details = async () => {
-        const response = await fetch(`http://192.168.1.8:8001/users/${user_id}`, {
+        const response = await fetch(`http://192.168.1.9:8001/users/${user_id}`, {
             method: "GET",
             headers: {
                 "Content-Type": "application/json",
@@ -64,7 +64,7 @@ export default function Garage() {
 
     const get_user_expenditure_monthly = async (params: { start_date: string; end_date: string; }) => {
         const searchParams = new URLSearchParams(params as Record<string, string>).toString();
-        const response = await fetch(`http://192.168.1.8:8001/expenses/${user_id}?${searchParams}`, {
+        const response = await fetch(`http://192.168.1.9:8001/expenses/${user_id}?${searchParams}`, {
             method: "GET",
             headers: {
                 "Content-Type": "application/json",
@@ -78,7 +78,7 @@ export default function Garage() {
     }
 
     const get_user_expenditure = async () => {
-        const response = await fetch(`http://192.168.1.8:8001/expenses/${user_id}`, {
+        const response = await fetch(`http://192.168.1.9:8001/expenses/${user_id}`, {
             method: "GET",
             headers: {
                 "Content-Type": "application/json",
@@ -109,7 +109,7 @@ export default function Garage() {
     if (params.endDate) searchParams.append('end_date', params.endDate);
     
     const queryString = searchParams.toString();
-    const url = `http://192.168.1.8:8001/expenses/${user_id}${queryString ? `?${queryString}` : ''}`;
+    const url = `http://192.168.1.9:8001/expenses/${user_id}${queryString ? `?${queryString}` : ''}`;
     
     const response = await fetch(url, {
         method: "GET",
@@ -147,6 +147,10 @@ export default function Garage() {
     // Replace the static series array with dynamic data calculated from expenses
 const generatePieChartData = () => {
   const categoryTotals: { [key: string]: number } = {};
+
+  if (!Array.isArray(monthly_expenditure_data)) {
+    return [];
+  }
   
   // Sum up amounts by category
   monthly_expenditure_data.forEach((item) => {
@@ -171,7 +175,7 @@ const generatePieChartData = () => {
 };
 
 const addExpense = async () => {
-    const response = await fetch(`http://192.168.1.8:8001/expenses/`, {
+    const response = await fetch(`http://192.168.1.9:8001/expenses/`, {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
@@ -318,12 +322,12 @@ const series = generatePieChartData();
                             {isLoading?(
                                 <ActivityIndicator></ActivityIndicator>
                             ): (
+                                (series.length > 0) ? (
                                 <PieChart
                                     widthAndHeight={widthAndHeight}
                                     series={series}
                                     cover={0.65}
-                                    
-                                />)}
+                                />):(<Text>no data available</Text>))}
                         </View>
                     </View>
                 </View>

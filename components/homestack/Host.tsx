@@ -4,6 +4,8 @@ import { AuthContext } from "../authstack/AuthContext";
 import { get } from "react-native/Libraries/TurboModule/TurboModuleRegistry";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import Invitations from "../Elements/Invitations";
+import { ScreenContentWrapper } from "react-native-screens";
+import SafeScreenWrapper from "./SafeScreenWrapper";
 
 type Ride = {
   image_url: string;
@@ -39,7 +41,7 @@ export default function Host() {
             params.append("created_by", userId);
         }
 
-        const response = await fetch(`http://192.168.1.8:8001/rides/?${params.toString()}`);
+        const response = await fetch(`http://192.168.1.9:8001/rides/?${params.toString()}`);
         if (response.status === 404) {
         setRides([]);
         setLoading(false);
@@ -63,7 +65,7 @@ if (!response.ok) {
 
     const createRide = async () => {
         try {
-            const response = await fetch("http://192.168.1.8:8001/rides/", {
+            const response = await fetch("http://192.168.1.9:8001/rides/", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -146,8 +148,10 @@ if (!response.ok) {
 
 
     return (
+        <View style={{flex: 1, backgroundColor : "#121212"}}>
+        <SafeScreenWrapper>
         <View style={{ flex: 1, justifyContent: "flex-start", backgroundColor : "#121212" , padding: 25}}>
-          <View style={{ flex:3}}>
+          <View style={{ flex:4}}>
             <View>
                 <Text style={{ fontSize: 24, fontFamily: "Inter_18pt-SemiBold", color: "#C62828", marginBottom: 10 }}>
                     Active Rides
@@ -168,15 +172,17 @@ if (!response.ok) {
                 }
             />
           </View>
-          <View style={{flex:2}}>
-            <Text style={{ fontSize: 24, fontFamily: "Inter_18pt-SemiBold", color: "#C62828", marginBottom: 10 }}>
-                Create Ride
-            </Text>
+          <View style={{flex:1}}>
+            <View style={{backgroundColor:"#C62828", height: "100%", width: "100%"}}>
+              
+            </View>
           </View>
 
             
 
         
+        </View>
+        </SafeScreenWrapper>
         </View>
     );
 }

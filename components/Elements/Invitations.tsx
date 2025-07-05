@@ -26,7 +26,7 @@ export default function Invitations({ visible, onClose, ride_id}: InvitationsPro
 
     const getInvitations = async (ride_Id?: string) => {
         try {
-            const response = await fetch(`http://192.168.1.8:8001/rides/ridejoinrequests/${ride_Id}`);
+            const response = await fetch(`http://192.168.1.9:8001/rides/ridejoinrequests/${ride_Id}`);
             const data = await response.json();
             setInvitations(data);
             console.log("Fetched invitations:", data);
@@ -39,7 +39,7 @@ export default function Invitations({ visible, onClose, ride_id}: InvitationsPro
 
     const handleAcceptInvitation = async (rideId: string, userId: string) => {
         try {
-            const response = await fetch(`http://192.168.1.8:8001/rides/rideparticipants/accept`, {
+            const response = await fetch(`http://192.168.1.9:8001/rides/rideparticipants/accept`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -61,7 +61,7 @@ export default function Invitations({ visible, onClose, ride_id}: InvitationsPro
 
     const handleDeclineInvitation = async (rideId: string, userId: string) => {
         try {
-            const response = await fetch(`http://192.168.1.8:8001/rides/rideparticipants/reject`, {
+            const response = await fetch(`http://192.168.1.9:8001/rides/rideparticipants/reject`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",

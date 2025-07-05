@@ -70,6 +70,7 @@ func main() {
 	jwtSecret = []byte(os.Getenv("JWT_SECRET"))
 
 	r := gin.Default()
+	
 	r.POST("/api/auth/google", verifyGoogleAndIssueJWT)
 	r.Run(":8080")
 }
