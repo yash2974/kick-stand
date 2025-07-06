@@ -151,7 +151,7 @@ if (!response.ok) {
         <View style={{flex: 1, backgroundColor : "#121212"}}>
         <SafeScreenWrapper>
         <View style={{ flex: 1, justifyContent: "flex-start", backgroundColor : "#121212" , padding: 25}}>
-          <View style={{ flex:4}}>
+          <View style={{ flex:3}}>
             <View>
                 <Text style={{ fontSize: 24, fontFamily: "Inter_18pt-SemiBold", color: "#C62828", marginBottom: 10 }}>
                     Active Rides
@@ -172,15 +172,11 @@ if (!response.ok) {
                 }
             />
           </View>
-          <View style={{flex:1}}>
-            <View style={{backgroundColor:"#C62828", height: "100%", width: "100%"}}>
-              
+          <View style={{flex:2}}>
+            <View style={{backgroundColor:"#1F1F1F", height: "100%", width: "100%", borderRadius: 20, padding: 20}}>
+              <Text style={{color: "#fff", fontFamily: "Inter_18pt-SemiBold", fontSize: 24}}>Host Ride</Text>
             </View>
           </View>
-
-            
-
-        
         </View>
         </SafeScreenWrapper>
         </View>
