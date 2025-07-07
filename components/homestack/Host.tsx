@@ -1,11 +1,15 @@
 import React, { use, useEffect } from "react";
-import {View, Text, TextInput, Image, TouchableOpacity, StyleSheet, FlatList} from "react-native";
+import {View, Text, TextInput, Image, TouchableOpacity, StyleSheet, FlatList, Button, Modal} from "react-native";
 import { AuthContext } from "../authstack/AuthContext";
 import { get } from "react-native/Libraries/TurboModule/TurboModuleRegistry";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import Invitations from "../Elements/Invitations";
 import { ScreenContentWrapper } from "react-native-screens";
 import SafeScreenWrapper from "./SafeScreenWrapper";
+import { DateTimePickerComponent } from "../Elements/DateTimePickerComponent";
+import { ScrollView } from "react-native-gesture-handler";
+import CreateRideModal from "../Elements/CreateRideModal";
+
 
 type Ride = {
   image_url: string;
@@ -22,17 +26,13 @@ type Ride = {
 
 export default function Host() {
 
-    const [title, setTitle] = React.useState("");
-    const [description, setDescription] = React.useState("");
-    const [startLocation, setStartLocation] = React.useState("");
-    const [endLocation, setEndLocation] = React.useState("");
-    const [startTime, setStartTime] = React.useState("");
-    const [endTime, setEndTime] = React.useState("");
+    
+    
     const { userInfo } = React.useContext(AuthContext);
     const [rides, setRides] = React.useState([]);
     const [loading, setLoading] = React.useState(true);
     const [invitationsVisible, setInvitationsVisible] = React.useState(false);
-    
+    const [createRidevisible, setCreateRideVisible] = React.useState(false)
 
     const getRides = async (userId?: string) => {
         try {
@@ -63,32 +63,7 @@ if (!response.ok) {
         }
     };
 
-    const createRide = async () => {
-        try {
-            const response = await fetch("http://192.168.1.9:8001/rides/", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify({
-                    title: title,
-                    description: description,
-                    start_location: startLocation,
-                    end_location: endLocation,
-                    start_time: startTime,
-                    end_time: endTime,
-                    current_riders: 1,
-                }),
-            });
-            if (!response.ok) {
-                throw new Error("Network response was not ok");
-            }
-            const data = await response.json();
-            console.log("Ride created successfully:", data);
-        } catch (error) {
-            console.error("Error creating ride:", error);
-        }
-    }
+    
 
     const renderRide = ({ item }: { item: Ride }) => (
       <View style={styles.card}>
@@ -141,44 +116,60 @@ if (!response.ok) {
       </View>
     );
 
-
     useEffect(() => {
         getRides(userInfo?.user.id);
-    }, [userInfo]);
-
-
+    }, [createRidevisible]);
+  
     return (
-        <View style={{flex: 1, backgroundColor : "#121212"}}>
-        <SafeScreenWrapper>
-        <View style={{ flex: 1, justifyContent: "flex-start", backgroundColor : "#121212" , padding: 25}}>
-          <View style={{ flex:3}}>
-            <View>
-                <Text style={{ fontSize: 24, fontFamily: "Inter_18pt-SemiBold", color: "#C62828", marginBottom: 10 }}>
-                    Active Rides
+        <View style={{flex: 4, backgroundColor : "#121212"}}>
+          <SafeScreenWrapper>
+            <View style={{ flex: 1, justifyContent: "flex-start", padding: 25}}>
+              <View style={{ flex:3, marginVertical: 8 }}>
+                <View style={{marginBottom: 8}}>
+                    <Text style={{ fontSize: 24, fontFamily: "Inter_18pt-SemiBold", color: "#C62828"}}>
+                        Active Rides
+                    </Text>
+                </View>
+                <View style={{backgroundColor : "#1f1F1F", flex: 1, borderRadius: 10}}>
+                <FlatList
+                    data={rides}
+                    renderItem={renderRide}
+                    keyExtractor={(item) => item.title}
+                    contentContainerStyle={{ paddingBottom: 20 }}
+                    showsVerticalScrollIndicator={false}
+                    ListEmptyComponent={
+                        loading ? (
+                        <Text style={{ color: '#fff', textAlign: 'center' }}>Loading rides...</Text>
+                        ) : (
+                        <Text style={{ color: '#fff', textAlign: 'center'}}>No rides available</Text>
+                        )
+                    }
+                />
+                </View>
+              </View>
+              <TouchableOpacity
+                onPress={() => setCreateRideVisible(true)}
+                style={{
+                  backgroundColor: "#C62828",
+                  marginTop: 12,
+                  borderRadius: 10,
+                  paddingVertical: 14,
+                  alignItems: "center",
+                }}
+              >
+                <Text style={{ fontSize: 20, fontFamily: "Inter_18pt-SemiBold", color: "#ECEFF1" }}>
+                  Create Ride
                 </Text>
+                <Text style={{ color: "#ECEFF1", fontSize: 12, marginTop: 4 }}>
+                  Tap to start hosting your next journey
+                </Text>
+              </TouchableOpacity>
+
+              
+              
             </View>
-            <FlatList
-                data={rides}
-                renderItem={renderRide}
-                keyExtractor={(item) => item.title}
-                contentContainerStyle={{ paddingBottom: 20 }}
-                showsVerticalScrollIndicator={false}
-                ListEmptyComponent={
-                    loading ? (
-                    <Text style={{ color: '#fff', textAlign: 'center' }}>Loading rides...</Text>
-                    ) : (
-                    <Text style={{ color: '#fff', textAlign: 'center' }}>No rides available</Text>
-                    )
-                }
-            />
-          </View>
-          <View style={{flex:2}}>
-            <View style={{backgroundColor:"#1F1F1F", height: "100%", width: "100%", borderRadius: 20, padding: 20}}>
-              <Text style={{color: "#fff", fontFamily: "Inter_18pt-SemiBold", fontSize: 24}}>Host Ride</Text>
-            </View>
-          </View>
-        </View>
-        </SafeScreenWrapper>
+            <CreateRideModal visible={createRidevisible} onClose={()=>{setCreateRideVisible(false)}}/>
+          </SafeScreenWrapper>
         </View>
     );
 }
@@ -201,3 +192,4 @@ const styles = StyleSheet.create({
   },
   
 });
+
