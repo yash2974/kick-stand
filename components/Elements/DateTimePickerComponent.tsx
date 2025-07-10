@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Button, Text, View } from "react-native";
+import { Button, Text, TouchableOpacity, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import DateTimePicker from "@react-native-community/datetimepicker";
 
@@ -46,16 +46,47 @@ export const DateTimePickerComponent = ({ onStartChange, onEndChange }: Props) =
 
     return (
         <SafeAreaView>
-            <View style={{ flexDirection: "row", justifyContent: "space-between", marginVertical: 8 }}>
-                <View>
-                    <Button title="Start Date" onPress={() => showPickerFor('start', 'date')} />
-                    <Button title="Start Time" onPress={() => showPickerFor('start', 'time')} />
+            <View style={{ flexDirection: "row", justifyContent: "space-between", marginBottom: 8 }}>
+                <View style={{ flex: 1, marginRight: 8 }}>
+                    <View style={{ marginVertical: 8 }}>
+                    <TouchableOpacity
+                        style={{ backgroundColor: "#66BB6A", padding: 5, borderRadius: 8 }}
+                        onPress={() => showPickerFor('start', 'date')}
+                    >
+                        <Text style={{ color: "white", textAlign: "center" }}>Start Date</Text>
+                    </TouchableOpacity>
+                    </View>
+                    <View style={{ marginTop: 4 }}>
+                    <TouchableOpacity
+                        style={{ backgroundColor: "#66BB6A", padding: 5, borderRadius: 8 }}
+                        onPress={() => showPickerFor('start', 'time')}
+                    >
+                        <Text style={{ color: "white", textAlign: "center" }}>Start Time</Text>
+                    </TouchableOpacity>
+                    </View>
                 </View>
-                <View>
-                    <Button title="End Date" onPress={() => showPickerFor('end', 'date')} />
-                    <Button title="End Time" onPress={() => showPickerFor('end', 'time')} />
+
+                <View style={{ flex: 1, marginLeft: 8 }}>
+                    <View style={{ marginVertical: 8 }}>
+                    <TouchableOpacity
+                        style={{ backgroundColor: "#EF6C00", padding: 5, borderRadius: 8 }}
+                        onPress={() => showPickerFor('end', 'date')}
+                    >
+                        <Text style={{ color: "white", textAlign: "center" }}>End Date</Text>
+                    </TouchableOpacity>
+                    </View>
+                    <View style={{ marginTop: 4 }}>
+                    <TouchableOpacity
+                        style={{ backgroundColor: "#EF6C00", padding: 5, borderRadius: 8 }}
+                        onPress={() => showPickerFor('end', 'time')}
+                    >
+                        <Text style={{ color: "white", textAlign: "center" }}>End Time</Text>
+                    </TouchableOpacity>
+                    </View>
                 </View>
-            </View>
+                </View>
+
+
 
             {showPicker && (
                 <DateTimePicker

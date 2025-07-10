@@ -1,6 +1,6 @@
 from datetime import date, datetime
 from fastapi import FastAPI, Depends, HTTPException, Query
-from sqlalchemy import func
+from sqlalchemy import func, or_
 from sqlalchemy.orm import Session
 import models
 import schema
@@ -109,8 +109,17 @@ def get_expenses_by_user_id(
 
     expenses = expenses.all()
     if not expenses:
-        raise HTTPException(status_code=404, detail="No expenses found")
+        return []
     return expenses
+
+def postRider(user_id: str, ride_id: str, db: Session = Depends(get_db)):
+    host_participant = models.RideParticipant(
+        user_id = user_id,
+        ride_id = ride_id
+    )
+    db.add(host_participant)
+    db.commit()
+    db.refresh(host_participant)
 
 @app.post("/rides/", response_model=schema.Ride)
 def create_ride(ride: schema.Ride, db: Session = Depends(get_db)):
@@ -118,13 +127,15 @@ def create_ride(ride: schema.Ride, db: Session = Depends(get_db)):
     db_ride = models.Ride(**ride_data)
     db.add(db_ride)
     db.commit()
+    ride_id = db_ride.ride_id
+    user_id = db_ride.created_by
+    postRider(user_id=user_id, ride_id=ride_id, db=db)
     db.refresh(db_ride)
     return db_ride  
-
+       
 @app.get("/rides/", response_model=List[schema.RideWithInviteCount])
-def get_rides(created_by: Optional[str] = Query(None), db: Session = Depends(get_db)):
-    # Build the base query with LEFT JOIN and COUNT
-    query = db.query(
+def get_rides(query: Optional[str] = Query(""), created_by: Optional[str] = Query(None), db: Session = Depends(get_db)):
+    base_query = db.query(
         models.Ride.ride_id,
         models.Ride.created_by,
         models.Ride.title,
@@ -156,30 +167,68 @@ def get_rides(created_by: Optional[str] = Query(None), db: Session = Depends(get
         # Include all the same fields in GROUP BY
     )
     
-    query = query.filter(models.Ride.end_time > datetime.utcnow())
+    base_query = base_query.filter(models.Ride.end_time > datetime.utcnow())
     
     # Apply filter if created_by is provided
     if created_by:
-        query = query.filter(models.Ride.created_by == created_by)
+        base_query = base_query.filter(models.Ride.created_by == created_by)
     
     # Order by start_time descending
-    query = query.order_by(models.Ride.start_time.desc())
+    base_query = base_query.order_by(models.Ride.start_time.desc())
+
     
-    # Execute the query
-    rides = query.all()
     
+    
+    if query.strip():
+        base_query = base_query.filter(
+            or_(
+                models.Ride.start_location.ilike(f"%{query}%"),
+                models.Ride.end_location.ilike(f"%{query}%"),
+                models.Ride.title.ilike(f"%{query}%"),
+            )
+        )
+    rides = base_query.all()
     if not rides:
         raise HTTPException(status_code=404, detail="No rides found")
-    
     return rides
+    
 
-@app.get("/rides/ridejoinrequests/{ride_id}", response_model=List[schema.RideJoinRequestsWithUser])
+@app.get("/rides/ridejoinrequests/accepted/{ride_id}", response_model=List[schema.RideJoinRequestsWithUser])
 def get_ride_join_requests(ride_id: int, db: Session = Depends(get_db)):
    
     requests = (
         db.query(models.RideJoinRequest, models.User.name)
         .join(models.User, models.RideJoinRequest.user_id == models.User.user_id)
-        .filter(models.RideJoinRequest.ride_id == ride_id)
+        .filter(models.RideJoinRequest.ride_id == ride_id,
+                models.RideJoinRequest.status == "accepted"
+                )
+        .all()
+
+    )
+    if not requests:
+        raise HTTPException(status_code=404, detail="No join requests found for this ride")
+    result = [
+        {
+            "request_id": req.request_id,
+            "ride_id": req.ride_id,
+            "user_id": req.user_id,
+            "status": req.status,
+            "requested_at": req.requested_at,
+            "username": name
+        }
+        for req, name in requests
+    ]
+    return result
+
+@app.get("/rides/ridejoinrequests/pending/{ride_id}", response_model=List[schema.RideJoinRequestsWithUser])
+def get_ride_join_requests(ride_id: int, db: Session = Depends(get_db)):
+   
+    requests = (
+        db.query(models.RideJoinRequest, models.User.name)
+        .join(models.User, models.RideJoinRequest.user_id == models.User.user_id)
+        .filter(models.RideJoinRequest.ride_id == ride_id,
+                models.RideJoinRequest.status == "pending"
+                )
         .all()
 
     )
@@ -216,26 +265,64 @@ def create_ride_participant(participant: schema.RideParticipants, db: Session = 
     db.query(models.RideJoinRequest).filter(
         models.RideJoinRequest.ride_id == participant.ride_id,
         models.RideJoinRequest.user_id == participant.user_id
-    ).delete()
+    ).update({models.RideJoinRequest.status: "accepted"})
+
     db.query(models.Ride).filter(
         models.Ride.ride_id == participant.ride_id
     ).update({
-        models.Ride.current_riders: models.Ride.current_riders + 1
+        models.Ride.current_riders: models.Ride.current_riders+1
     })
     db.commit()
     db.refresh(db_participant)
     return db_participant
 
-@app.post("/rides/ridejoinrequests/reject", response_model=schema.RideJoinRequests)
+@app.post("/rides/rideparticipants/reject", response_model=schema.RideJoinRequests)
 def reject_ride_join_request(request: schema.RideJoinRequests, db: Session = Depends(get_db)):
     request_data = request.model_dump()
     db_request = models.RideJoinRequest(**request_data)
-    
-    # Delete the join request
+
     db.query(models.RideJoinRequest).filter(
         models.RideJoinRequest.ride_id == db_request.ride_id,
         models.RideJoinRequest.user_id == db_request.user_id
     ).delete()
+
+    participant = db.query(models.RideParticipant).filter(
+        models.RideParticipant.ride_id == db_request.ride_id,
+        models.RideParticipant.user_id == db_request.user_id
+    ).first()
+
+    if participant:
+        db.delete(participant)
+        ride = db.query(models.Ride).filter(
+            models.Ride.ride_id == db_request.ride_id
+        ).first()
+        if ride:
+            ride.current_riders = max(0, ride.current_riders - 1)
     
     db.commit()
     return db_request
+
+@app.get("/rides/rideparticipants/{user_id}")
+def get_rides_of_user_joined(user_id: str, db: Session = Depends(get_db)):
+    db_rides = db.query(models.RideParticipant).filter(
+        user_id == models.RideParticipant.user_id
+    ).all()
+    return db_rides
+
+@app.post("/rides/deleteride/{ride_id}")
+def delete_rides(ride_id: int, db: Session = Depends(get_db)):
+    db.query(models.RideParticipant).filter(
+        models.RideParticipant.ride_id == ride_id
+    ).delete()
+    db.query(models.RideJoinRequest).filter(
+        models.RideJoinRequest.ride_id == ride_id
+    ).delete()
+    db.query(models.Ride).filter(
+        models.Ride.ride_id == ride_id
+    ).delete()
+
+    db.commit()
+    return {"message": f"Ride {ride_id} and its participants deleted."}
+
+
+    

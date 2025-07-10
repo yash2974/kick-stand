@@ -9,6 +9,7 @@ import SafeScreenWrapper from "./SafeScreenWrapper";
 import { DateTimePickerComponent } from "../Elements/DateTimePickerComponent";
 import { ScrollView } from "react-native-gesture-handler";
 import CreateRideModal from "../Elements/CreateRideModal";
+import DeleteRide from "../Elements/DeleteRide";
 
 
 type Ride = {
@@ -20,19 +21,19 @@ type Ride = {
   start_time: string;
   end_time: string;
   current_riders: number;
-  ride_id: string;
+  ride_id: number;
   invite_count: number;
 };
 
 export default function Host() {
-
-    
-    
     const { userInfo } = React.useContext(AuthContext);
     const [rides, setRides] = React.useState([]);
     const [loading, setLoading] = React.useState(true);
-    const [invitationsVisible, setInvitationsVisible] = React.useState(false);
+    const [selectedRideId, setSelectedRideId] = React.useState<number | null>(null);
     const [createRidevisible, setCreateRideVisible] = React.useState(false)
+    const [deleteRideVisible, setDeleteRideVisible] = React.useState(false)
+    const [selectedRideIdDelete, setSelectedRideIdDelete] = React.useState<number | null>(null);
+    
 
     const getRides = async (userId?: string) => {
         try {
@@ -40,23 +41,18 @@ export default function Host() {
         if (userId) {
             params.append("created_by", userId);
         }
-
         const response = await fetch(`http://192.168.1.9:8001/rides/?${params.toString()}`);
         if (response.status === 404) {
         setRides([]);
         setLoading(false);
         return;
-}
-
-if (!response.ok) {
-  throw new Error("Network response was not ok");
-}
-
-
+        }
+        if (!response.ok) {
+          throw new Error("Network response was not ok");
+        }
         const data = await response.json();
         setRides(data);
         console.log("Fetched rides:", data);
-        
         } catch (error) {
             console.error("Error fetching rides:", error);
             return []; 
@@ -99,14 +95,13 @@ if (!response.ok) {
           </View>
           <View style={{ flexDirection: 'row', alignItems: 'center',width: '100%', justifyContent: 'space-between', marginTop: 10 }}>
             <View style={{ flexDirection:'row'}}>
-                <TouchableOpacity style={{ flexDirection: 'row', alignItems: 'center', marginRight: 10, backgroundColor: "#C62828", borderRadius: 20, padding: 5, paddingHorizontal: 10 }}>
-                <Text style={{ color: "#ECEFF1", fontSize: 12 }}>Exit Ride</Text>
+                <TouchableOpacity style={{ flexDirection: 'row', alignItems: 'center', marginRight: 10, backgroundColor: "#C62828", borderRadius: 20, padding: 5, paddingHorizontal: 10 }} onPress={()=>setSelectedRideIdDelete(item.ride_id)}>
+                <Text style={{ color: "#ECEFF1", fontSize: 12 }}>Delete Ride</Text>
                 </TouchableOpacity>
-                <TouchableOpacity onPress={()=>setInvitationsVisible(true)} style={{ flexDirection: 'row', alignItems: 'center', marginRight: 10, backgroundColor: "#C62828", borderRadius: 20, padding: 5, paddingHorizontal: 10 }}>
-                <Text style={{ color: "#ECEFF1", fontSize: 12 }}>Invitations {item.invite_count?`(${item.invite_count})`:'' }</Text>
+                <TouchableOpacity onPress={()=>setSelectedRideId(item.ride_id)} style={{ flexDirection: 'row', alignItems: 'center', marginRight: 10, backgroundColor: "#C62828", borderRadius: 20, padding: 5, paddingHorizontal: 10 }}>
+                <Text style={{ color: "#ECEFF1", fontSize: 12 }}>Lobby {item.invite_count?`(${item.invite_count})`:'' }</Text>
                 </TouchableOpacity>
             </View>
-            <Invitations visible={invitationsVisible} onClose={() => setInvitationsVisible(false)} ride_id ={item.ride_id }></Invitations>
             <View style={{ flexDirection: 'row', alignItems: 'center' }}>
               <MaterialCommunityIcons name="account-group" size={20} color="#9c908f" />
               <Text style={{ color:"#9c908f"}}> {item.current_riders}</Text>
@@ -118,11 +113,24 @@ if (!response.ok) {
 
     useEffect(() => {
         getRides(userInfo?.user.id);
-    }, [createRidevisible]);
+    }, [createRidevisible, selectedRideIdDelete]);
   
     return (
         <View style={{flex: 4, backgroundColor : "#121212"}}>
           <SafeScreenWrapper>
+            {selectedRideId && (
+              <Invitations
+                visible={true}
+                ride_id={selectedRideId}
+                onClose={() => setSelectedRideId(null)}
+              />
+            )}
+            {selectedRideIdDelete && (
+              <DeleteRide
+              visible={true}
+              ride_id={selectedRideIdDelete}
+              onClose={()=> setSelectedRideIdDelete(null)}/>
+            )}
             <View style={{ flex: 1, justifyContent: "flex-start", padding: 25}}>
               <View style={{ flex:3, marginVertical: 8 }}>
                 <View style={{marginBottom: 8}}>
@@ -130,7 +138,7 @@ if (!response.ok) {
                         Active Rides
                     </Text>
                 </View>
-                <View style={{backgroundColor : "#1f1F1F", flex: 1, borderRadius: 10}}>
+                <View style={{ flex: 1, borderRadius: 10}}>
                 <FlatList
                     data={rides}
                     renderItem={renderRide}
@@ -179,7 +187,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#222',
     padding: 16,
     marginTop: 8,
-    marginBottom: 16,
+    marginBottom: 10,
     borderRadius: 12,
     elevation: 4,
     flex:1

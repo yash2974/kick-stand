@@ -131,7 +131,7 @@ export default function Garage() {
         Tyres : { name:"circle-double", color:"#4FC3F7" },
         Other: { name: 'beaker-question', color: '#9575CD' },
     };
-
+    
     const presentCategories = Array.from(new Set(expenditure.map((e) => e.category)));
     
     // Updated icon size calculation based on number of categories
