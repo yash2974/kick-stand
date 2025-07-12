@@ -99,7 +99,7 @@ export default function Host() {
                 <Text style={{ color: "#ECEFF1", fontSize: 12 }}>Delete Ride</Text>
                 </TouchableOpacity>
                 <TouchableOpacity onPress={()=>setSelectedRideId(item.ride_id)} style={{ flexDirection: 'row', alignItems: 'center', marginRight: 10, backgroundColor: "#C62828", borderRadius: 20, padding: 5, paddingHorizontal: 10 }}>
-                <Text style={{ color: "#ECEFF1", fontSize: 12 }}>Lobby {item.invite_count?`(${item.invite_count})`:'' }</Text>
+                <Text style={{ color: "#ECEFF1", fontSize: 12 }}>Lobby</Text>
                 </TouchableOpacity>
             </View>
             <View style={{ flexDirection: 'row', alignItems: 'center' }}>

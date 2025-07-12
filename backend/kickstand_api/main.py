@@ -17,7 +17,6 @@ load_dotenv()
 
 models.Base.metadata.create_all(bind=database.engine)
 app = FastAPI()
-
 mongo_uri = os.getenv("MONGO_URI")
 client = AsyncIOMotorClient(mongo_uri)
 db = client["kickstand"]
@@ -189,7 +188,7 @@ def get_rides(query: Optional[str] = Query(""), created_by: Optional[str] = Quer
         )
     rides = base_query.all()
     if not rides:
-        raise HTTPException(status_code=404, detail="No rides found")
+        return []
     return rides
     
 

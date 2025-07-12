@@ -45,13 +45,22 @@ const RideJoinRequest = ({visible, onClose, description, title, ride_id, created
             <View style={{backgroundColor: "#1F1F1F", padding: 20, width: "70%", alignItems: "center", justifyContent: "center", borderRadius: 10}}>
                 <Text style={{color: "#ECEFF1", fontFamily: "Inter_18pt-Bold", fontSize: 15}}>Request saddle space for {title}</Text>
                 <Text style={{color: "#9E9E9E", fontFamily: "Inter_18pt-Bold", fontSize: 10, marginBottom: 10}}>{description}</Text>
-                <TouchableOpacity onPress={()=>sendRideJoinRequest()}>
-                    <View style={{backgroundColor: "#C62828", justifyContent: "center", alignItems: "center", borderRadius: 4, padding: 5}}>
-                        <Text style={{color: "#ECEFF1", fontFamily: "Inter_18pt-Bold", fontSize: 15}}>
-                            Send Request
-                        </Text>
-                    </View>
-                </TouchableOpacity>
+                <View style={{ flexDirection: "row", justifyContent: "space-between", width: "100%"}}>
+                    <TouchableOpacity onPress={()=>sendRideJoinRequest() } style={{ flex: 1, marginRight: 5 }}>
+                        <View style={{backgroundColor: "#C62828", justifyContent: "center", alignItems: "center", borderRadius: 4, padding: 5}}>
+                            <Text style={{color: "#ECEFF1", fontFamily: "Inter_18pt-Regular", fontSize: 12}}>
+                                Send Request
+                            </Text>
+                        </View>
+                    </TouchableOpacity>
+                    <TouchableOpacity onPress={()=>onClose()} style={{ flex: 1, marginLeft: 5 }}>
+                        <View style={{backgroundColor: "#C62828", justifyContent: "center", alignItems: "center", borderRadius: 4, padding: 5}}>
+                            <Text style={{color: "#ECEFF1", fontFamily: "Inter_18pt-Regular", fontSize: 12}}>
+                                Cancel
+                            </Text>
+                        </View>
+                    </TouchableOpacity>
+                </View>
             </View>
         </View>
     </Modal>
