@@ -1,4 +1,6 @@
 import { GoogleSignin } from '@react-native-google-signin/google-signin';
+import * as Keychain from 'react-native-keychain'
+
 
 const BACKEND_URL = 'http://192.168.1.9:8080/api/auth/google'; // Replace with your backend's URL
 
@@ -13,6 +15,8 @@ GoogleSignin.configure({
 });
 
 export const signIn = async (setUserInfo: (user: any) => void) => {
+
+  console.log("geg")
   
   try {
     // Prompt user to sign in with Google
@@ -45,6 +49,7 @@ export const signIn = async (setUserInfo: (user: any) => void) => {
     // Handle JWT and user info (e.g., save token in secure storage)
     setUserInfo(userSignIn.data); // Set user info in context
     const { token, user } = data;
+    await Keychain.setGenericPassword('jwt', token)
     console.log('JWT:', token);
     console.log('User:', user);
 

@@ -1,9 +1,10 @@
-import React, { use } from "react";
-import { View, Text, StyleSheet, Modal, Touchable, TouchableOpacity } from "react-native";
-import { useEffect } from "react";
+import React from "react";
+import { View, Text, StyleSheet, Modal, Touchable, TouchableOpacity, Linking } from "react-native";
+import { useEffect, useState } from "react";
 import { get } from "react-native/Libraries/TurboModule/TurboModuleRegistry";
 import { FlatList } from "react-native-gesture-handler";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
+import { Link } from "@react-navigation/native";
 
 type InvitationsProps = {
   visible: boolean;
@@ -21,7 +22,7 @@ type Ride = {
 };
 
 export default function Invitations({ visible, onClose, ride_id}: InvitationsProps) {
-    const [lobby, setLobby] = React.useState([]);
+    const [lobby, setLobby] = useState([]);
     const [invitations, setInvitations] = React.useState([]);
     const [loading, setLoading] = React.useState(true);
 
@@ -110,7 +111,7 @@ export default function Invitations({ visible, onClose, ride_id}: InvitationsPro
                 <Text style={{fontFamily: "Inter_18pt-Regular", color: "#ECEFF1"}}>{item.username}</Text>
             </View>
             <View style={{flexDirection: "row"}}>
-                <TouchableOpacity onPress={()=>handleAcceptInvitation(item.ride_id, item.user_id)}>
+                <TouchableOpacity onPress={()=>handleAcceptInvitation(item.ride_id, item.user_id)} style={{marginHorizontal: 5}}>
                     <View>
                         <MaterialCommunityIcons name="checkbox-marked" size={30} color="#66BB6A"></MaterialCommunityIcons>
                     </View>
@@ -133,6 +134,11 @@ export default function Invitations({ visible, onClose, ride_id}: InvitationsPro
                 <Text style={{fontFamily: "Inter_18pt-Regular", color: "#ECEFF1"}}>{item.username}</Text>
             </View>
             <View style={{flexDirection: "row"}}>
+                <TouchableOpacity onPress={()=>Linking.openURL(`tel:+91${item.phone}`)} style={{marginHorizontal: 5}}>
+                    <View>
+                        <MaterialCommunityIcons name="phone-outgoing-outline" size={30} color="#66BB6A"></MaterialCommunityIcons>
+                    </View>
+                </TouchableOpacity>
                 <TouchableOpacity onPress={()=>handleDeclineInvitation(item.ride_id, item.user_id)}>
                     <View>
                         <MaterialCommunityIcons name="close-box" size={30} color="#EF6C00" />

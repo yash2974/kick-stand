@@ -96,3 +96,21 @@ class RideWithInviteCount(BaseModel):
     
     class Config:
         from_attributes = True
+
+class CreateForum(BaseModel):
+    title: str
+    content: str
+    upvote: int = 0
+    downvote: int = 0
+    user_id: str
+    tags: list[str]
+    created_at: Optional[datetime] = Field(default_factory=datetime.now)
+    image_url: Optional[str] = None
+
+class PostComment(BaseModel):
+    post_id: str
+    user_id: str
+    text: str
+    created_at: Optional[datetime] = Field(default_factory=datetime.now)
+    parent_comment_id: Optional[str] = None
+

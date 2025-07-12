@@ -20,7 +20,8 @@ app = FastAPI()
 mongo_uri = os.getenv("MONGO_URI")
 client = AsyncIOMotorClient(mongo_uri)
 db = client["kickstand"]
-users_collection = db["users"]
+forums_collection = db["forumPosts"]
+comments_collection = db["forumsComments"]
 vehicles_collection = db["bike_data"]
 
 def get_db():
@@ -47,7 +48,7 @@ def read_user(user_id: str, db: Session = Depends(get_db)):
     return db_user
 
 @app.get("/vehicles/{user_id}", response_model=List[schema.VehicleOut])
-async def get_vehicle_by_user_id(user_id: str, db: Session = Depends(get_db)):
+def get_vehicle_by_user_id(user_id: str, db: Session = Depends(get_db)):
     vehicles = db.query(models.Vehicle).filter(models.Vehicle.user_id == user_id).all()
     if not vehicles:
         raise HTTPException(status_code=404, detail="Vehicle not found")
@@ -323,6 +324,77 @@ def delete_rides(ride_id: int, db: Session = Depends(get_db)):
 
     db.commit()
     return {"message": f"Ride {ride_id} and its participants deleted."}
+
+@app.post("/create-forum/")
+async def create_forum_post(forum: schema.CreateForum):
+    forum_dict = forum.model_dump()
+    result = await forums_collection.insert_one(forum_dict)
+    return {
+        "message": "Forum post created",
+        "post_id": str(result.inserted_id)
+    }
+
+@app.get("/forums")
+async def forums():
+    forums = []
+    forums_posts = forums_collection.find()
+    async for forum in forums_posts:
+        forum["_id"] = str(forum["_id"])
+        forums.append(forum)
+    return forums
+
+@app.get("/forums/{post_id}")
+async def get_forums(post_id: str):
+    forum = await forums_collection.find_one({"_id": ObjectId(post_id)})
+    if forum:
+        forum["_id"] = str(forum["_id"])
+        return forum
+    return {"error"}
+
+@app.post("/comment/{post_id}")
+async def post_comment(post_id: str, comment: schema.PostComment):
+    comment_dict = comment.model_dump()
+    result = await comments_collection.insert_one(comment_dict)
+    return{
+        "message": "Comment posted",
+        "comment_id": str(result.inserted_id)
+    }
+
+@app.get("/comment/{post_id}")
+async def get_comments(post_id: str):
+    comments = []
+    cursor = comments_collection.find({"post_id": post_id})
+    async for comment in cursor:
+        comment["_id"] = str(comment["_id"])
+        comments.append(comment)
+    return comments
+    
+
+@app.post("/update/{query}/{post_id}")
+async def vote_post(query: str, post_id: str):
+    if query not in ["upvote", "downvote"]: 
+        raise HTTPException(status_code=400, detail="Invalid vote type")
+    result = await forums_collection.update_one(
+        {"_id": ObjectId(post_id)},
+        {"$inc": {query: 1}}
+    )
+    if result.modified_count == 1:
+        return {"message": "succesfully"}
+    else:
+        return {"error": "unsuccesful"}
+    
+@app.post("/remove-post/{post_id}")
+async def delete_post(post_id: str):
+    result = await forums_collection.delete_one({"_id": ObjectId(post_id)})
+    if result.deleted_count == 1:
+        result_comment = await comments_collection.delete_many({"post_id": post_id})
+        return {"message": "Deleted", 
+                "comments_deleted": result_comment.deleted_count}
+    return {"error": "Not found"}
+
+
+
+
 
 
     
