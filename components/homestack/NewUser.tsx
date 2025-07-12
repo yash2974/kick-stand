@@ -19,7 +19,7 @@ export default function NewUser() {
         
         const userData = {name, email, phone, user_id}
         try{
-            const response = await fetch('http://192.168.1.9:8001/users/',{
+            const response = await fetch('https://kick-stand.onrender.com/users/',{
                 method:'POST',
                 headers:{
                     'Content-Type':'application/json',

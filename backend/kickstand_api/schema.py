@@ -72,7 +72,9 @@ class RideJoinRequestsWithUser(BaseModel):
     user_id: str
     status: str
     requested_at: datetime
-    username: str  # Assuming you want to include the user's name in the response
+    username: str
+    phone: str
+
 
     class Config:
         from_attributes = True

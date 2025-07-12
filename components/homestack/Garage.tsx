@@ -51,7 +51,7 @@ export default function Garage() {
     
 
     const get_user_details = async () => {
-        const response = await fetch(`http://192.168.1.9:8001/users/${user_id}`, {
+        const response = await fetch(`https://kick-stand.onrender.com/users/${user_id}`, {
             method: "GET",
             headers: {
                 "Content-Type": "application/json",
@@ -64,7 +64,7 @@ export default function Garage() {
 
     const get_user_expenditure_monthly = async (params: { start_date: string; end_date: string; }) => {
         const searchParams = new URLSearchParams(params as Record<string, string>).toString();
-        const response = await fetch(`http://192.168.1.9:8001/expenses/${user_id}?${searchParams}`, {
+        const response = await fetch(`https://kick-stand.onrender.com/expenses/${user_id}?${searchParams}`, {
             method: "GET",
             headers: {
                 "Content-Type": "application/json",
@@ -78,7 +78,7 @@ export default function Garage() {
     }
 
     const get_user_expenditure = async () => {
-        const response = await fetch(`http://192.168.1.9:8001/expenses/${user_id}`, {
+        const response = await fetch(`https://kick-stand.onrender.com/expenses/${user_id}`, {
             method: "GET",
             headers: {
                 "Content-Type": "application/json",
@@ -109,7 +109,7 @@ export default function Garage() {
     if (params.endDate) searchParams.append('end_date', params.endDate);
     
     const queryString = searchParams.toString();
-    const url = `http://192.168.1.9:8001/expenses/${user_id}${queryString ? `?${queryString}` : ''}`;
+    const url = `https://kick-stand.onrender.com/expenses/${user_id}${queryString ? `?${queryString}` : ''}`;
     
     const response = await fetch(url, {
         method: "GET",
@@ -175,7 +175,7 @@ const generatePieChartData = () => {
 };
 
 const addExpense = async () => {
-    const response = await fetch(`http://192.168.1.9:8001/expenses/`, {
+    const response = await fetch(`https://kick-stand.onrender.com/expenses/`, {
         method: "POST",
         headers: {
             "Content-Type": "application/json",

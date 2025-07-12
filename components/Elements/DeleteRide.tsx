@@ -10,7 +10,7 @@ type DeleteRideProps = {
 const DeleteRide = ({ visible, onClose, ride_id }: DeleteRideProps) => {
 
   const deleteRides = async (ride_id: number) => {
-          const response = await fetch(`http://192.168.1.9:8001/rides/deleteride/${ride_id}`, {
+          const response = await fetch(`https://kick-stand.onrender.com/rides/deleteride/${ride_id}`, {
             method: "POST",
           });
           if (response.ok){

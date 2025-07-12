@@ -21,7 +21,7 @@ const DropdownComponent: React.FC<Props> = ({ vehicleValue, setVehicleValue}) =>
 
 
     const get_vehicle_user = async () => {
-    const response = await fetch(`http://192.168.1.9:8001/vehicles/${user_id}`, {
+    const response = await fetch(`https://kick-stand.onrender.com/vehicles/${user_id}`, {
             method: "GET",
             headers: {
                 "Content-Type": "application/json",

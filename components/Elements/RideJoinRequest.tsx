@@ -19,7 +19,7 @@ const RideJoinRequest = ({visible, onClose, description, title, ride_id, created
     const { userInfo } = useContext(AuthContext)
     const user_id = userInfo?.user.id
     const sendRideJoinRequest = async () => {
-        const response = await fetch('http://192.168.1.9:8001/rides/ridejoinrequests/', {
+        const response = await fetch('https://kick-stand.onrender.com/rides/ridejoinrequests/', {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",

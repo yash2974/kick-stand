@@ -14,7 +14,7 @@ export default function HomeScreen() {
   const getUserData = async () => {
     try {
       if (!userInfo) return;
-      const response = await fetch(`http://192.168.1.9:8001/users/${userInfo.user.id}`);
+      const response = await fetch(`https://kick-stand.onrender.com/users/${userInfo.user.id}`);
       const data = await response.json();
       setDbUser(data);
       console.log("User data", data);

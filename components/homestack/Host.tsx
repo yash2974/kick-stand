@@ -41,7 +41,7 @@ export default function Host() {
         if (userId) {
             params.append("created_by", userId);
         }
-        const response = await fetch(`http://192.168.1.9:8001/rides/?${params.toString()}`);
+        const response = await fetch(`https://kick-stand.onrender.com/rides/?${params.toString()}`);
         if (response.status === 404) {
         setRides([]);
         setLoading(false);

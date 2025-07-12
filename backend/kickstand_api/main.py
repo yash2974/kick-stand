@@ -196,7 +196,7 @@ def get_rides(query: Optional[str] = Query(""), created_by: Optional[str] = Quer
 def get_ride_join_requests(ride_id: int, db: Session = Depends(get_db)):
    
     requests = (
-        db.query(models.RideJoinRequest, models.User.name)
+        db.query(models.RideJoinRequest, models.User.name, models.User.phone)
         .join(models.User, models.RideJoinRequest.user_id == models.User.user_id)
         .filter(models.RideJoinRequest.ride_id == ride_id,
                 models.RideJoinRequest.status == "accepted"
@@ -213,9 +213,10 @@ def get_ride_join_requests(ride_id: int, db: Session = Depends(get_db)):
             "user_id": req.user_id,
             "status": req.status,
             "requested_at": req.requested_at,
-            "username": name
+            "username": name,
+            "phone": phone
         }
-        for req, name in requests
+        for req, name, phone in requests
     ]
     return result
 

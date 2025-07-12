@@ -33,13 +33,13 @@ export default function Rides() {
 
   const userRides = async () => {
     console.log("enter")
-    const response = await fetch(`http://192.168.1.9:8001/rides/rideparticipants/${user_id}`)
+    const response = await fetch(`https://kick-stand.onrender.com/rides/rideparticipants/${user_id}`)
     const data = await response.json();
     setParticipatedRides(data.map((item: {ride_id:number})=>item.ride_id));
   }
   const fetchRides = async (debouncedSearch: string) => {
     try {
-      const response = await fetch(`http://192.168.1.9:8001/rides?query=${debouncedSearch}`);
+      const response = await fetch(`https://kick-stand.onrender.com/rides?query=${debouncedSearch}`);
       const data = await response.json();
       setRides(data);
       setVisibleRides(data);

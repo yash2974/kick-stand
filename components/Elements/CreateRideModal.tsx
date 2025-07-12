@@ -27,7 +27,7 @@ const CreateRideModal = ({visible, onClose}: CreateRideModalProps) => {
                 return;
             }
             try {
-                const response = await fetch("http://192.168.1.9:8001/rides/", {
+                const response = await fetch("https://kick-stand.onrender.com/rides/", {
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json",

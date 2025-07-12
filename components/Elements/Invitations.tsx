@@ -17,6 +17,7 @@ type Ride = {
     user_id: string;
     status: string;
     username: string;
+    phone: string;
 };
 
 export default function Invitations({ visible, onClose, ride_id}: InvitationsProps) {
@@ -26,13 +27,14 @@ export default function Invitations({ visible, onClose, ride_id}: InvitationsPro
 
     const getInvitations = async (ride_Id?: number, status?: string) => {
         try {
-            const response = await fetch(`http://192.168.1.9:8001/rides/ridejoinrequests/${status}/${ride_Id}`);
+            const response = await fetch(`https://kick-stand.onrender.com/rides/ridejoinrequests/${status}/${ride_Id}`);
             const data = await response.json();
             if(status=="pending"){
                 setInvitations(data);
             }
             else{
                 setLobby(data)
+                console.log(lobby)
             }
             console.log("Fetched invitations:", data);
         } catch (error) {
@@ -45,7 +47,7 @@ export default function Invitations({ visible, onClose, ride_id}: InvitationsPro
 
     const handleAcceptInvitation = async (rideId: number, userId: string) => {
         try {
-            const response = await fetch(`http://192.168.1.9:8001/rides/rideparticipants/accept`, {
+            const response = await fetch(`https://kick-stand.onrender.com/rides/rideparticipants/accept`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -73,7 +75,7 @@ export default function Invitations({ visible, onClose, ride_id}: InvitationsPro
 
     const handleDeclineInvitation = async (rideId: number, userId: string) => {
         try {
-            const response = await fetch(`http://192.168.1.9:8001/rides/rideparticipants/reject`, {
+            const response = await fetch(`https://kick-stand.onrender.com/rides/rideparticipants/reject`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",

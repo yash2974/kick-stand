@@ -25,7 +25,7 @@ export default function Garage() {
     const user_id = userInfo?.user.id;
 
     const get_user_details = async () => {
-        const response = await fetch(`http://192.168.1.9:8001/users/${user_id}`, {
+        const response = await fetch(`https://kick-stand.onrender.com/users/${user_id}`, {
             method: "GET",
             headers: {
                 "Content-Type": "application/json",
