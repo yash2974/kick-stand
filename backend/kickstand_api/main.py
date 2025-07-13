@@ -106,7 +106,7 @@ def create_expense(expense: schema.ExpenseCreate, db: Session = Depends(get_db),
     db.refresh(db_expense)
     return db_expense
 
-@app.get("/expenses", response_model=List[schema.ExpenseCreate])
+@app.get("/expenses/", response_model=List[schema.ExpenseCreate])
 def get_expenses_by_user_id(
     vehicle_id: Optional[str] = Query(None, description="Filter by vehicle ID"),
     start_date: Optional[date] = Query(None, description="Filter by start date"),
