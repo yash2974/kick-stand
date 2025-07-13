@@ -79,6 +79,18 @@ class RideJoinRequestsWithUser(BaseModel):
     class Config:
         from_attributes = True
         orm_mode = True  # Enable ORM mode for compatibility with SQLAlchemy models
+class RideJoinRequestsWithUserPending(BaseModel):
+    request_id: int
+    ride_id: int
+    user_id: str
+    status: str
+    requested_at: datetime
+    username: str
+    phone: str
+
+    class Config:
+        from_attributes = True
+        orm_mode = True  # Enable ORM mode for compatibility with SQLAlchemy models
 
 class RideWithInviteCount(BaseModel):
     ride_id: int

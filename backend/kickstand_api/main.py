@@ -249,7 +249,7 @@ def get_ride_join_requests(ride_id: int, db: Session = Depends(get_db), token_da
     ]
     return result
 
-@app.get("/rides/ridejoinrequests/pending/{ride_id}", response_model=List[schema.RideJoinRequestsWithUser])
+@app.get("/rides/ridejoinrequests/pending/{ride_id}", response_model=List[schema.RideJoinRequestsWithUserPending])
 def get_ride_join_requests(ride_id: int, db: Session = Depends(get_db), token_data: dict = Depends(verify_token)):
    
     requests = (

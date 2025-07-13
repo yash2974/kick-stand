@@ -46,6 +46,10 @@ export default function Invitations({ visible, onClose, ride_id}: InvitationsPro
                     Authorization: `Bearer ${accessToken}`,
                 },
             });
+            if (!response.ok){
+                console.log("error")
+            }
+            else{
             const data = await response.json();
             if(status=="pending"){
                 setInvitations(data);
@@ -55,6 +59,7 @@ export default function Invitations({ visible, onClose, ride_id}: InvitationsPro
                 console.log(lobby)
             }
             console.log("Fetched invitations:", data);
+        }
         } catch (error) {
             console.error("Error fetching invitations:", error);
         } finally {
