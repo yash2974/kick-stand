@@ -3,6 +3,9 @@ import React, { useContext, useEffect } from 'react'
 import { DateTimePickerComponent } from './DateTimePickerComponent';
 import { AuthContext } from '../authstack/AuthContext';
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
+import { getValidAccessToken } from '../../Auth/checkToken';
+import { handleLogout } from '../../Auth/handleLogout';
+import { useNavigation } from '@react-navigation/native';
 type CreateRideModalProps = {
     visible: boolean;
     onClose: ()=> void
@@ -15,12 +18,19 @@ const CreateRideModal = ({visible, onClose}: CreateRideModalProps) => {
     const [description, setDescription] = React.useState("");
     const [startLocation, setStartLocation] = React.useState("");
     const [endLocation, setEndLocation] = React.useState("");
-    const { userInfo } = useContext(AuthContext)
+    const { userInfo, setUserInfo } = useContext(AuthContext)
+    const navigation = useNavigation()
 
     const user_id = userInfo?.user.id
     const image_url = userInfo?.user.photo
 
     const createRide = async () => {
+        const accessToken = await getValidAccessToken();
+            if (!accessToken){
+                onClose();
+                handleLogout(navigation, setUserInfo);
+                return;
+            }
 
             if (!title || !description || !startLocation || !endLocation || !startTime || !endTime){
                 alert("fill all fields");
@@ -31,6 +41,7 @@ const CreateRideModal = ({visible, onClose}: CreateRideModalProps) => {
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json",
+                        Authorization: `Bearer ${accessToken}`,
                     },
                     body: JSON.stringify({
                         created_by : user_id,

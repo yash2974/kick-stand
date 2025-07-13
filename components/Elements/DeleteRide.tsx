@@ -1,5 +1,9 @@
 import { View, Text, Modal, StyleSheet, TouchableOpacity } from 'react-native'
-import React from 'react'
+import React, { useContext } from 'react'
+import { getValidAccessToken } from '../../Auth/checkToken';
+import { handleLogout } from '../../Auth/handleLogout';
+import { AuthContext } from '../authstack/AuthContext';
+import { useNavigation } from '@react-navigation/native';
 
 type DeleteRideProps = {
   visible: boolean;
@@ -8,21 +12,36 @@ type DeleteRideProps = {
 };
 
 const DeleteRide = ({ visible, onClose, ride_id }: DeleteRideProps) => {
+  const { setUserInfo } = useContext(AuthContext)
+  const navigation = useNavigation()
 
   const deleteRides = async (ride_id: number) => {
-          const response = await fetch(`https://kick-stand.onrender.com/rides/deleteride/${ride_id}`, {
-            method: "POST",
-          });
-          if (response.ok){
-            alert("rideDeleteted")
-            
-          }
-          else{
-            alert("failed")
-          }
-          onClose()
-          
+    const accessToken = await getValidAccessToken();
+      if (!accessToken){
+        onClose();
+        handleLogout(navigation, setUserInfo);
+        return;
       }
+      try{
+        const response = await fetch(`https://kick-stand.onrender.com/rides/deleteride/${ride_id}`, {
+          method: "POST",
+          headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${accessToken}`,
+          },
+        });
+        if (response.ok){
+          alert("rideDeleteted")
+        }
+        else{
+          alert("failed")
+        }
+        onClose()
+      }
+      catch (error){
+        console.log("error")
+      }
+  }
 
 
   return (

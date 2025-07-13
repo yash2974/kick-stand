@@ -3,26 +3,32 @@ import { View, Text, Button, StyleSheet } from "react-native";
 import { GestureHandlerRootView, TextInput } from "react-native-gesture-handler";
 import { AuthContext, AuthProvider } from '../authstack/AuthContext';
 import { useNavigation } from "@react-navigation/native";
+import { getValidAccessToken } from "../../Auth/checkToken";
+import { handleLogout } from "../../Auth/handleLogout";
 
 export default function NewUser() {
     const navigation = useNavigation()
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [phone, setPhone] = useState('');
-    const { userInfo } = React.useContext(AuthContext);
+    const { userInfo, setUserInfo} = React.useContext(AuthContext);
     
     const user_id = userInfo?.user.id
     
     console.log(user_id)
 
     const userDetails = async () => {
-        
+        const accessToken = await getValidAccessToken();
+            if (!accessToken){
+                handleLogout(navigation, setUserInfo)
+            }
         const userData = {name, email, phone, user_id}
         try{
             const response = await fetch('https://kick-stand.onrender.com/users/',{
                 method:'POST',
                 headers:{
                     'Content-Type':'application/json',
+                    Authorization: `Bearer ${accessToken}`,
                 },
                 body: JSON.stringify(userData)
             });

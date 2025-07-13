@@ -6,7 +6,7 @@ import RideJoinRequest from "../Elements/RideJoinRequest";
 import { AuthContext } from "../authstack/AuthContext";
 import { getValidAccessToken } from "../../Auth/checkToken";
 import { handleLogout } from "../../Auth/handleLogout";
-import { useNavigation } from "@react-navigation/native";
+import { useNavigation, NavigationProp } from "@react-navigation/native";
 
 type Ride = {
   ride_id: number;
@@ -55,10 +55,24 @@ export default function Rides() {
     const data = await response.json();
     setParticipatedRides(data.map((item: {ride_id:number})=>item.ride_id));
     }
+    catch (error) {
+            console.log("error fetching details")
+    }
   }
   const fetchRides = async (debouncedSearch: string) => {
+    const accessToken = await getValidAccessToken();
+      if (!accessToken){
+          handleLogout(navigation, setUserInfo)
+    }
     try {
-      const response = await fetch(`https://kick-stand.onrender.com/rides?query=${debouncedSearch}`);
+      const response = await fetch(`https://kick-stand.onrender.com/rides?query=${debouncedSearch}`,{
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${accessToken}`,
+        }
+      }
+      );
       const data = await response.json();
       setRides(data);
       setVisibleRides(data);
@@ -178,6 +192,7 @@ useEffect(()=>{
                 title={selectedRide.title}
                 ride_id={selectedRide.ride_id}
                 created_by={selectedRide.created_by}
+                
               /> }
     
             </View>

@@ -1,10 +1,13 @@
-import React from "react";
+import React, { useContext } from "react";
 import { View, Text, StyleSheet, Modal, Touchable, TouchableOpacity, Linking } from "react-native";
 import { useEffect, useState } from "react";
 import { get } from "react-native/Libraries/TurboModule/TurboModuleRegistry";
 import { FlatList } from "react-native-gesture-handler";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
-import { Link } from "@react-navigation/native";
+import { Link, useNavigation } from "@react-navigation/native";
+import { getValidAccessToken } from "../../Auth/checkToken";
+import { handleLogout } from "../../Auth/handleLogout";
+import { AuthContext } from "../authstack/AuthContext";
 
 type InvitationsProps = {
   visible: boolean;
@@ -25,10 +28,24 @@ export default function Invitations({ visible, onClose, ride_id}: InvitationsPro
     const [lobby, setLobby] = useState([]);
     const [invitations, setInvitations] = React.useState([]);
     const [loading, setLoading] = React.useState(true);
+    const { setUserInfo } = useContext(AuthContext)
+    const navigation = useNavigation();
 
     const getInvitations = async (ride_Id?: number, status?: string) => {
+        const accessToken = await getValidAccessToken();
+            if (!accessToken){
+                onClose();
+                handleLogout(navigation, setUserInfo)
+                return;
+        }
         try {
-            const response = await fetch(`https://kick-stand.onrender.com/rides/ridejoinrequests/${status}/${ride_Id}`);
+            const response = await fetch(`https://kick-stand.onrender.com/rides/ridejoinrequests/${status}/${ride_Id}`,{
+                method: "GET",
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${accessToken}`,
+                },
+            });
             const data = await response.json();
             if(status=="pending"){
                 setInvitations(data);
@@ -47,11 +64,18 @@ export default function Invitations({ visible, onClose, ride_id}: InvitationsPro
 
 
     const handleAcceptInvitation = async (rideId: number, userId: string) => {
+        const accessToken = await getValidAccessToken();
+            if (!accessToken){
+                onClose();
+                handleLogout(navigation, setUserInfo)
+                return;
+        }
         try {
             const response = await fetch(`https://kick-stand.onrender.com/rides/rideparticipants/accept`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
+                    Authorization: `Bearer ${accessToken}`,
                 },
                 body: JSON.stringify({
                     ride_id: rideId,
@@ -75,11 +99,18 @@ export default function Invitations({ visible, onClose, ride_id}: InvitationsPro
     };
 
     const handleDeclineInvitation = async (rideId: number, userId: string) => {
+        const accessToken = await getValidAccessToken();
+            if (!accessToken){
+                onClose();
+                handleLogout(navigation, setUserInfo);
+                return;
+        }
         try {
             const response = await fetch(`https://kick-stand.onrender.com/rides/rideparticipants/reject`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
+                    Authorization: `Bearer ${accessToken}`,
                 },
                 body: JSON.stringify({
                     ride_id: rideId,

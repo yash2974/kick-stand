@@ -1,6 +1,9 @@
 import { View, Text, Modal, Button, TouchableOpacity } from 'react-native'
 import React, { useContext } from 'react'
 import { AuthContext } from '../authstack/AuthContext'
+import { getValidAccessToken } from '../../Auth/checkToken'
+import { handleLogout } from '../../Auth/handleLogout'
+import { NavigationProp, ParamListBase, useNavigation } from '@react-navigation/native'
 
 type RideJoinRequest = {
     visible: boolean,
@@ -8,34 +11,48 @@ type RideJoinRequest = {
     description: String,
     title: String,
     ride_id: number,
-    created_by: String
+    created_by: String,
+    
+    
 }
 
 
 
 
 const RideJoinRequest = ({visible, onClose, description, title, ride_id, created_by}: RideJoinRequest) => {
-
-    const { userInfo } = useContext(AuthContext)
+    const navigation = useNavigation()
+    const { userInfo, setUserInfo } = useContext(AuthContext)
     const user_id = userInfo?.user.id
     const sendRideJoinRequest = async () => {
-        const response = await fetch('https://kick-stand.onrender.com/rides/ridejoinrequests/', {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-                user_id: user_id,
-                ride_id: ride_id
-            })
-        });
-        if (response.ok){
-            alert("request succesfully sent")
+        const accessToken = await getValidAccessToken();
+            if (!accessToken){
+                onClose();
+                handleLogout(navigation, setUserInfo);
+                return;
+            }
+        try{
+            const response = await fetch('https://kick-stand.onrender.com/rides/ridejoinrequests/', {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${accessToken}`,
+                },
+                body: JSON.stringify({
+                    user_id: user_id,
+                    ride_id: ride_id
+                })
+            });
+            if (response.ok){
+                alert("request succesfully sent")
+            }
+            else{
+                alert("you have already sent the request")
+            }
+            onClose()
         }
-        else{
-            alert("you have already sent the request")
+        catch(error){
+            console.log("error")
         }
-        onClose()
 
 
     }   

@@ -2,6 +2,9 @@ import React, { useContext, useEffect, useState } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { Dropdown } from 'react-native-element-dropdown';
 import { AuthContext } from '../authstack/AuthContext';
+import { getValidAccessToken } from '../../Auth/checkToken';
+import { handleLogout } from '../../Auth/handleLogout';
+import { useNavigation } from '@react-navigation/native';
  
 
         
@@ -14,26 +17,40 @@ type Props = {
 const DropdownComponent: React.FC<Props> = ({ vehicleValue, setVehicleValue}) => {
     const [isFocus, setIsFocus] = useState(false);
     const [formattedData, setFormattedData] = React.useState([])
-    const { userInfo } = useContext(AuthContext);
+    const { userInfo, setUserInfo } = useContext(AuthContext);
     const user_id = userInfo?.user.id
+    const navigation = useNavigation();
     
 
 
 
     const get_vehicle_user = async () => {
-    const response = await fetch(`https://kick-stand.onrender.com/vehicles/${user_id}`, {
+      const accessToken = await getValidAccessToken();
+            if (!accessToken){
+              handleLogout(navigation, setUserInfo)
+          }
+      try {
+        const response = await fetch(`https://kick-stand.onrender.com/vehicles/`, {
             method: "GET",
             headers: {
                 "Content-Type": "application/json",
+                Authorization: `Bearer ${accessToken}`,
             },
         });
+        if (!response.ok){
+          console.log("error");
+        }
         const data = await response.json();
         const dataFormatted = data.map((vehicle: { model_name: any; vehicle_id: any; }) => ({
             label: vehicle.model_name,
             value: vehicle.vehicle_id
         }));
         setFormattedData(dataFormatted)
-        
+      } 
+      catch (error){
+        console.log("error")
+      }
+          
     }
     
 

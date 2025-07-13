@@ -8,6 +8,9 @@ import PieChart from "react-native-pie-chart";
 import DropdownComponent from "../Elements/DropDownComponent";
 import DropdownComponentVehicle from "../Elements/DropDownComponentVehicle";
 import CalenderComponent from "../Elements/CalenderComponent";
+import { getValidAccessToken } from "../../Auth/checkToken";
+import { handleLogout } from "../../Auth/handleLogout";
+import { useNavigation } from "@react-navigation/native";
 
 
 type UserDetails = {
@@ -25,7 +28,7 @@ type Expense = {
 };
 
 export default function Garage() {
-    const { userInfo } = useContext(AuthContext);
+    const { userInfo, setUserInfo } = useContext(AuthContext);
     const [userDetails, setUserDetails] = React.useState<UserDetails | null>(null);
     const [monthly_expenditure, setMonthlyExpenditure] = React.useState<number>(0);
     const [expenditure, setExpenditure] = React.useState<Expense[]>([]);
@@ -47,61 +50,107 @@ export default function Garage() {
     const [startDate, setStartDate] = React.useState<string | null>(null)
     const [endDate, setEndDate] = React.useState<string | null>(null)
     const [monthly_expenditure_data, setMonthlyExpenditureData] = React.useState<Expense[]>([]);
+    const navigation = useNavigation()
 
     
 
     const get_user_details = async () => {
-        const response = await fetch(`https://kick-stand.onrender.com/users/${user_id}`, {
-            method: "GET",
-            headers: {
-                "Content-Type": "application/json",
-            },
-        });
-        const data = await response.json();
-        setUserDetails(data);
-        console.log("User details", data);
+        const accessToken = await getValidAccessToken();
+            if (!accessToken){
+                handleLogout(navigation, setUserInfo)
+        }
+        try {
+            const response = await fetch(`https://kick-stand.onrender.com/users/`, {
+                method: "GET",
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${accessToken}`,
+                },
+            });
+            if (!response.ok){
+                console.log("error")
+                return;
+            }
+            const data = await response.json();
+            setUserDetails(data);
+            console.log("User details", data);
+        }
+        catch (error){
+            console.log("error")
+        }
     }
 
     const get_user_expenditure_monthly = async (params: { start_date: string; end_date: string; }) => {
-        const searchParams = new URLSearchParams(params as Record<string, string>).toString();
-        const response = await fetch(`https://kick-stand.onrender.com/expenses/${user_id}?${searchParams}`, {
-            method: "GET",
-            headers: {
-                "Content-Type": "application/json",
-            },
-        });
-        const data = await response.json();
-        setMonthlyExpenditureData(data)
-        const totalExpenditure = data.reduce((acc: number, expense: { amount: number }) => acc + expense.amount, 0);
-        setMonthlyExpenditure(totalExpenditure);
-        console.log("Monthly expenditure", totalExpenditure);
+        const accessToken = await getValidAccessToken();
+            if (!accessToken){
+                handleLogout(navigation, setUserInfo)
+        }
+        try{
+            const searchParams = new URLSearchParams(params as Record<string, string>).toString();
+            const response = await fetch(`https://kick-stand.onrender.com/expenses/?${searchParams}`, {
+                method: "GET",
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${accessToken}`,
+                },
+            });
+            if (!response.ok){
+                console.log("error")
+                return;
+            }
+            const data = await response.json();
+            setMonthlyExpenditureData(data)
+            const totalExpenditure = data.reduce((acc: number, expense: { amount: number }) => acc + expense.amount, 0);
+            setMonthlyExpenditure(totalExpenditure);
+            console.log("Monthly expenditure", totalExpenditure);
+        }
+        catch (error){
+            console.log("error")
+        }
     }
 
     const get_user_expenditure = async () => {
-        const response = await fetch(`https://kick-stand.onrender.com/expenses/${user_id}`, {
-            method: "GET",
-            headers: {
-                "Content-Type": "application/json",
-            },
-        });
-        const data = await response.json();
-        setExpenditure(data);
-        console.log("Expenditure", data);
-        const categoryTotals: { [key: string]: number } = {};
-        data.forEach((item: { category: any; amount: any; }) => {
-            const { category, amount } = item;
-            categoryTotals[category] = (categoryTotals[category] || 0) + amount;
-        });
-        console.log("Category totals", categoryTotals);
-        
-        setIsLoading(false)
+        const accessToken = await getValidAccessToken();
+            if (!accessToken){
+                handleLogout(navigation, setUserInfo)
+        }
+        try {
+            const response = await fetch(`https://kick-stand.onrender.com/expenses/`, {
+                method: "GET",
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${accessToken}`,
+                },
+            });
+            if (!response.ok){
+                console.log("error")
+                return;
+            }
+            const data = await response.json();
+            setExpenditure(data);
+            console.log("Expenditure", data);
+            const categoryTotals: { [key: string]: number } = {};
+            data.forEach((item: { category: any; amount: any; }) => {
+                const { category, amount } = item;
+                categoryTotals[category] = (categoryTotals[category] || 0) + amount;
+            });
+            console.log("Category totals", categoryTotals);
+            
+            setIsLoading(false)
+        }
+        catch (error){
+            console.log("error")
+        }
         
         
     }
 
     const setFilters = async (params: {categoryValue?: string, vehicleValue?: string, startDate?: string, endDate?: string}) => {
     const searchParams = new URLSearchParams();
-    
+    const accessToken = await getValidAccessToken();
+            if (!accessToken){
+                handleLogout(navigation, setUserInfo)
+        }
     // Add parameters only if they exist
     if (params.categoryValue) searchParams.append('category', params.categoryValue);
     if (params.vehicleValue) searchParams.append('vehicle_id', params.vehicleValue);
@@ -110,18 +159,28 @@ export default function Garage() {
     
     const queryString = searchParams.toString();
     const url = `https://kick-stand.onrender.com/expenses/${user_id}${queryString ? `?${queryString}` : ''}`;
-    
-    const response = await fetch(url, {
-        method: "GET",
-        headers: {
-            "Content-Type": "application/json",
-        },
-    });
-    const data = await response.json();
-    setExpenditure(data);
-    console.log("Filtered data:", data);
-    console.log("URL used:", url);
-}
+        try {
+            
+            const response = await fetch(url, {
+                method: "GET",
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${accessToken}`,
+                },
+            });
+            if (!response.ok){
+                    console.log("error")
+                    return;
+                }
+            const data = await response.json();
+            setExpenditure(data);
+            console.log("Filtered data:", data);
+            console.log("URL used:", url);
+        }
+        catch (error){
+                console.log("error")
+            }
+    }
 
     const categoryIconMap: { [key: string]: { name: string; color: string } } = {
         Fuel: { name: 'fuel', color: '#FF6B6B' },
@@ -175,28 +234,38 @@ const generatePieChartData = () => {
 };
 
 const addExpense = async () => {
-    const response = await fetch(`https://kick-stand.onrender.com/expenses/`, {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-            user_id: user_id,
-            vehicle_id: expenseVehicleValue,
-            amount: expenseVehicle, 
-            category: expenseCategory,
-            date: new Date().toLocaleDateString('en-CA'), // Local YYYY-MM-DD
+    const accessToken = await getValidAccessToken();
+            if (!accessToken){
+                handleLogout(navigation, setUserInfo)
+        }
+    try {
+        const response = await fetch(`https://kick-stand.onrender.com/expenses/`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${accessToken}`,
+            },
+            body: JSON.stringify({
+                user_id: user_id,
+                vehicle_id: expenseVehicleValue,
+                amount: expenseVehicle, 
+                category: expenseCategory,
+                date: new Date().toLocaleDateString('en-CA'), // Local YYYY-MM-DD
 
-        }),
+            }),
     });
-    if (response.ok) {
-        const newExpense = await response.json();
+    if (!response.ok) {
+        console.log("error")
+        return;
+    } 
+    const newExpense = await response.json();
         setExpenditure((prevExpenses) => [...prevExpenses, newExpense]);
         setExpenseCategory(null);
         setExpenseVehicleValue(null);
         console.log("Expense added successfully", newExpense);
-    } else {
-        console.error("Failed to add expense");
+    }
+    catch (error){
+        console.log("error")
     }
 }
 
