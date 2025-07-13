@@ -46,7 +46,7 @@ def verify_token(credentials: HTTPAuthorizationCredentials = Depends(security)):
     except jwt.PyJWTError:
         raise HTTPException(status_code=401, detail="Invalid token")
     
-@app.get("/health"):
+@app.get("/health")
 async def health():
     return
 JSONResponse(content={"status": "ok"})
