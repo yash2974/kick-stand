@@ -14,6 +14,7 @@ from typing import List, Optional
 import os
 from dotenv import load_dotenv
 import jwt
+from fastapi.responses import JSONResponse
 
 load_dotenv()
 security = HTTPBearer()
@@ -44,6 +45,12 @@ def verify_token(credentials: HTTPAuthorizationCredentials = Depends(security)):
         raise HTTPException(status_code=401, detail="Token expired")
     except jwt.PyJWTError:
         raise HTTPException(status_code=401, detail="Invalid token")
+    
+@app.get("/health"):
+async def health():
+    return
+JSONResponse(content={"status": "ok"})
+
 
 @app.post("/users/", response_model=schema.UserOut)
 def create_user(user: schema.UserCreate, db: Session = Depends(get_db), token_data: dict = Depends(verify_token)):
