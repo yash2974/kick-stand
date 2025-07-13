@@ -5,6 +5,10 @@ import { AuthContext } from "../authstack/AuthContext";
 import { useContext } from "react";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import Ionicons from "react-native-vector-icons/Ionicons";
+import * as Keychain from 'react-native-keychain'
+import { getValidAccessToken } from '../../Auth/checkToken';
+import { useNavigation } from "@react-navigation/native";
+import { handleLogout } from "../../Auth/handleLogout";
 
 type UserDetails = {
     name: string;
@@ -13,7 +17,7 @@ type UserDetails = {
 };
 
 export default function Garage() {
-    const { userInfo } = useContext(AuthContext);
+    const { userInfo, setUserInfo } = useContext(AuthContext);
     const image_url = (userInfo?.user.photo);
     const [userDetails, setUserDetails] = React.useState<UserDetails | null>(null);
     const [userVehicles, setUserVehicles] = React.useState<any[]>([]);
@@ -23,18 +27,33 @@ export default function Garage() {
     const rating = 4
 
     const user_id = userInfo?.user.id;
-
+    const navigation = useNavigation();
     const get_user_details = async () => {
-        const response = await fetch(`https://kick-stand.onrender.com/users/${user_id}`, {
-            method: "GET",
-            headers: {
-                "Content-Type": "application/json",
-            },
-        });
-        const data = await response.json();
-        setUserDetails(data);
-        console.log("User details", data);
-    }
+
+        const accessToken = await getValidAccessToken();
+        if (!accessToken){
+            handleLogout(navigation, setUserInfo)
+        }
+        try {
+            const response = await fetch(`https://kick-stand.onrender.com/users/`, {
+                method: "GET",
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${accessToken}`,
+                },
+            });
+            if (!response.ok){
+                console.error("Failed to fetch user details:", response.status);
+                return;
+            }
+            const data = await response.json();
+            setUserDetails(data);
+            console.log("User details", data);
+        }
+        catch (error) {
+            console.log("error fetching details")
+        }
+    };
 
     const StarRating: React.FC<{ rating: number }> = ({ rating }) => {
         return (

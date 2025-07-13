@@ -1,5 +1,8 @@
 import { GoogleSignin, User } from '@react-native-google-signin/google-signin';
 import React, { createContext, use, useEffect, useState } from 'react';
+import * as Keychain from 'react-native-keychain'
+import { jwtDecode } from 'jwt-decode';
+import { getValidAccessToken } from '../../Auth/checkToken';
 
 export const AuthContext = createContext({
   userInfo: null as User | null,
@@ -11,6 +14,9 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   
   const [userInfo, setUserInfo] = useState<null | User>(null);
   const [isAuthLoading, setIsAuthLoading] = useState(true);
+  
+  
+  
 
   const getCurrentUser = async () => {
     try {
@@ -30,6 +36,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
   useEffect(() => {
     getCurrentUser();
+    // checkToken();
   }, []);
 
   return (

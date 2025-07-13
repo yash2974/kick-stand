@@ -2,7 +2,7 @@ import { GoogleSignin } from '@react-native-google-signin/google-signin';
 import * as Keychain from 'react-native-keychain'
 
 
-const BACKEND_URL = 'http://192.168.1.9:8080/api/auth/google'; // Replace with your backend's URL
+const BACKEND_URL = 'http://192.168.1.7:8080/api/auth/google'; // Replace with your backend's URL
 
 import { IOS_CLIENT_ID, WEB_CLIENT_ID } from './key'; // Replace with your actual keys
 
@@ -28,6 +28,10 @@ export const signIn = async (setUserInfo: (user: any) => void) => {
     // Extract ID token
     const { idToken } = await GoogleSignin.getTokens();
     
+if (!idToken) {
+  throw new Error("No ID token received from Google");
+}
+    
     
 
     // Send the ID token to your backend
@@ -48,9 +52,11 @@ export const signIn = async (setUserInfo: (user: any) => void) => {
     
     // Handle JWT and user info (e.g., save token in secure storage)
     setUserInfo(userSignIn.data); // Set user info in context
-    const { token, user } = data;
-    await Keychain.setGenericPassword('jwt', token)
-    console.log('JWT:', token);
+    const { refresh_token, access_token, user } = data;
+    await Keychain.setGenericPassword('refresh_jwt', refresh_token, {service: 'refresh_token'})
+    await Keychain.setGenericPassword('access_token', access_token, {service: 'access_token'})
+    console.log('refresh_JWT:', refresh_token);
+    console.log('access_token', access_token)
     console.log('User:', user);
 
     // You might store the token securely using libraries like @react-native-async-storage/async-storage

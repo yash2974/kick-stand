@@ -4,6 +4,9 @@ import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityI
 import SafeScreenWrapper from "./SafeScreenWrapper";
 import RideJoinRequest from "../Elements/RideJoinRequest";
 import { AuthContext } from "../authstack/AuthContext";
+import { getValidAccessToken } from "../../Auth/checkToken";
+import { handleLogout } from "../../Auth/handleLogout";
+import { useNavigation } from "@react-navigation/native";
 
 type Ride = {
   ride_id: number;
@@ -26,16 +29,32 @@ export default function Rides() {
   // const [rideJoinRequestModalVisible, setRideJoinRequestModalVisible] = React.useState(false);
   const [selectedRide, setSelectedRide] = React.useState<Ride | null>(null);
   const [participatedRides, setParticipatedRides] = React.useState<number[]>([]);
-  const { userInfo } = useContext(AuthContext)
+  const { userInfo, setUserInfo } = useContext(AuthContext)
   const [search, setSearch] = React.useState("")
   const [debouncedSearch, setDebouncedSearch] = React.useState("")
   const user_id = userInfo?.user.id
+  const navigation = useNavigation();
 
   const userRides = async () => {
-    console.log("enter")
-    const response = await fetch(`https://kick-stand.onrender.com/rides/rideparticipants/${user_id}`)
+    const accessToken = await getValidAccessToken();
+      if (!accessToken){
+          handleLogout(navigation, setUserInfo)
+    }
+    try {
+      const response = await fetch(`https://kick-stand.onrender.com/rides/rideparticipants/`,{
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${accessToken}`,
+        }
+      })
+    if (!response.ok){
+      console.log("error fetching rides")
+      return;
+    }
     const data = await response.json();
     setParticipatedRides(data.map((item: {ride_id:number})=>item.ride_id));
+    }
   }
   const fetchRides = async (debouncedSearch: string) => {
     try {

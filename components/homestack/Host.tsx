@@ -10,6 +10,11 @@ import { DateTimePickerComponent } from "../Elements/DateTimePickerComponent";
 import { ScrollView } from "react-native-gesture-handler";
 import CreateRideModal from "../Elements/CreateRideModal";
 import DeleteRide from "../Elements/DeleteRide";
+import * as Keychain from 'react-native-keychain'
+import { getValidAccessToken } from '../../Auth/checkToken';
+import { GoogleSignin } from "@react-native-google-signin/google-signin";
+import { useNavigation } from "@react-navigation/native";
+
 
 
 type Ride = {
@@ -26,22 +31,32 @@ type Ride = {
 };
 
 export default function Host() {
-    const { userInfo } = React.useContext(AuthContext);
+    const { userInfo, setUserInfo } = React.useContext(AuthContext);
     const [rides, setRides] = React.useState([]);
     const [loading, setLoading] = React.useState(true);
     const [selectedRideId, setSelectedRideId] = React.useState<number | null>(null);
     const [createRidevisible, setCreateRideVisible] = React.useState(false)
     const [deleteRideVisible, setDeleteRideVisible] = React.useState(false)
     const [selectedRideIdDelete, setSelectedRideIdDelete] = React.useState<number | null>(null);
-    
+    const navigation = useNavigation()
 
     const getRides = async (userId?: string) => {
+      const token = await getValidAccessToken();
+      if (!token){
+        await handleLogout();
+        return;
+      }
         try {
         const params = new URLSearchParams();
         if (userId) {
             params.append("created_by", userId);
         }
-        const response = await fetch(`https://kick-stand.onrender.com/rides/?${params.toString()}`);
+        const response = await fetch(`https://kick-stand.onrender.com/rides/?${params.toString()}`,{
+          method: "GET",
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        });
         if (response.status === 404) {
         setRides([]);
         setLoading(false);
@@ -58,6 +73,20 @@ export default function Host() {
             return []; 
         }
     };
+
+    const handleLogout = async () => {
+        try {
+          await GoogleSignin.signOut();
+          await Keychain.resetGenericPassword({ service: 'access_token' });
+          await Keychain.resetGenericPassword({ service: 'refresh_token' });
+          setUserInfo(null)
+          navigation.reset({ index: 0, routes: [{ name: 'Login' as never }] });
+        }
+        catch (error) {
+          console.error("Logout error:", error);
+          alert("Failed to log out. Try again.");
+        }
+      }
 
     
 

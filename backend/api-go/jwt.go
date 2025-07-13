@@ -5,6 +5,7 @@ import (
 	"net/http"
 	"os"
 	"time"
+	"fmt"
 
 	"github.com/gin-gonic/gin"
 	"github.com/golang-jwt/jwt/v5"
@@ -12,12 +13,16 @@ import (
 	"google.golang.org/api/idtoken"
 )
 
+
+
 var googleClientID string
 var jwtSecret []byte
 
 type TokenRequest struct {
 	IdToken string `json:"idToken"`
 }
+
+
 
 func verifyGoogleAndIssueJWT(c *gin.Context) {
 	var req TokenRequest
@@ -35,12 +40,17 @@ func verifyGoogleAndIssueJWT(c *gin.Context) {
 	email := payload.Claims["email"].(string)
 	name := payload.Claims["name"].(string)
 	sub := payload.Claims["sub"].(string)
+	fmt.Println("Current server time:", time.Now())
+	fmt.Println("Current server time:", time.Now().Unix())
+	fmt.Println("Expiry time (1 hour):", time.Now().Add(1 * time.Hour).Unix())
+
+
 
 	token := jwt.NewWithClaims(jwt.SigningMethodHS256, jwt.MapClaims{
 		"sub":   sub,
 		"email": email,
 		"name":  name,
-		"exp":   time.Now().Add(time.Hour * 168).Unix(),
+		"exp":   time.Now().Add(1 * time.Hour).Unix(),
 	})
 
 	signedToken, err := token.SignedString(jwtSecret)

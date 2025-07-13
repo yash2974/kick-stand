@@ -1,5 +1,6 @@
 from datetime import date, datetime
 from fastapi import FastAPI, Depends, HTTPException, Query
+from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
 from sqlalchemy import func, or_
 from sqlalchemy.orm import Session
 import models
@@ -12,9 +13,11 @@ from bson import ObjectId
 from typing import List, Optional
 import os
 from dotenv import load_dotenv
+import jwt
 
 load_dotenv()
-
+security = HTTPBearer()
+JWT_SECRET = os.getenv("JWT_SECRET")
 models.Base.metadata.create_all(bind=database.engine)
 app = FastAPI()
 mongo_uri = os.getenv("MONGO_URI")
@@ -31,8 +34,19 @@ def get_db():
     finally:
         db.close()
 
+def verify_token(credentials: HTTPAuthorizationCredentials = Depends(security)):
+    token = credentials.credentials
+    try:
+        payload = jwt.decode(token, JWT_SECRET, algorithms=["HS256"])
+        print(payload)
+        return payload  # You can access sub/email/etc.
+    except jwt.ExpiredSignatureError:
+        raise HTTPException(status_code=401, detail="Token expired")
+    except jwt.PyJWTError:
+        raise HTTPException(status_code=401, detail="Invalid token")
+
 @app.post("/users/", response_model=schema.UserOut)
-def create_user(user: schema.UserCreate, db: Session = Depends(get_db)):
+def create_user(user: schema.UserCreate, db: Session = Depends(get_db), token_data: dict = Depends(verify_token)):
     user_data = user.model_dump()
     db_user = models.User(**user_data)
     db.add(db_user)
@@ -40,15 +54,17 @@ def create_user(user: schema.UserCreate, db: Session = Depends(get_db)):
     db.refresh(db_user)
     return db_user
 
-@app.get("/users/{user_id}", response_model=schema.UserOut)
-def read_user(user_id: str, db: Session = Depends(get_db)):
+@app.get("/users/", response_model=schema.UserOut)
+def read_user( db: Session = Depends(get_db), token_data: dict = Depends(verify_token)):
+    user_id = token_data["sub"]
     db_user = db.query(models.User).filter(models.User.user_id == user_id).first()
     if db_user is None:
         return None
     return db_user
 
-@app.get("/vehicles/{user_id}", response_model=List[schema.VehicleOut])
-def get_vehicle_by_user_id(user_id: str, db: Session = Depends(get_db)):
+@app.get("/vehicles", response_model=List[schema.VehicleOut])
+def get_vehicle_by_user_id(db: Session = Depends(get_db), token_data: dict = Depends(verify_token)):
+    user_id = token_data["sub"]
     vehicles = db.query(models.Vehicle).filter(models.Vehicle.user_id == user_id).all()
     if not vehicles:
         raise HTTPException(status_code=404, detail="Vehicle not found")
@@ -56,7 +72,7 @@ def get_vehicle_by_user_id(user_id: str, db: Session = Depends(get_db)):
 
 
 @app.post("/vehicles/", response_model=schema.VehicleCreate)
-def create_vehicle(vehicle: schema.VehicleCreate, db: Session = Depends(get_db)):
+def create_vehicle(vehicle: schema.VehicleCreate, db: Session = Depends(get_db), token_data: dict = Depends(verify_token)):
     vehicle_data = vehicle.model_dump()
     db_vehicle = models.Vehicle(**vehicle_data)
     db.add(db_vehicle)
@@ -65,8 +81,9 @@ def create_vehicle(vehicle: schema.VehicleCreate, db: Session = Depends(get_db))
     return db_vehicle
 
 
-@app.get("/vehicles_details/{user_id}")
-async def get_vehicle_details(user_id: str, db: Session = Depends(get_db)):
+@app.get("/vehicles_details")
+async def get_vehicle_details( db: Session = Depends(get_db), token_data: dict = Depends(verify_token)):
+    user_id = token_data["sub"]
     vehicle = db.query(models.Vehicle).filter(models.Vehicle.user_id == user_id).first()
     if not vehicle:
         raise HTTPException(status_code=404, detail="Vehicle not found")
@@ -81,7 +98,7 @@ async def get_vehicle_details(user_id: str, db: Session = Depends(get_db)):
     return details
 
 @app.post("/expenses/", response_model=schema.ExpenseCreate)
-def create_expense(expense: schema.ExpenseCreate, db: Session = Depends(get_db)):
+def create_expense(expense: schema.ExpenseCreate, db: Session = Depends(get_db), token_data: dict = Depends(verify_token)):
     expense_data = expense.model_dump()
     db_expense = models.Expense(**expense_data)
     db.add(db_expense)
@@ -89,14 +106,15 @@ def create_expense(expense: schema.ExpenseCreate, db: Session = Depends(get_db))
     db.refresh(db_expense)
     return db_expense
 
-@app.get("/expenses/{user_id}", response_model=List[schema.ExpenseCreate])
+@app.get("/expenses", response_model=List[schema.ExpenseCreate])
 def get_expenses_by_user_id(
-    user_id: str, 
     vehicle_id: Optional[str] = Query(None, description="Filter by vehicle ID"),
     start_date: Optional[date] = Query(None, description="Filter by start date"),
     end_date: Optional[date] = Query(None, description="Filter by end date"),
     category: Optional[str] = Query(None, description="Filter by category"),
-    db: Session = Depends(get_db)):
+    db: Session = Depends(get_db),
+    token_data: dict = Depends(verify_token)):
+    user_id = token_data["sub"]
     expenses = db.query(models.Expense).filter(models.Expense.user_id == user_id)
     if vehicle_id:
         expenses = expenses.filter(models.Expense.vehicle_id == vehicle_id)
@@ -112,7 +130,7 @@ def get_expenses_by_user_id(
         return []
     return expenses
 
-def postRider(user_id: str, ride_id: str, db: Session = Depends(get_db)):
+def postRider(user_id: str, ride_id: str, db: Session = Depends(get_db), token_data: dict = Depends(verify_token)):
     host_participant = models.RideParticipant(
         user_id = user_id,
         ride_id = ride_id
@@ -122,7 +140,7 @@ def postRider(user_id: str, ride_id: str, db: Session = Depends(get_db)):
     db.refresh(host_participant)
 
 @app.post("/rides/", response_model=schema.Ride)
-def create_ride(ride: schema.Ride, db: Session = Depends(get_db)):
+def create_ride(ride: schema.Ride, db: Session = Depends(get_db), token_data: dict = Depends(verify_token)):
     ride_data = ride.model_dump()
     db_ride = models.Ride(**ride_data)
     db.add(db_ride)
@@ -134,7 +152,7 @@ def create_ride(ride: schema.Ride, db: Session = Depends(get_db)):
     return db_ride  
        
 @app.get("/rides/", response_model=List[schema.RideWithInviteCount])
-def get_rides(query: Optional[str] = Query(""), created_by: Optional[str] = Query(None), db: Session = Depends(get_db)):
+def get_rides(query: Optional[str] = Query(""), created_by: Optional[str] = Query(None), db: Session = Depends(get_db), token_data: dict = Depends(verify_token)):
     base_query = db.query(
         models.Ride.ride_id,
         models.Ride.created_by,
@@ -194,7 +212,7 @@ def get_rides(query: Optional[str] = Query(""), created_by: Optional[str] = Quer
     
 
 @app.get("/rides/ridejoinrequests/accepted/{ride_id}", response_model=List[schema.RideJoinRequestsWithUser])
-def get_ride_join_requests(ride_id: int, db: Session = Depends(get_db)):
+def get_ride_join_requests(ride_id: int, db: Session = Depends(get_db), token_data: dict = Depends(verify_token)):
    
     requests = (
         db.query(models.RideJoinRequest, models.User.name, models.User.phone)
@@ -222,7 +240,7 @@ def get_ride_join_requests(ride_id: int, db: Session = Depends(get_db)):
     return result
 
 @app.get("/rides/ridejoinrequests/pending/{ride_id}", response_model=List[schema.RideJoinRequestsWithUser])
-def get_ride_join_requests(ride_id: int, db: Session = Depends(get_db)):
+def get_ride_join_requests(ride_id: int, db: Session = Depends(get_db), token_data: dict = Depends(verify_token)):
    
     requests = (
         db.query(models.RideJoinRequest, models.User.name)
@@ -249,7 +267,7 @@ def get_ride_join_requests(ride_id: int, db: Session = Depends(get_db)):
     return result
 
 @app.post("/rides/ridejoinrequests/", response_model=schema.RideJoinRequests)
-def create_ride_join_request(request: schema.RideJoinRequests, db: Session = Depends(get_db)):
+def create_ride_join_request(request: schema.RideJoinRequests, db: Session = Depends(get_db), token_data: dict = Depends(verify_token)):
     request_data = request.model_dump()
     db_request = models.RideJoinRequest(**request_data)
     db.add(db_request)
@@ -258,7 +276,7 @@ def create_ride_join_request(request: schema.RideJoinRequests, db: Session = Dep
     return db_request
 
 @app.post("/rides/rideparticipants/accept", response_model=schema.RideParticipants)
-def create_ride_participant(participant: schema.RideParticipants, db: Session = Depends(get_db)):
+def create_ride_participant(participant: schema.RideParticipants, db: Session = Depends(get_db), token_data: dict = Depends(verify_token)):
     participant_data = participant.model_dump()
     db_participant = models.RideParticipant(**participant_data)
     db.add(db_participant)
@@ -278,7 +296,7 @@ def create_ride_participant(participant: schema.RideParticipants, db: Session = 
     return db_participant
 
 @app.post("/rides/rideparticipants/reject", response_model=schema.RideJoinRequests)
-def reject_ride_join_request(request: schema.RideJoinRequests, db: Session = Depends(get_db)):
+def reject_ride_join_request(request: schema.RideJoinRequests, db: Session = Depends(get_db), token_data: dict = Depends(verify_token)):
     request_data = request.model_dump()
     db_request = models.RideJoinRequest(**request_data)
 
@@ -304,14 +322,15 @@ def reject_ride_join_request(request: schema.RideJoinRequests, db: Session = Dep
     return db_request
 
 @app.get("/rides/rideparticipants/{user_id}")
-def get_rides_of_user_joined(user_id: str, db: Session = Depends(get_db)):
+def get_rides_of_user_joined(db: Session = Depends(get_db), token_data: dict = Depends(verify_token)):
+    user_id = token_data["sub"]
     db_rides = db.query(models.RideParticipant).filter(
         user_id == models.RideParticipant.user_id
     ).all()
     return db_rides
 
 @app.post("/rides/deleteride/{ride_id}")
-def delete_rides(ride_id: int, db: Session = Depends(get_db)):
+def delete_rides(ride_id: int, db: Session = Depends(get_db), token_data: dict = Depends(verify_token)):
     db.query(models.RideParticipant).filter(
         models.RideParticipant.ride_id == ride_id
     ).delete()
