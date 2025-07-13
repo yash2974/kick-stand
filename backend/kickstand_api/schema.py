@@ -86,7 +86,7 @@ class RideJoinRequestsWithUserPending(BaseModel):
     status: str
     requested_at: datetime
     username: str
-    phone: str
+    
 
     class Config:
         from_attributes = True
