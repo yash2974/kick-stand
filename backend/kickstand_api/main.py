@@ -50,6 +50,10 @@ def verify_token(credentials: HTTPAuthorizationCredentials = Depends(security)):
 async def health_check():
     return {"status": "ok"}
 
+@app.head("/health")
+async def health_check_head():
+    return
+
 
 @app.post("/users/", response_model=schema.UserOut)
 def create_user(user: schema.UserCreate, db: Session = Depends(get_db), token_data: dict = Depends(verify_token)):

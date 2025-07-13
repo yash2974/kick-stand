@@ -10,12 +10,18 @@ import { User } from '@react-native-google-signin/google-signin/src/types';
 import { AuthContext, AuthProvider } from './components/authstack/AuthContext';
 import { Gesture, GestureHandlerRootView } from 'react-native-gesture-handler';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { WEB_CLIENT_ID, IOS_CLIENT_ID } from './Auth/key';
 
 export type RootStackParamList = {
   Login: undefined;
   Home: undefined;
   NewUser: undefined; 
 };
+GoogleSignin.configure({
+  webClientId: WEB_CLIENT_ID, // Required for getting the ID token
+  iosClientId: IOS_CLIENT_ID, // For iOS apps (optional but recommended)
+  offlineAccess: true, // Enables server-side API calls
+});
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
