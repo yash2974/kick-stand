@@ -158,7 +158,7 @@ export default function Garage() {
     if (params.endDate) searchParams.append('end_date', params.endDate);
     
     const queryString = searchParams.toString();
-    const url = `https://kick-stand.onrender.com/expenses/${user_id}${queryString ? `?${queryString}` : ''}`;
+    const url = `https://kick-stand.onrender.com/expenses/${queryString ? `?${queryString}` : ''}`;
         try {
             
             const response = await fetch(url, {
@@ -344,10 +344,11 @@ const series = generatePieChartData();
                 </View>
             </View>
             <View style={{justifyContent:"center", alignItems:"center"}}>
-                <View style={{ marginTop: 30, flexDirection:"column", backgroundColor:"#424242", opacity: 0.7137, width:"100%", height: 200, borderRadius: 10, padding: 15}}>
+                <View style={{ marginTop: 30, flexDirection:"row", backgroundColor:"#424242", opacity: 0.7137, width:"100%", height: 200, borderRadius: 10, padding: 15}}>
+                    <View style={{flex:1}}>
                     <Text style={{fontFamily: "Inter_18pt-SemiBold", color: "#8E8E93", fontSize: 20, margin: 0}}>Expenses</Text>
                     <View style={{flexDirection:"row", justifyContent:"space-between", alignContent:"center",alignItems:"center"} }>
-                        <View style={{flexDirection:"column", marginTop: 10, justifyContent:"center"}}>
+                        <View style={{flexDirection:"column", justifyContent:"center"}}>
                             {presentCategories.map((category) => {
                                 const icon = categoryIconMap[category];
                                 return icon ? (
@@ -387,7 +388,10 @@ const series = generatePieChartData();
                                 ) : null;
                             })}
                         </View>
-                        <View style={{ paddingHorizontal:10}}>
+                        
+                    </View>
+                    </View>
+                    <View style={{ flex:1, justifyContent: "center", alignItems: "center"}}>
                             {isLoading?(
                                 <ActivityIndicator></ActivityIndicator>
                             ): (
@@ -395,13 +399,14 @@ const series = generatePieChartData();
                                 <PieChart
                                     widthAndHeight={widthAndHeight}
                                     series={series}
-                                    cover={0.65}
+                                    // cover={0.65}
+                                    cover={{ radius: 0.6, color: '#ffeab2' }}
+                                    padAngle={0.01}
                                 />):(<Text>no data available</Text>))}
                         </View>
-                    </View>
                 </View>
-                <View style={{ backgroundColor:"#1F1F1F", height:10, width:"90%", borderBottomEndRadius:10,borderBottomLeftRadius:10}}>
-                </View>
+                <View style={{ backgroundColor:"#1F1F1F", height:10, width:"90%", borderBottomEndRadius:10,borderBottomLeftRadius:10}}/>
+                
             </View>
             <View style={{flexDirection:"column", marginTop:15}}>
                 <View style={{ flexDirection:"row", justifyContent:"space-between", alignItems:"baseline"}}>
