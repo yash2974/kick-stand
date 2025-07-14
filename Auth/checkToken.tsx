@@ -21,7 +21,7 @@ export const getValidAccessToken = async (): Promise<string | null> => {
                 return accessToken
             }
             else{
-                const response = await fetch("http://192.168.1.7:8080/api/auth/google/refresh_token", {
+                const response = await fetch("https://kick-stand-k2g2.onrender.com/api/auth/google/refresh_token", {
                     method: 'POST',
                     headers: { "Content-Type": "application/json" },
                     body: JSON.stringify({ refresh_token: refreshToken }),

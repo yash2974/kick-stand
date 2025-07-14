@@ -2,7 +2,7 @@ import { GoogleSignin } from '@react-native-google-signin/google-signin';
 import * as Keychain from 'react-native-keychain'
 
 
-const BACKEND_URL = 'http://192.168.1.7:8080/api/auth/google'; // Replace with your backend's URL
+const BACKEND_URL = 'https://kick-stand-k2g2.onrender.com/api/auth/google'; // Replace with your backend's URL
 
 import { IOS_CLIENT_ID, WEB_CLIENT_ID } from './key'; // Replace with your actual keys
 
