@@ -30,7 +30,7 @@ const DropdownComponent: React.FC<Props> = ({ vehicleValue, setVehicleValue}) =>
               handleLogout(navigation, setUserInfo)
           }
       try {
-        const response = await fetch(`https://kick-stand.onrender.com/vehicles/`, {
+        const response = await fetch(`https://kick-stand.onrender.com/vehicles`, {
             method: "GET",
             headers: {
                 "Content-Type": "application/json",
