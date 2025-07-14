@@ -1,36 +1,64 @@
 import React from "react";
-import { Button, Text, View } from "react-native";
+import { Button, Text, TouchableOpacity, View } from "react-native";
 import SafeScreenWrapper from "./SafeScreenWrapper"; // adjust the path
 import { useNavigation } from "@react-navigation/native";
 import { AuthContext } from "../authstack/AuthContext";
 import { GoogleSignin } from "@react-native-google-signin/google-signin";
 import * as Keychain from 'react-native-keychain'
+import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
+import { handleLogout } from "../../Auth/handleLogout";
+import { getValidAccessToken } from "../../Auth/checkToken";
 
 
 export default function Forums() {
-    const navigation = useNavigation();
-    const { userInfo , setUserInfo} = React.useContext(AuthContext);
-    const handleLogout = async () => {
-    console.log("log out")
-    try {
-      await GoogleSignin.signOut();
-      await Keychain.resetGenericPassword({ service: 'access_token' });
-      await Keychain.resetGenericPassword({ service: 'refresh_token' });
-      setUserInfo(null)
-      navigation.reset({ index: 0, routes: [{ name: 'Login' as never }] });
-    }
-    catch (error) {
-      console.error("Logout error:", error);
-      alert("Failed to log out. Try again.");
-    }
-  }
+  const navigation = useNavigation();
+  const { userInfo , setUserInfo} = React.useContext(AuthContext);
+
+  // //fetch forums
+  // const fetchForums = async () => {
+  //   const accessToken = await getValidAccessToken();
+  //   if (!accessToken){
+  //     handleLogout(navigation, setUserInfo);
+  //   }
+  //   try{
+  //     const response = await fetch("https://kick-stand.onrender.com/forums",{
+  //       method: "GET",
+  //       headers: {
+  //         "Content-Type": "application/json",
+  //         // Authorization: `Bearer ${accessToken}`,
+  //       }
+  //     })
+  //   }
+  // }
+
+
+
   return (
-    <SafeScreenWrapper>
-        <View style={{justifyContent: "space-between", flex: 1}}>
-      <Text>Forums</Text>
-      <Button title="logout" onPress={()=>handleLogout()}></Button>
-      <Text>gwergw</Text>
-      </View>
-    </SafeScreenWrapper>
+    <View style={{flex: 1, backgroundColor: "#121212"}}>
+      <SafeScreenWrapper>
+        <View style={{flex: 1, padding: 25}}>
+          <Text style={{fontFamily: "Inter_18pt-Bold", color: "#C62828", fontSize: 24}}>@kickstand</Text>
+          <View style={{flexDirection: "row", width: "100%", justifyContent: "space-between", marginVertical: 8}}>
+            <View style={{flexDirection: "row", gap: 10}}>
+              <TouchableOpacity style={{flexDirection: "row", alignItems: "baseline", backgroundColor: "#1F1F1F", padding: 8, borderRadius: 20}}>
+                <MaterialCommunityIcons name="clock-outline" style={{color: "#ECEFF1", marginHorizontal: 2}}/>
+                <Text style={{fontFamily: "Inter_18pt-Regular", color: "#ECEFF1", marginHorizontal: 2}}>Latest</Text>
+              </TouchableOpacity>
+              <TouchableOpacity style={{flexDirection: "row", alignItems: "baseline", backgroundColor: "#1F1F1F", padding: 8, borderRadius: 20}}>
+                <MaterialCommunityIcons name="fire" style={{color: "#ECEFF1", marginHorizontal: 2}}/>
+                <Text style={{fontFamily: "Inter_18pt-Regular", color: "#ECEFF1", marginHorizontal: 2}}>Hot</Text>
+              </TouchableOpacity>
+            </View>
+            <View style={{}}>
+              <TouchableOpacity style={{flexDirection: "row", alignItems: "baseline", backgroundColor: "#C62828", padding: 8, borderRadius: 20}}>
+                <MaterialCommunityIcons name="pencil-plus" style={{color: "#ECEFF1", marginHorizontal: 2}}/>
+                <Text style={{fontFamily: "Inter_18pt-Regular", color: "#ECEFF1", marginHorizontal: 2}}>New Post</Text>
+              </TouchableOpacity>
+            </View>
+          </View>
+        </View>
+      </SafeScreenWrapper>
+    </View>
+    
   );
 }

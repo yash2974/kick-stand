@@ -207,12 +207,12 @@ export default function Garage() {
 const generatePieChartData = () => {
   const categoryTotals: { [key: string]: number } = {};
 
-  if (!Array.isArray(monthly_expenditure_data)) {
+  if (!Array.isArray(expenditure)) {
     return [];
   }
   
   // Sum up amounts by category
-  monthly_expenditure_data.forEach((item) => {
+  expenditure.forEach((item) => {
     const { category, amount } = item;
     categoryTotals[category] = (categoryTotals[category] || 0) + amount;
   });
