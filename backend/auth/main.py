@@ -17,18 +17,15 @@ JWT_SECRET = os.getenv("JWT_SECRET")
 
 app = FastAPI()
 
-# Allow all CORS for simplicity (adjust as needed)
-app.add_middleware(
-    CORSMiddleware,
-    allow_origins=["*"],
-    allow_methods=["*"],
-    allow_headers=["*"],
-)
 
 class TokenRequest(BaseModel):
     idToken: str
 class RefreshTokenRequest(BaseModel):
     refresh_token: str
+
+@app.head("/health")
+async def health_check_head():
+    return
 
 @app.post("/api/auth/google")
 async def verify_google_and_issue_jwt(request: TokenRequest):
