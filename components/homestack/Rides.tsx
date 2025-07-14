@@ -7,6 +7,7 @@ import { AuthContext } from "../authstack/AuthContext";
 import { getValidAccessToken } from "../../Auth/checkToken";
 import { handleLogout } from "../../Auth/handleLogout";
 import { useNavigation, NavigationProp } from "@react-navigation/native";
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 type Ride = {
   ride_id: number;
@@ -34,6 +35,7 @@ export default function Rides() {
   const [debouncedSearch, setDebouncedSearch] = React.useState("")
   const user_id = userInfo?.user.id
   const navigation = useNavigation();
+  const insets = useSafeAreaInsets();
 
   const userRides = async () => {
     const accessToken = await getValidAccessToken();
@@ -168,7 +170,7 @@ useEffect(()=>{
                   <TextInput placeholder="Search Locations" style={{flex: 1}} onChangeText={setSearch} value={search}></TextInput>
               </View>
             </View>
-            <View>
+            <View style={{paddingBottom: insets.bottom + 70}}>
               <FlatList
                 data={visibleRides}
                 renderItem={renderRide}
