@@ -12,6 +12,7 @@ import { Gesture, GestureHandlerRootView } from 'react-native-gesture-handler';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { WEB_CLIENT_ID, IOS_CLIENT_ID } from './Auth/key';
 
+
 export type RootStackParamList = {
   Login: undefined;
   Home: undefined;
