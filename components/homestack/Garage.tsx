@@ -11,6 +11,7 @@ import CalenderComponent from "../Elements/CalenderComponent";
 import { getValidAccessToken } from "../../Auth/checkToken";
 import { handleLogout } from "../../Auth/handleLogout";
 import { useNavigation } from "@react-navigation/native";
+import SafeScreenWrapper from "./SafeScreenWrapper";
 
 
 type UserDetails = {
@@ -302,8 +303,10 @@ const series = generatePieChartData();
 
 
     return (
-        <View style={{ flex: 1, backgroundColor: "#121212", position: "relative" }}>
-  <ScrollView contentContainerStyle={{ flexGrow: 1, padding: 25, justifyContent: "space-between" }}>
+        <View style={{flex:1, backgroundColor: "#121212"}}>
+        <SafeScreenWrapper>
+        <View style={{ flex: 1, position: "relative" }}>
+  <ScrollView contentContainerStyle={{ flexGrow: 1, padding: 15, justifyContent: "space-between" }}>
 
             <View style={{ flexDirection: "row", alignItems:"center" }}>
                 <Text style={{ color : "#C62828" ,fontFamily:"Inter_18pt-Bold",fontSize: 17 }}>Hello </Text>
@@ -433,7 +436,7 @@ const series = generatePieChartData();
                 </View>
                 <GestureHandlerRootView style={{height: 160}}>
                     <ScrollView style={{marginTop: 15}}>
-                        {expenditure.map((expense, index) => (
+                        {expenditure.reverse().map((expense, index) => (
                             <View key={index} style={styles.expenseItem}>
                                 <View style={styles.expenseLeftSection}>
                                     <View style={[styles.categoryIcon, {backgroundColor: categoryIconMap[expense.category]?.color || '#9E9E9E'}]}>
@@ -604,7 +607,7 @@ const series = generatePieChartData();
         <TouchableOpacity
             style={{
             position: 'absolute',
-            bottom: 80, 
+            bottom: 20, 
             right: 20,
             backgroundColor: '#C62828',
             borderRadius: 50,
@@ -624,6 +627,8 @@ const series = generatePieChartData();
         </View>
 
 
+        </View>
+        </SafeScreenWrapper>
         </View>
     );
 }

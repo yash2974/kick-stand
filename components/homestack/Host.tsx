@@ -142,7 +142,7 @@ export default function Host() {
 
     useEffect(() => {
         getRides(userInfo?.user.id);
-    }, [createRidevisible, selectedRideIdDelete]);
+    }, []);
   
     return (
         <View style={{flex: 4, backgroundColor : "#121212"}}>
@@ -151,17 +151,21 @@ export default function Host() {
               <Invitations
                 visible={true}
                 ride_id={selectedRideId}
-                onClose={() => setSelectedRideId(null)}
+                onClose={() => {setSelectedRideId(null)
+                  getRides(userInfo?.user.id);
+                }}
               />
             )}
             {selectedRideIdDelete && (
               <DeleteRide
               visible={true}
               ride_id={selectedRideIdDelete}
-              onClose={()=> setSelectedRideIdDelete(null)}/>
+              onClose={()=> {setSelectedRideIdDelete(null)
+                getRides(userInfo?.user.id);
+              }}/>
             )}
-            <View style={{ flex: 1, justifyContent: "flex-start", padding: 25}}>
-              <View style={{ flex:3, marginVertical: 8 }}>
+            <View style={{ flex: 1, justifyContent: "flex-start", padding: 15}}>
+              <View style={{ flex:3, marginBottom: 8 }}>
                 <View style={{marginBottom: 8}}>
                     <Text style={{ fontSize: 24, fontFamily: "Inter_18pt-SemiBold", color: "#C62828"}}>
                         Active Rides
@@ -171,7 +175,7 @@ export default function Host() {
                 <FlatList
                     data={rides}
                     renderItem={renderRide}
-                    keyExtractor={(item) => item.title}
+                    keyExtractor={(item) => String(item.ride_id)}
                     contentContainerStyle={{ paddingBottom: 20 }}
                     showsVerticalScrollIndicator={false}
                     ListEmptyComponent={

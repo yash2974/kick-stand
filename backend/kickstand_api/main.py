@@ -27,6 +27,8 @@ db = client["kickstand"]
 forums_collection = db["forumPosts"]
 comments_collection = db["forumsComments"]
 vehicles_collection = db["bike_data"]
+upvotes_collection = db["forumUpvotes"]
+downvotes_collection = db["forumDownvotes"]
 
 def get_db():
     db = database.SessionLocal()
@@ -365,6 +367,7 @@ async def forums():
     async for forum in forums_posts:
         forum["_id"] = str(forum["_id"])
         forums.append(forum)
+    forums.reverse()
     return forums
 
 @app.get("/forums/{post_id}")
@@ -392,20 +395,98 @@ async def get_comments(post_id: str):
         comment["_id"] = str(comment["_id"])
         comments.append(comment)
     return comments
-    
 
-@app.post("/update/{query}/{post_id}")
-async def vote_post(query: str, post_id: str):
-    if query not in ["upvote", "downvote"]: 
-        raise HTTPException(status_code=400, detail="Invalid vote type")
-    result = await forums_collection.update_one(
-        {"_id": ObjectId(post_id)},
-        {"$inc": {query: 1}}
-    )
-    if result.modified_count == 1:
-        return {"message": "succesfully"}
+@app.get("/upvoted_by/{post_id}/{user_id}")
+async def get_upvotedby(post_id: str, user_id: str):
+    liked_status = await upvotes_collection.find_one({
+        "post_id": post_id,
+        "user_id": user_id
+    })
+    print(liked_status)
+    if liked_status:
+        return True
     else:
-        return {"error": "unsuccesful"}
+        return False
+    
+@app.get("/downvoted_by/{post_id}/{user_id}")
+async def get_upvotedby(post_id: str, user_id: str):
+    liked_status = await downvotes_collection.find_one({
+        "post_id": post_id,
+        "user_id": user_id
+    })
+    print(liked_status)
+    if liked_status:
+        return True
+    else:
+        return False
+    
+@app.post("/upvote/{post_id}/{user_id}")
+async def vote_post(user_id: str, post_id: str):
+    already_upvoted = await upvotes_collection.find_one({
+        "user_id": user_id,
+        "post_id": post_id 
+    })
+    if already_upvoted:
+        await upvotes_collection.delete_many({
+            "post_id": post_id,
+            "user_id": user_id
+        })
+        result = await forums_collection.update_one(
+        {"_id": ObjectId(post_id)},
+        {"$inc": {"upvote":-1}}
+        )
+        if result.modified_count == 1:
+            return False
+        else:
+            return {"error": "Update failed"}
+    else:
+        await upvotes_collection.insert_one({
+            "post_id": post_id,
+            "user_id": user_id
+        })
+        result = await forums_collection.update_one(
+            {"_id": ObjectId(post_id)},
+            {"$inc": {"upvote":1}}
+        )
+        if result.modified_count == 1:
+            return True
+        else:
+            return {"error": "Update failed"}
+    
+        
+    
+@app.post("/downvote/{post_id}/{user_id}")
+async def down_vote_post(user_id: str, post_id: str):
+    already_downvoted = await downvotes_collection.find_one({
+        "user_id": user_id,
+        "post_id": post_id 
+    })
+    if already_downvoted:
+        await downvotes_collection.delete_many({
+            "post_id": post_id,
+            "user_id": user_id
+        })
+        result = await forums_collection.update_one(
+        {"_id": ObjectId(post_id)},
+        {"$inc": {"downvote":-1}}
+        )
+        if result.modified_count == 1:
+            return False
+        else:
+            return {"error": "Update failed"}
+    else:
+        await downvotes_collection.insert_one({
+            "post_id": post_id,
+            "user_id": user_id
+        })
+        result = await forums_collection.update_one(
+            {"_id": ObjectId(post_id)},
+            {"$inc": {"downvote":1}}
+        )
+        if result.modified_count == 1:
+            return True
+        else:
+            return {"error": "Update failed"}
     
 @app.post("/remove-post/{post_id}")
 async def delete_post(post_id: str):

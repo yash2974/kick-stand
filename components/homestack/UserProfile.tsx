@@ -1,5 +1,5 @@
 import React from "react";
-import { Button, Text, View } from "react-native";
+import { Button, Linking, Text, View } from "react-native";
 import SafeScreenWrapper from "./SafeScreenWrapper"; // adjust the path
 import { useNavigation } from "@react-navigation/native";
 import { AuthContext } from "../authstack/AuthContext";
@@ -23,11 +23,16 @@ export default function Forums() {
       console.error("Logout error:", error);
       alert("Failed to log out. Try again.");
     }
-  }
+    }
+    const openGoogleMaps= ()=> {
+      const url = "https://maps.app.goo.gl/URYtZq5wYifLGv7o9"
+      Linking.openURL(url);
+    }
   return (
     <SafeScreenWrapper>
         <View style={{justifyContent: "space-between", flex: 1}}>
       <Text>Forums</Text>
+      <Button title='open' onPress={openGoogleMaps}></Button>
       <Button title="logout" onPress={()=>handleLogout()}></Button>
       <Text>gwergw</Text>
       </View>

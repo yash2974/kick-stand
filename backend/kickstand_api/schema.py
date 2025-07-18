@@ -114,7 +114,9 @@ class CreateForum(BaseModel):
     content: str
     upvote: int = 0
     downvote: int = 0
+    comments: int = 0
     user_id: str
+    username: str
     tags: list[str]
     created_at: Optional[datetime] = Field(default_factory=datetime.now)
     image_url: Optional[str] = None
@@ -126,3 +128,6 @@ class PostComment(BaseModel):
     created_at: Optional[datetime] = Field(default_factory=datetime.now)
     parent_comment_id: Optional[str] = None
 
+class Votes(BaseModel):
+    post_id: str
+    user_id: str

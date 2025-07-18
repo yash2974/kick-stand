@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { createNativeStackNavigator, NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { ActivityIndicator, View, StyleSheet } from 'react-native';
 import LoginScreen from './components/authstack/LoginScreen';
 import HomeScreen from './components/homestack/HomeScreen';
@@ -24,6 +24,7 @@ GoogleSignin.configure({
 });
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
+export type RootNavigationProp = NativeStackNavigationProp<RootStackParamList>;
 
 const AppContent = () => {
   

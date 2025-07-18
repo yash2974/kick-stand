@@ -16,6 +16,7 @@ type InvitationsProps = {
 };
 
 type Ride = {
+    request_id: number
     ride_id: number;
     requested_at: string;
     user_id: string;
@@ -203,7 +204,7 @@ export default function Invitations({ visible, onClose, ride_id}: InvitationsPro
                     <FlatList 
                         data={lobby}
                         renderItem={renderLobby}
-                        keyExtractor={(item) => item.ride_id.toString()}
+                        keyExtractor={(item) => item.request_id.toString()}
                         contentContainerStyle={{ paddingBottom: 20 }}
                         showsVerticalScrollIndicator={false}
                         ListEmptyComponent={
@@ -220,7 +221,7 @@ export default function Invitations({ visible, onClose, ride_id}: InvitationsPro
                     <FlatList 
                         data={invitations}
                         renderItem={renderRideInvitations}
-                        keyExtractor={(item) => item.ride_id.toString()}
+                        keyExtractor={(item) => item.request_id.toString()}
                         contentContainerStyle={{ paddingBottom: 20 }}
                         showsVerticalScrollIndicator={false}
                         ListEmptyComponent={

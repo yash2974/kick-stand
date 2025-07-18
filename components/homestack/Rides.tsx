@@ -161,7 +161,7 @@ useEffect(()=>{
   return (
     <View style={{flex:1, backgroundColor: "#121212"}}>
     <SafeScreenWrapper>
-    <View style={{ flex: 1, justifyContent: "flex-start", backgroundColor : "#121212" , padding: 25}}>
+    <View style={{ flex: 1, justifyContent: "flex-start", backgroundColor : "#121212" , padding: 15}}>
       
         <View>
             <View >
