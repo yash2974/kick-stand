@@ -414,10 +414,8 @@ async def create_forum_post(
     upvote: int = Form(0),
     downvote: int = Form(0),
     comments: int = Form(0),
-    image: UploadFile = File(...)
+    image: Optional[UploadFile] = File(None)
 ):
-    
-    # Create and validate the forum data
     forum_data = schema.CreateForum(
         title=title,
         content=content,
@@ -428,25 +426,28 @@ async def create_forum_post(
         downvote=downvote,
         comments=comments
     )
-    
-    # Try to upload image - if it fails, the entire operation fails
-    try:
-        uploaded = await upload_to_imagekit(image=image, file_name=image.filename)
-        forum_dict = forum_data.model_dump()
-        forum_dict["image_url"] = uploaded["image_url"]
-    except HTTPException as e:
-        # Re-raise the HTTP exception from upload_to_imagekit
-        raise e
-    except Exception as e:
-        # Handle any other unexpected errors
-        raise HTTPException(status_code=500, detail=f"Image upload failed: {str(e)}")
-    
+    forum_dict = forum_data.model_dump()
+
+    image_url = None
+    if image:
+        try:
+            uploaded = await upload_to_imagekit(image=image, file_name=image.filename)
+            image_url = uploaded["image_url"]
+            forum_dict["image_url"] = image_url
+        except HTTPException as e:
+            raise e
+        except Exception as e:
+            raise HTTPException(status_code=500, detail=f"Image upload failed: {str(e)}")
+    else:
+        forum_dict["image_url"] = None
+
     result = await forums_collection.insert_one(forum_dict)
     return {
         "message": "Forum post created",
         "post_id": str(result.inserted_id),
-        "image_url": uploaded["image_url"]
+        "image_url": image_url
     }
+
 
 @app.get("/forums")
 async def forums():

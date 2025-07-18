@@ -182,16 +182,17 @@ const ForumPost = () => {
                             {item.title}
                             </Text>
                             {item.image_url ? (
+                            <View style={{width: "100%", justifyContent: "center", alignItems: "center", backgroundColor: "#9E9E9E", marginVertical: 4, borderRadius: 8, overflow: "hidden"}}>
                             <Image
                                 source={{ uri: item.image_url }}
                                 style={{
                                 width: "100%",
                                 aspectRatio,
-                                borderRadius: 8,
-                                marginVertical: 4,
+                                maxHeight: 600, 
                                 }}
                                 resizeMode="cover"
                             />
+                            </View>
                             ) : null}
                             <View style={{flexDirection: "row", justifyContent: "space-between", width: "100%", marginTop: 4}}>
                                 <View style={{flexDirection: "row", gap: 6}}>
