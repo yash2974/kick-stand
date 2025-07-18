@@ -119,7 +119,6 @@ class CreateForum(BaseModel):
     username: str
     tags: list[str]
     created_at: Optional[datetime] = Field(default_factory=datetime.now)
-    image_url: Optional[str] = None
 
 class PostComment(BaseModel):
     post_id: str

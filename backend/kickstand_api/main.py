@@ -1,5 +1,5 @@
 from datetime import date, datetime
-from fastapi import FastAPI, Depends, HTTPException, Query
+from fastapi import FastAPI, Depends, File, Form, HTTPException, Query, UploadFile
 from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
 from sqlalchemy import func, or_
 from sqlalchemy.orm import Session
@@ -14,6 +14,8 @@ from typing import List, Optional
 import os
 from dotenv import load_dotenv
 import jwt
+import requests
+
 
 
 load_dotenv()
@@ -351,13 +353,99 @@ def delete_rides(ride_id: int, db: Session = Depends(get_db), token_data: dict =
     db.commit()
     return {"message": f"Ride {ride_id} and its participants deleted."}
 
+
+from PIL import Image, ImageOps
+import io
+
+async def compress_image(file: UploadFile, max_size_kb=1000):
+    image = Image.open(file.file).convert("RGB")  # ensure JPEG-compatible
+    image = ImageOps.exif_transpose(image)
+
+    output = io.BytesIO()
+    quality = 85
+    image.save(output, format="JPEG", optimize=True, quality=quality)
+
+    # Reduce quality until file size <= max_size_kb
+    while output.tell() > max_size_kb * 1024 and quality > 10:
+        quality -= 5
+        output.seek(0)
+        output.truncate(0)
+        image.save(output, format="JPEG", optimize=True, quality=quality)
+
+    output.seek(0)
+    return output
+
+
+ALLOWED_TYPES = {"image/jpeg", "image/png", "image/jpg"}
+IMAGEKIT_UPLOAD_URL = "https://upload.imagekit.io/api/v1/files/upload"
+IMAGEKIT_PUBLIC_KEY = os.getenv("IMAGEKIT_PUBLIC_KEY") 
+
+async def upload_to_imagekit(
+    image: UploadFile = File(...),
+    file_name: str = Form(...),
+    folder: str = Form("kickstand-forums/")
+):
+    if image.content_type not in ALLOWED_TYPES:
+        raise HTTPException(status_code=400, detail="Only JPEG and PNG images are allowed")
+    
+    compressed_bytes = await compress_image(image)
+
+    response = requests.post(
+        IMAGEKIT_UPLOAD_URL,
+        auth=(IMAGEKIT_PUBLIC_KEY, ""),  # username only for Basic Auth
+        files={"file": (file_name, compressed_bytes.getvalue(), image.content_type)},
+        data={"fileName": file_name, "folder": "kickstand-forums"}
+    )
+
+        # If upload failed
+    if response.status_code != 200:
+        raise HTTPException(status_code=500, detail=f"ImageKit upload failed: {response.text}")
+
+    # If success, return URL
+    return {"image_url": response.json()["url"]}
+
 @app.post("/create-forum/")
-async def create_forum_post(forum: schema.CreateForum):
-    forum_dict = forum.model_dump()
+async def create_forum_post(
+    title: str = Form(...),
+    content: str = Form(...),
+    user_id: str = Form(...),
+    username: str = Form(...),
+    tags: List[str] = Form(...),
+    upvote: int = Form(0),
+    downvote: int = Form(0),
+    comments: int = Form(0),
+    image: UploadFile = File(...)
+):
+    
+    # Create and validate the forum data
+    forum_data = schema.CreateForum(
+        title=title,
+        content=content,
+        user_id=user_id,
+        username=username,
+        tags=tags,
+        upvote=upvote,
+        downvote=downvote,
+        comments=comments
+    )
+    
+    # Try to upload image - if it fails, the entire operation fails
+    try:
+        uploaded = await upload_to_imagekit(image=image, file_name=image.filename)
+        forum_dict = forum_data.model_dump()
+        forum_dict["image_url"] = uploaded["image_url"]
+    except HTTPException as e:
+        # Re-raise the HTTP exception from upload_to_imagekit
+        raise e
+    except Exception as e:
+        # Handle any other unexpected errors
+        raise HTTPException(status_code=500, detail=f"Image upload failed: {str(e)}")
+    
     result = await forums_collection.insert_one(forum_dict)
     return {
         "message": "Forum post created",
-        "post_id": str(result.inserted_id)
+        "post_id": str(result.inserted_id),
+        "image_url": uploaded["image_url"]
     }
 
 @app.get("/forums")
