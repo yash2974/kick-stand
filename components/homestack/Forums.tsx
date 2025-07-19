@@ -16,6 +16,7 @@ import ForumPost from "./ForumPost";
 import { RootStackParamList } from "../../App";
 
 
+
 export type Forums = {
   _id: string,
   user_id: string,
@@ -47,13 +48,17 @@ export function ForumsContent() {
   const [forums, setForums] = useState([]);
 
   //fetch forums
-  const fetchForums = async () => {
+  const fetchForums = async (query: string) => {
     const accessToken = await getValidAccessToken();
     if (!accessToken){
       handleLogout(navigationRoot, setUserInfo);
     }
     try{
-      const response = await fetch("http://192.168.1.9:8001/forums",{
+      let url = "http://192.168.1.9:8001/forums"
+      if (query){
+        url+= `?query=${encodeURIComponent(query)}`;
+      }
+      const response = await fetch(url,{
         method: "GET",
         headers: {
           "Content-Type": "application/json",
@@ -83,7 +88,7 @@ export function ForumsContent() {
 
   useFocusEffect(
   useCallback(() => {
-    fetchForums();
+    fetchForums("");
   }, [])
 );
 
@@ -96,11 +101,11 @@ export function ForumsContent() {
           <Text style={{fontFamily: "Inter_18pt-Bold", color: "#C62828", fontSize: 24}}>@kickstand</Text>
           <View style={{flexDirection: "row", width: "100%", justifyContent: "space-between", marginVertical: 8}}>
             <View style={{flexDirection: "row", gap: 10}}>
-              <TouchableOpacity style={{flexDirection: "row", alignItems: "baseline", backgroundColor: "#424242", padding: 8, borderRadius: 20}}>
+              <TouchableOpacity style={{flexDirection: "row", alignItems: "baseline", backgroundColor: "#424242", padding: 8, borderRadius: 20}} onPress={()=>fetchForums("")}>
                 <MaterialCommunityIcons name="clock-outline" size={13} style={{color: "#ECEFF1", marginHorizontal: 3}}/>
                 <Text style={{fontFamily: "Inter_18pt-Regular", color: "#ECEFF1", marginHorizontal: 3, fontSize: 13}}>Latest</Text>
               </TouchableOpacity>
-              <TouchableOpacity style={{flexDirection: "row", alignItems: "baseline", backgroundColor: "#424242", padding: 8, borderRadius: 20}}>
+              <TouchableOpacity style={{flexDirection: "row", alignItems: "baseline", backgroundColor: "#424242", padding: 8, borderRadius: 20}} onPress={()=>fetchForums("Hot")}>
                 <MaterialCommunityIcons name="fire" size={13} style={{color: "#ECEFF1", marginHorizontal: 3}}/>
                 <Text style={{fontFamily: "Inter_18pt-Regular", color: "#ECEFF1", marginHorizontal: 3, fontSize: 13}}>Hot</Text>
               </TouchableOpacity>

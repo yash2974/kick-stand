@@ -1,5 +1,5 @@
 import { View, Text, TouchableOpacity } from 'react-native'
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import type { Forums } from './Forums'
 import type { RootNavigationProp } from '../../App'
 import type { HomeNavigationProp } from './Forums'
@@ -8,6 +8,7 @@ import SafeScreenWrapper from './SafeScreenWrapper'
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import { TextInput } from 'react-native-gesture-handler'
 import {launchImageLibrary, launchCamera} from 'react-native-image-picker';
+import { AuthContext } from '../authstack/AuthContext'
 
 
 const CreateForums = () => {
@@ -16,6 +17,9 @@ const CreateForums = () => {
   const [title, setTitle] = useState("");
   const [tags, setTags] = useState<string[]>([]);
   const [content, setContent] = useState("");
+  const {userInfo} = useContext(AuthContext);
+  const user_id = userInfo?.user.id;
+  const username = userInfo?.user.name;
 
   const selectTags = (value: string) => {
     setTags(prevTags => {
@@ -31,6 +35,62 @@ const CreateForums = () => {
     });
   };
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
+
+  const submitForum = async () => {
+  if (!title || !content){
+    alert("dont leave title/comment empty!!!")
+    return;
+  }
+  try {
+    console.log("Submitting forum post...");
+
+    const formData = new FormData();
+    formData.append('title', title);
+    formData.append('content', content);
+    if (user_id && username) {
+      formData.append('user_id', user_id);
+      formData.append('username', username);
+    } else {
+      alert("contact devlopers :(")
+    }
+    formData.append('tags', tags[0]);
+    formData.append('tags', tags[1]);
+    formData.append('upvote', '0');
+    formData.append('downvote', '0');
+    formData.append('comments', '0');
+
+    if (selectedImage) {
+      const imageFile: any = {
+        uri: selectedImage,
+        type: 'image/jpeg',
+        name: 'forum-image.jpg',
+      };
+      formData.append('image', imageFile);
+    }
+
+    const response = await fetch('http://192.168.1.9:8001/create-forum/', {
+      method: 'POST',
+      body: formData,
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    });
+
+    const data = await response.json();
+    console.log("Server response:", data);
+
+    if (response.ok) {
+      console.log("Forum post created successfully!", data);
+      resetForm();
+      homenavigation.goBack()
+    } else {
+      console.error("Error creating forum:", data);
+    }
+  } catch (err) {
+    console.error("submitForm error:", err);
+  }
+};
+
 
   const pickImage = async () => {
   console.log("Opening image library...");
@@ -78,6 +138,7 @@ const CreateForums = () => {
       const uri = result.assets[0].uri;
       console.log("Image captured URI:", uri);
       setSelectedImage(uri || null);
+      console.log(uri)
     } else {
       console.log("No assets returned from camera");
     }
@@ -90,7 +151,6 @@ const CreateForums = () => {
     setTitle("");
     setContent("");
     setTags([]);
-    // also clear selected image if you have one
     setSelectedImage(null);
   };
 
@@ -132,6 +192,7 @@ const CreateForums = () => {
               flexDirection: "row",
               justifyContent: "center"
             }}
+            onPress={()=>submitForum()}
           >
             <Text
               style={{
@@ -159,10 +220,11 @@ const CreateForums = () => {
               fontSize: 20,
               marginVertical: 8,
               textAlignVertical: "top",
+              fontFamily: "Inter_18pt-Regular"
             }}
           />
 
-          <Text style={{ color: "#ECEFF1", fontSize: 12, marginVertical: 8 }}>
+          <Text style={{ color: "#ECEFF1", fontSize: 12, marginVertical: 8, fontFamily: "Inter_18pt-Regular" }}>
             Add Flairs (optional)
           </Text>
           <View style={{ flexDirection: "row", flexWrap: "wrap" }}>
@@ -203,21 +265,23 @@ const CreateForums = () => {
               marginVertical: 8,
               textAlignVertical: "top",
               flex: 1,
+              fontFamily: "Inter_18pt-Regular"
             }}
           />
         </View>
 
         {/* Footer */}
-        <View style={{margin: 8, flexDirection: "row"}}>
+        <View style={{margin: 8, flexDirection: "row", alignItems: "center"}}>
           <TouchableOpacity onPress={()=>pickImage()}>
             <MaterialCommunityIcons name="image-plus" size={25} style={{color: "#ECEFF1", margin: 8}}/>
-          </TouchableOpacity>  
+          </TouchableOpacity>
           <TouchableOpacity onPress={()=>openCamera()}>  
             <MaterialCommunityIcons name="camera-plus" size={25} style={{color: "#ECEFF1", margin: 8}}/>
           </TouchableOpacity>  
           <TouchableOpacity onPress={()=>resetForm()}>  
             <MaterialCommunityIcons name="refresh" size={25} style={{color: "#ECEFF1", margin: 8}}/>
           </TouchableOpacity>  
+          {selectedImage ? <Text style={{fontFamily: "Inter_18pt-Regular", color: "#C62828"}}>(Image selected)</Text> : null}
         </View>
       </SafeScreenWrapper>
     </View>

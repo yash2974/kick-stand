@@ -448,15 +448,17 @@ async def create_forum_post(
         "image_url": image_url
     }
 
-
 @app.get("/forums")
-async def forums():
+async def forums(query: Optional[str] = None):
     forums = []
     forums_posts = forums_collection.find()
     async for forum in forums_posts:
         forum["_id"] = str(forum["_id"])
         forums.append(forum)
-    forums.reverse()
+    if query == "Hot":
+        forums.sort(key=lambda f: f.get("upvote", 0), reverse=True)
+    else:
+        forums.reverse()
     return forums
 
 @app.get("/forums/{post_id}")
@@ -471,6 +473,10 @@ async def get_forums(post_id: str):
 async def post_comment(post_id: str, comment: schema.PostComment):
     comment_dict = comment.model_dump()
     result = await comments_collection.insert_one(comment_dict)
+    await forums_collection.update_one(
+        {"_id": ObjectId(post_id)},
+        {"$inc": {"comments": 1}}
+    )
     return{
         "message": "Comment posted",
         "comment_id": str(result.inserted_id)

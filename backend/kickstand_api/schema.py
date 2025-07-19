@@ -122,10 +122,11 @@ class CreateForum(BaseModel):
 
 class PostComment(BaseModel):
     post_id: str
-    user_id: str
+    username: str
     text: str
     created_at: Optional[datetime] = Field(default_factory=datetime.now)
     parent_comment_id: Optional[str] = None
+    
 
 class Votes(BaseModel):
     post_id: str
