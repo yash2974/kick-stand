@@ -16,9 +16,6 @@ type RideJoinRequest = {
     
 }
 
-
-
-
 const RideJoinRequest = ({visible, onClose, description, title, ride_id, created_by}: RideJoinRequest) => {
     const navigation = useNavigation()
     const { userInfo, setUserInfo } = useContext(AuthContext)

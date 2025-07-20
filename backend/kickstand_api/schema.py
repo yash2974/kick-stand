@@ -78,7 +78,6 @@ class RideJoinRequestsWithUser(BaseModel):
 
     class Config:
         from_attributes = True
-        orm_mode = True  # Enable ORM mode for compatibility with SQLAlchemy models
 class RideJoinRequestsWithUserPending(BaseModel):
     request_id: int
     ride_id: int
@@ -90,7 +89,6 @@ class RideJoinRequestsWithUserPending(BaseModel):
 
     class Config:
         from_attributes = True
-        orm_mode = True  # Enable ORM mode for compatibility with SQLAlchemy models
 
 class RideWithInviteCount(BaseModel):
     ride_id: int
@@ -117,7 +115,7 @@ class CreateForum(BaseModel):
     comments: int = 0
     user_id: str
     username: str
-    tags: list[str]
+    tags: Optional[list[str]] = None
     created_at: Optional[datetime] = Field(default_factory=datetime.now)
 
 class PostComment(BaseModel):
@@ -127,7 +125,20 @@ class PostComment(BaseModel):
     created_at: Optional[datetime] = Field(default_factory=datetime.now)
     parent_comment_id: Optional[str] = None
     
-
 class Votes(BaseModel):
+    post_id: str
+    user_id: str
+
+class ReportPost(BaseModel):
+    post_id: str
+    user_id: str
+    reported_by: str
+
+class ReportRide(BaseModel):
+    ride_id: int
+    user_id: str
+    reported_by: str
+
+class DeleteForum(BaseModel):
     post_id: str
     user_id: str

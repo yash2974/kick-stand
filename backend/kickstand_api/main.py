@@ -31,6 +31,7 @@ comments_collection = db["forumsComments"]
 vehicles_collection = db["bike_data"]
 upvotes_collection = db["forumUpvotes"]
 downvotes_collection = db["forumDownvotes"]
+reports_collection = db["report"]
 
 def get_db():
     db = database.SessionLocal()
@@ -410,7 +411,7 @@ async def create_forum_post(
     content: str = Form(...),
     user_id: str = Form(...),
     username: str = Form(...),
-    tags: List[str] = Form(...),
+    tags: Optional[List[str]] = Form([]),
     upvote: int = Form(0),
     downvote: int = Form(0),
     comments: int = Form(0),
@@ -447,6 +448,18 @@ async def create_forum_post(
         "post_id": str(result.inserted_id),
         "image_url": image_url
     }
+
+@app.post("/forum-delete")
+async def delete_forums(data: schema.DeleteForum):
+    result = await forums_collection.delete_one({
+        "user_id": data.user_id,
+        "_id": ObjectId(data.post_id)
+    })
+    comments_result = await comments_collection.delete_many({
+        "post_id": data.post_id
+    })
+    return {"message": "deleted" if result.deleted_count else "not found",
+            "comments_deleted": comments_result.deleted_count}
 
 @app.get("/forums")
 async def forums(query: Optional[str] = None):
@@ -591,6 +604,33 @@ async def delete_post(post_id: str):
         return {"message": "Deleted", 
                 "comments_deleted": result_comment.deleted_count}
     return {"error": "Not found"}
+
+@app.post("/report-post/")
+async def report_post(post: schema.ReportPost):
+    report = post.model_dump()
+    result = await reports_collection.find_one({
+        "post_id": post.post_id,
+        "user_id": post.user_id,
+        "reported_by": post.reported_by
+    })
+    if result:
+        return ({
+        "message": "you have already reported!! ",
+        })
+    result = await reports_collection.insert_one(report)
+    return ({
+        "message": "reported!!" ,
+        "report_id": str(result.inserted_id)
+    })
+
+@app.post("/report-ride/")
+async def report_ride(ride: schema.ReportRide):
+    report = ride.model_dump()
+    result = await reports_collection.insert_one(report)
+    return ({
+        "message": "reported user" + ride.user_id,
+        "report_id": str(result.inserted_id)
+    })
 
 
 

@@ -25,7 +25,7 @@ export default function Forums() {
     }
     }
     const openGoogleMaps= ()=> {
-      const url = "https://maps.app.goo.gl/URYtZq5wYifLGv7o9"
+      const url = "https://www.google.com/maps"
       Linking.openURL(url);
     }
   return (

@@ -42,7 +42,7 @@ type RootNavigationProp = NativeStackNavigationProp<RootStackParamList>;
 const HomeStack = createNativeStackNavigator<HomeStackParamList>();
 
 export function ForumsContent() {
-  const navigation = useNavigation<HomeNavigationProp>();
+  const navigationHome = useNavigation<HomeNavigationProp>();
   const navigationRoot = useNavigation<RootNavigationProp>();
   const { userInfo , setUserInfo} = useContext(AuthContext);
   const [forums, setForums] = useState([]);
@@ -111,7 +111,7 @@ export function ForumsContent() {
               </TouchableOpacity>
             </View>
             <View style={{}}>
-              <TouchableOpacity style={{flexDirection: "row", alignItems: "baseline", backgroundColor: "#C62828", padding: 8, borderRadius: 20}}  onPress={() => {navigation.navigate("CreateForums")}}>
+              <TouchableOpacity style={{flexDirection: "row", alignItems: "baseline", backgroundColor: "#C62828", padding: 8, borderRadius: 20}}  onPress={() => {navigationHome.navigate("CreateForums")}}>
                 <MaterialCommunityIcons name="pencil-plus" size={13} style={{color: "#ECEFF1", marginHorizontal: 3}}/>
                 <Text style={{fontFamily: "Inter_18pt-Regular", color: "#ECEFF1", marginHorizontal: 2, fontSize: 13}}>New Post</Text>
               </TouchableOpacity>

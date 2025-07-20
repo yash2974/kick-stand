@@ -8,14 +8,24 @@ import { ScreenContentWrapper } from "react-native-screens";
 import SafeScreenWrapper from "./SafeScreenWrapper";
 import { DateTimePickerComponent } from "../Elements/DateTimePickerComponent";
 import { ScrollView } from "react-native-gesture-handler";
-import CreateRideModal from "../Elements/CreateRideModal";
+import CreateRide from "../Elements/CreateRideModal";
 import DeleteRide from "../Elements/DeleteRide";
 import * as Keychain from 'react-native-keychain'
 import { getValidAccessToken } from '../../Auth/checkToken';
 import { GoogleSignin } from "@react-native-google-signin/google-signin";
-import { useNavigation } from "@react-navigation/native";
+import { NavigationIndependentTree, useNavigation } from "@react-navigation/native";
+import LottieView from 'lottie-react-native';
+import { createNativeStackNavigator, NativeStackNavigationProp } from "@react-navigation/native-stack";
+import { RootNavigationProp } from "../../App";
+import { handleLogout } from "../../Auth/handleLogout";
 
+export type HostStackParamList = {
+  Host: undefined;
+  CreateRide: undefined;
+}
 
+export type HostNavigationProp = NativeStackNavigationProp<HostStackParamList>;
+const HostStack = createNativeStackNavigator<HostStackParamList>();
 
 type Ride = {
   image_url: string;
@@ -30,20 +40,21 @@ type Ride = {
   invite_count: number;
 };
 
-export default function Host() {
+
+
+function HostContent() {
     const { userInfo, setUserInfo } = React.useContext(AuthContext);
     const [rides, setRides] = React.useState([]);
     const [loading, setLoading] = React.useState(true);
     const [selectedRideId, setSelectedRideId] = React.useState<number | null>(null);
-    const [createRidevisible, setCreateRideVisible] = React.useState(false)
-    const [deleteRideVisible, setDeleteRideVisible] = React.useState(false)
     const [selectedRideIdDelete, setSelectedRideIdDelete] = React.useState<number | null>(null);
-    const navigation = useNavigation()
+    const rootNavigation = useNavigation<RootNavigationProp>();
+    const hostNavigation = useNavigation<HostNavigationProp>();
 
     const getRides = async (userId?: string) => {
       const token = await getValidAccessToken();
       if (!token){
-        await handleLogout();
+        await handleLogout(rootNavigation, setUserInfo);
         return;
       }
         try {
@@ -72,23 +83,10 @@ export default function Host() {
             console.error("Error fetching rides:", error);
             return []; 
         }
+        finally {
+          setLoading(false);
+        }
     };
-
-    const handleLogout = async () => {
-        try {
-          await GoogleSignin.signOut();
-          await Keychain.resetGenericPassword({ service: 'access_token' });
-          await Keychain.resetGenericPassword({ service: 'refresh_token' });
-          setUserInfo(null)
-          navigation.reset({ index: 0, routes: [{ name: 'Login' as never }] });
-        }
-        catch (error) {
-          console.error("Logout error:", error);
-          alert("Failed to log out. Try again.");
-        }
-      }
-
-    
 
     const renderRide = ({ item }: { item: Ride }) => (
       <View style={styles.card}>
@@ -180,16 +178,23 @@ export default function Host() {
                     showsVerticalScrollIndicator={false}
                     ListEmptyComponent={
                         loading ? (
-                        <Text style={{ color: '#fff', textAlign: 'center' }}>Loading rides...</Text>
+                          <View style={{justifyContent: "center", alignItems: "center", marginVertical: 100}}>
+                            <LottieView source={require('../../assets/loading/loadingAnimation.json')} autoPlay loop style={{ width: 200, height: 200 }} />
+                            <Text style={{ color: '#9c908f', fontFamily: "Inter_18pt-Bold", fontSize: 15}}>Getting your rides ready…</Text>
+                          </View>
                         ) : (
-                        <Text style={{ color: '#fff', textAlign: 'center'}}>No rides available</Text>
+                          <View style={{justifyContent: "center", alignItems: "center", marginVertical: 100}}>
+                            <MaterialCommunityIcons name="engine-off" size={50} color="#9c908f"/>
+                            <Text style={{ color: '#9c908f', fontFamily: "Inter_18pt-Bold", fontSize: 15}}>No rides yet :)</Text>
+                            <Text style={{ color: '#9c908f', fontFamily: "Inter_18pt-Bold", fontSize: 15}}>Lift your Kickstand by hitting Create Ride!</Text>
+                          </View>
                         )
                     }
                 />
                 </View>
               </View>
               <TouchableOpacity
-                onPress={() => setCreateRideVisible(true)}
+                onPress={() => {hostNavigation.navigate("CreateRide")}}
                 style={{
                   backgroundColor: "#C62828",
                   marginTop: 12,
@@ -209,11 +214,32 @@ export default function Host() {
               
               
             </View>
-            <CreateRideModal visible={createRidevisible} onClose={()=>{setCreateRideVisible(false)}}/>
+            {/* <CreateRideModal visible={createRidevisible} onClose={()=>{setCreateRideVisible(false)}}/> */}
           </SafeScreenWrapper>
         </View>
     );
 }
+
+export default function Host() {
+  return (
+    <NavigationIndependentTree>
+      <HostStack.Navigator initialRouteName={"Host"}>
+        <HostStack.Screen 
+          name="Host" 
+          component={HostContent}
+          options={{ headerShown: false }}
+        />
+        <HostStack.Screen
+          name="CreateRide"
+          component={CreateRide}
+          options={{ headerShown: false}}
+        />
+        
+      </HostStack.Navigator>
+    </NavigationIndependentTree>
+  )
+}
+
 
 const styles = StyleSheet.create({
   card: {

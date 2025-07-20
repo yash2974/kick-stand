@@ -14,6 +14,7 @@ import { AuthContext } from '../authstack/AuthContext'
 const CreateForums = () => {
   const homenavigation = useNavigation<HomeNavigationProp>();
   const rootNavigation = useNavigation<RootNavigationProp>();
+  const [loading, setLoading] = useState(false);
   const [title, setTitle] = useState("");
   const [tags, setTags] = useState<string[]>([]);
   const [content, setContent] = useState("");
@@ -37,8 +38,10 @@ const CreateForums = () => {
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
 
   const submitForum = async () => {
+  setLoading(true);
   if (!title || !content){
     alert("dont leave title/comment empty!!!")
+    setLoading(false);
     return;
   }
   try {
@@ -53,8 +56,11 @@ const CreateForums = () => {
     } else {
       alert("contact devlopers :(")
     }
-    formData.append('tags', tags[0]);
-    formData.append('tags', tags[1]);
+    if (tags){
+      for (const tag of tags){
+        formData.append('tags', tag)
+      }
+    }
     formData.append('upvote', '0');
     formData.append('downvote', '0');
     formData.append('comments', '0');
@@ -82,12 +88,15 @@ const CreateForums = () => {
     if (response.ok) {
       console.log("Forum post created successfully!", data);
       resetForm();
-      homenavigation.goBack()
+      homenavigation.goBack();
     } else {
       console.error("Error creating forum:", data);
     }
   } catch (err) {
     console.error("submitForm error:", err);
+  }
+  finally {
+    setLoading(false);
   }
 };
 
@@ -184,7 +193,7 @@ const CreateForums = () => {
           </View>
           <TouchableOpacity
             style={{
-              backgroundColor: "#C62828",
+              backgroundColor: loading ? "#9E9E9E":"#C62828",
               alignItems: "center",
               paddingHorizontal: 15,
               paddingVertical: 5,
@@ -193,6 +202,7 @@ const CreateForums = () => {
               justifyContent: "center"
             }}
             onPress={()=>submitForum()}
+            disabled = {loading}
           >
             <Text
               style={{

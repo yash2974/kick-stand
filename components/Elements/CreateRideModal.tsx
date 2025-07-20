@@ -6,11 +6,9 @@ import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityI
 import { getValidAccessToken } from '../../Auth/checkToken';
 import { handleLogout } from '../../Auth/handleLogout';
 import { useNavigation } from '@react-navigation/native';
-type CreateRideModalProps = {
-    visible: boolean;
-    onClose: ()=> void
-}
-const CreateRideModal = ({visible, onClose}: CreateRideModalProps) => {
+import type { RootNavigationProp } from '../../App';
+
+const CreateRide = () => {
 
     const [startTime, setStartTime] = React.useState("");
     const [endTime, setEndTime] = React.useState("");
@@ -19,7 +17,7 @@ const CreateRideModal = ({visible, onClose}: CreateRideModalProps) => {
     const [startLocation, setStartLocation] = React.useState("");
     const [endLocation, setEndLocation] = React.useState("");
     const { userInfo, setUserInfo } = useContext(AuthContext)
-    const navigation = useNavigation()
+    const rootNavigation = useNavigation<RootNavigationProp>();
 
     const user_id = userInfo?.user.id
     const image_url = userInfo?.user.photo
@@ -27,8 +25,7 @@ const CreateRideModal = ({visible, onClose}: CreateRideModalProps) => {
     const createRide = async () => {
         const accessToken = await getValidAccessToken();
             if (!accessToken){
-                onClose();
-                handleLogout(navigation, setUserInfo);
+                handleLogout(rootNavigation, setUserInfo);
                 return;
             }
 
@@ -79,83 +76,14 @@ const CreateRideModal = ({visible, onClose}: CreateRideModalProps) => {
           console.log(endTime)
         }, [startTime, endTime])
 
-    return (
-        <Modal visible={visible} onRequestClose={onClose} transparent={true} animationType='fade'>
-            <View style={styles.container}>
-                
-                    <View>
-                        <View style={{backgroundColor:"#1F1F1F", borderRadius: 20, padding: 20, width: "90%", maxWidth: "90%", minWidth: "90%" }}>
-                            <View style={{flexDirection: "row", alignItems: "baseline", justifyContent: "space-between"}}>
-                                <Text style={{color: "#fff", fontFamily: "Inter_18pt-SemiBold", fontSize: 24}}>Host Ride</Text>
-                                <TouchableOpacity onPress={()=>{onClose()}}>
-                                    <MaterialCommunityIcons name="close" size={20} color="#C62828" />
-                                </TouchableOpacity>
-                            </View>
-
-                            <View style={{backgroundColor: "#424242", borderRadius: 8, marginVertical: 8, paddingHorizontal: 8}}>
-                                <TextInput placeholder="Title" placeholderTextColor="#ccc" onChangeText={setTitle} value={title} multiline={true} />
-                            </View>
-
-                            <View style={{backgroundColor: "#424242", borderRadius: 8, marginVertical: 8, paddingHorizontal: 8}}>
-                                <TextInput placeholder="Description" placeholderTextColor="#ccc" onChangeText={setDescription} value={description} multiline={true} textAlignVertical="top" />
-                            </View>
-
-                            <View style={{flexDirection: "row", justifyContent: "space-between", gap: 12, marginVertical: 8}}>
-                                <View style={{backgroundColor: "#424242", borderRadius: 8, paddingHorizontal: 8, flex: 1}}>
-                                    <TextInput placeholder="Starting Point" placeholderTextColor="#ccc" onChangeText={setStartLocation} value={startLocation} multiline={true} />
-                                </View>
-                                <View style={{backgroundColor: "#424242", borderRadius: 8, paddingHorizontal: 8, flex: 1}}>
-                                    <TextInput placeholder="Destination" placeholderTextColor="#ccc" onChangeText={setEndLocation} value={endLocation} multiline={true}/>
-                                </View>
-                            </View>
-                            <View>
-                                <DateTimePickerComponent
-                                    onStartChange={(val) => setStartTime(val)}
-                                    onEndChange={(val) => setEndTime(val)}
-                                />
-                            </View>
-                            <View style={{ marginVertical: 8, flexDirection: "row", width: "100%", justifyContent: "space-evenly" }}>
-                                <TouchableOpacity
-                                    style={{ backgroundColor: "#C62828", paddingVertical: 10, paddingHorizontal: 20, borderRadius: 8 }}
-                                    onPress={() => {
-                                    createRide();
-                                    onClose();
-                                    }}
-                                >
-                                    <Text style={{ color: "white", fontWeight: "bold", textAlign: "center" }}>Submit</Text>
-                                </TouchableOpacity>
-
-                                <TouchableOpacity
-                                    style={{ backgroundColor: "#C62828", paddingVertical: 10, paddingHorizontal: 20, borderRadius: 8 }}
-                                    onPress={() => resetFields()}
-                                >
-                                    <Text style={{ color: "white", fontWeight: "bold", textAlign: "center" }}>Reset</Text>
-                                </TouchableOpacity>
-                            </View>
-
-                        </View>
-                    </View>
-                </View>
-            
-        </Modal>
+    return(
+        <View>
+            <Text>MyComponent</Text>
+        </View>
     )
-}
+};
 
-const styles = StyleSheet.create({
-    container: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    backgroundColor: "rgba(0, 0, 0, 0.5)",
-    }
-})
-
-export default CreateRideModal
+export default CreateRide;
 
 
 
-
-
-
-
-/*  */

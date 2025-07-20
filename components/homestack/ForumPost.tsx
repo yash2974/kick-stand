@@ -11,6 +11,8 @@ import { AuthContext } from '../authstack/AuthContext';
 import type { RootNavigationProp } from '../../App';
 import { HomeNavigationProp } from './Forums';
 import Comments from "../Elements/Comments";
+import DeletePost from '../Elements/DeletePost';
+import ReportPost from '../Elements/ReportPost';
 
 type ForumPostRouteProp = RouteProp<HomeStackParamList, 'ForumPost'>;
 
@@ -29,10 +31,13 @@ const ForumPost = () => {
     const [text, setText] = useState("");
     const [parentCommentUserName, setParentCommentUserName] = useState("");
     const [parentCommentPost_id, setParentCommentPost_id] = useState<string|null>(null);
+    const [deletePostModalVisible, setDeletePostModalVisible] = useState(false);
+    const [reportPostModalVisible, setReportPostModalVisible] = useState(false);
     const user_id = userInfo?.user.id
     const username = userInfo?.user.name
+    const owner = (item.user_id == user_id)
     
-    //fetch liked or not and make a toggle button. change main.py to updatye both upvote in both forums and upcvotesforms
+    console.log("owner", owner)
     const getUpvoteStatus = async () => {
         const access_token = await getValidAccessToken();
         if (!access_token) {
@@ -219,6 +224,11 @@ const ForumPost = () => {
         }
     }
 
+    
+    
+
+    
+
     useEffect(()=>{
         getUpvoteStatus();
         getDownvoteStatus();
@@ -235,28 +245,33 @@ const ForumPost = () => {
             
             <SafeScreenWrapper>
                 
-                <View style={{flexDirection: "row", paddingHorizontal: 15, paddingTop: 15, alignItems: "center", flexWrap: "wrap"}}>
-                    <TouchableOpacity onPress={()=>homenavigation.goBack()}>
-                        <MaterialCommunityIcons name="arrow-left" size={20} style={{color: "#C62828"}}/>
+                <View style={{flexDirection: "row", paddingHorizontal: 15, paddingTop: 15, alignItems: "center", justifyContent: "space-between"}}>
+                    <View style={{flexDirection: "row", flexWrap: "wrap", alignItems: "center"}}>
+                        <TouchableOpacity onPress={()=>homenavigation.goBack()}>
+                            <MaterialCommunityIcons name="arrow-left" size={20} style={{color: "#C62828"}}/>
+                        </TouchableOpacity>
+                        <Text style={{ fontFamily: "Inter_18pt-Regular", color: "#C62828", fontSize: 12, marginHorizontal: 8 }}>
+                            @{item.username}
+                        </Text>
+                        {item.tags.map((tag, index) => (
+                            <View
+                            key={index}
+                            style={{
+                                backgroundColor: "#ECEFF1",
+                                borderRadius: 15,
+                                paddingVertical: 1,
+                                paddingHorizontal: 5,
+                                marginRight: 6,
+                                marginBottom: 6,
+                            }}
+                            >
+                            <Text style={{ color: "#121212", fontSize: 8, fontFamily: "Inter_18pt-Bold" }}>#{tag}</Text>
+                            </View>
+                        ))}
+                    </View>
+                    <TouchableOpacity onPress={()=> owner ? setDeletePostModalVisible(true) : setReportPostModalVisible(true)}>
+                        <MaterialCommunityIcons name= {owner ? "delete-forever" :"alert-circle-outline"} size={20} style={{color: "#C62828"}}/>
                     </TouchableOpacity>
-                    <Text style={{ fontFamily: "Inter_18pt-Regular", color: "#C62828", fontSize: 12, marginHorizontal: 8 }}>
-                        @{item.username}
-                    </Text>
-                    {item.tags.map((tag, index) => (
-                        <View
-                        key={index}
-                        style={{
-                            backgroundColor: "#ECEFF1",
-                            borderRadius: 15,
-                            paddingVertical: 1,
-                            paddingHorizontal: 5,
-                            marginRight: 6,
-                            marginBottom: 6,
-                        }}
-                        >
-                        <Text style={{ color: "#121212", fontSize: 8, fontFamily: "Inter_18pt-Bold" }}>#{tag}</Text>
-                        </View>
-                    ))}
                 </View>
                 <ScrollView style={{ marginVertical: 2, paddingLeft: 15, paddingRight: 15}} showsVerticalScrollIndicator={false}>
                         <View style={{ marginTop: 4 }}>
@@ -344,7 +359,8 @@ const ForumPost = () => {
                         <MaterialCommunityIcons name="send" size={20} style={{ color: "#9E9E9E" }} />
                     </TouchableOpacity>
                 </View>
-                
+                <DeletePost visible={deletePostModalVisible} onClose={()=>setDeletePostModalVisible(false)} post_id={item._id} loading={loading} setLoading={setLoading} user_id={user_id}/>
+                <ReportPost visible={reportPostModalVisible} onClose={()=>setReportPostModalVisible(false)} post_id={item._id} loading={loading} setLoading={setLoading} user_id={user_id} post_owner_user_id={item.user_id}/>
             </SafeScreenWrapper>
             
         </View>
