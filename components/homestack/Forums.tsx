@@ -136,7 +136,6 @@ export function ForumsContent() {
 
 export default function Forums() {
   return (
-    <NavigationIndependentTree>
       <HomeStack.Navigator initialRouteName={"Forums"}>
         <HomeStack.Screen 
           name="Forums" 
@@ -154,6 +153,5 @@ export default function Forums() {
           options={{ headerShown: false}}
         />
       </HomeStack.Navigator>
-    </NavigationIndependentTree>
   )
 }

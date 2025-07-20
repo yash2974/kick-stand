@@ -222,7 +222,7 @@ function HostContent() {
 
 export default function Host() {
   return (
-    <NavigationIndependentTree>
+    
       <HostStack.Navigator initialRouteName={"Host"}>
         <HostStack.Screen 
           name="Host" 
@@ -236,7 +236,6 @@ export default function Host() {
         />
         
       </HostStack.Navigator>
-    </NavigationIndependentTree>
   )
 }
 
