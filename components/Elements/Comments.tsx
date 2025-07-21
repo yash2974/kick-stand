@@ -28,7 +28,7 @@ export default function Comments({ comments, setParentCommentUserName, setParent
         replies.filter(r => r.parent_comment_id === parentId);
 
     const renderComment = (comment: Comment, depth = 0) => {
-        const time = dayjs(comment.created_at).fromNow();
+        const time = dayjs(comment.created_at + "Z").fromNow();
         return(
             <View key={comment._id} style={{ marginVertical: 4 }}>
             <View

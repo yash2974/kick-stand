@@ -40,6 +40,7 @@ class Ride(Base):
     image_url = Column(String, nullable=True)
     private = Column(Boolean, nullable=False)
     code = Column(String, nullable=True)
+    map_url = Column(String, nullable=False)
 
 class RideParticipant(Base):
     __tablename__ = "rideparticipants"

@@ -55,6 +55,7 @@ class Ride(BaseModel):
     image_url: Optional[str] = None
     private: bool
     code: Optional[str] = None
+    map_url: str
     
 
 class RideParticipants(BaseModel):

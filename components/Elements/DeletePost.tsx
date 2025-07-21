@@ -52,7 +52,10 @@ const DeletePost = ({ visible, onClose, post_id, loading, setLoading, user_id}: 
           }
           finally{
               setLoading(false);
-              homenavigation.goBack();
+              homenavigation.reset({
+                index: 0,
+                routes: [{ name: 'ForumsContent' }],
+              });
           }
     }
 

@@ -1,4 +1,4 @@
-import { View, Text, Modal, StyleSheet, TextInput, Button, TouchableOpacity } from 'react-native'
+import { View, Text, Modal, StyleSheet, TextInput, Button, TouchableOpacity, Image, Linking } from 'react-native'
 import React, { useContext, useEffect, useState } from 'react'
 import { DateTimePickerComponent } from './DateTimePickerComponent';
 import { AuthContext } from '../authstack/AuthContext';
@@ -9,6 +9,7 @@ import { useNavigation } from '@react-navigation/native';
 import type { RootNavigationProp } from '../../App';
 import type { HostNavigationProp } from '../homestack/Host';
 import SafeScreenWrapper from '../homestack/SafeScreenWrapper';
+import dayjs from 'dayjs';
 
 const CreateRide = () => {
 
@@ -21,13 +22,18 @@ const CreateRide = () => {
     const { userInfo, setUserInfo } = useContext(AuthContext)
     const rootNavigation = useNavigation<RootNavigationProp>();
     const hostnavigation = useNavigation<HostNavigationProp>();
-    const [privateRide, setPrivateRide] = useState(false)
-    const [loading, setLoading] = useState(false)
+    const [privateRide, setPrivateRide] = useState(false);
+    const [map_url, setMap_url] = useState("");
+    const [loading, setLoading] = useState(false);
 
     const user_id = userInfo?.user.id
     const image_url = userInfo?.user.photo
 
     const createRide = async () => {
+        setLoading(true)
+        console.log("enter");
+        console.log({ title, description, startLocation, endLocation, startTime, endTime , user_id, map_url});
+
         const accessToken = await getValidAccessToken();
             if (!accessToken){
                 handleLogout(rootNavigation, setUserInfo);
@@ -38,8 +44,17 @@ const CreateRide = () => {
                 alert("fill all fields");
                 return;
             }
+            console.log("1")
+            const start_time = startTime
+            const localDateStart = new Date(start_time)
+            const utcTimeStart = localDateStart.toISOString();
+            const end_time = startTime
+            const localDateEnd = new Date(end_time)
+            const utcTimeEnd = localDateEnd.toISOString();
+            console.log("2");
+
             try {
-                const response = await fetch("https://kick-stand.onrender.com/rides/", {
+                const response = await fetch("http://192.168.1.9:8001/rides/", {
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json",
@@ -51,11 +66,12 @@ const CreateRide = () => {
                         description: description,
                         start_location: startLocation,
                         end_location: endLocation,
-                        start_time: startTime,
-                        end_time: endTime,
+                        start_time: utcTimeStart,
+                        end_time: utcTimeEnd,
                         current_riders: 1,
                         image_url: image_url,
-                        private: privateRide
+                        private: false,
+                        map_url: map_url
                     }),
                 });
                 if (!response.ok) {
@@ -66,7 +82,15 @@ const CreateRide = () => {
             } catch (error) {
                 console.error("Error creating ride:", error);
             }
-        }
+            finally{
+                setLoading(false)
+            }
+    }
+
+    const openGoogleMaps= ()=> {
+        const url = "https://www.google.com/maps"
+        Linking.openURL(url);
+    }
     
     const resetFields = () => {
         setTitle("");
@@ -119,7 +143,7 @@ const CreateRide = () => {
                     flexDirection: "row",
                     justifyContent: "center"
                 }}
-                onPress={()=>console.log("host")}
+                onPress={()=>createRide()}
                 disabled = {loading}
                 >
                 <Text
@@ -135,7 +159,109 @@ const CreateRide = () => {
                 <MaterialCommunityIcons name="send" size={12} style={{color: "#ECEFF1"}}/>
                 </TouchableOpacity>
             </View>
-            
+            <View style={{ flex: 1, paddingHorizontal: 15 }}>
+                <TextInput
+                placeholder="Title"
+                value={title}
+                onChangeText={setTitle}
+                multiline
+                numberOfLines={1} 
+                maxLength={100}
+                style={{
+                    color: "#ECEFF1",
+                    fontSize: 20,
+                    marginVertical: 8,
+                    textAlignVertical: "top",
+                    fontFamily: "Inter_18pt-SemiBold"
+                }}
+                />
+                <TextInput
+                placeholder="Description"
+                value={description}
+                onChangeText={setDescription}
+                multiline
+                numberOfLines={4} 
+                maxLength={200}
+                style={{
+                    color: "#ECEFF1",
+                    fontSize: 15,
+                    marginVertical: 8,
+                    textAlignVertical: "top",
+                    fontFamily: "Inter_18pt-Regular"
+                }}
+                />
+                <View style={{height: 1, backgroundColor: "#1F1F1F"}}/>
+                <View style={{justifyContent: "space-evenly", flexDirection: "row"}}>
+                    <TextInput
+                    placeholder='Start Point'
+                    value={startLocation}
+                    onChangeText={setStartLocation}
+                    maxLength={100}
+                    numberOfLines={1}
+                    style={{
+                        color: "#ECEFF1",
+                        fontSize: 15,
+                        marginVertical: 8,
+                        textAlignVertical: "top",
+                        flex: 1,
+                        fontFamily: "Inter_18pt-Regular"
+                    }}
+                    />
+                    <View style={{width: 1, backgroundColor: "#1F1F1F"}}/>
+                    <TextInput
+                    placeholder='End Point'
+                    value={endLocation}
+                    onChangeText={setEndLocation}
+                    maxLength={100}
+                    numberOfLines={1}
+                    style={{
+                        color: "#ECEFF1",
+                        fontSize: 15,
+                        marginVertical: 8,
+                        textAlignVertical: "top",
+                        flex: 1,
+                        fontFamily: "Inter_18pt-Regular"
+                    }}
+                    />
+                </View>
+                <View style={{height: 1, backgroundColor: "#1F1F1F"}}/>
+                <View style={{flexDirection: "row", alignItems: "center"}}>
+                    <TouchableOpacity style={{marginVertical: 10}} onPress={openGoogleMaps}>
+                        <Image source={require('../../assets/photos/logo.png')} style={{ width: 30, height: 30 }}/>
+                    </TouchableOpacity>
+                    <TextInput
+                    placeholder='Google Maps Link'
+                    placeholderTextColor="#66BB6A"
+                    value={map_url}
+                    onChangeText={setMap_url}
+                    maxLength={100}
+                    numberOfLines={1}
+                    style={{
+                        marginHorizontal: 6,
+                        color: "#66BB6A",
+                        fontSize: 12,
+                        marginVertical: 8,
+                        textAlignVertical: "top",
+                        flex: 1,
+                        fontFamily: "Inter_18pt-Regular"
+                    }}
+                    />
+                    <TouchableOpacity>
+                        <MaterialCommunityIcons name="help-circle" size={20} style={{color: "#66BB6A", margin: 8}}/>
+                    </TouchableOpacity>
+                </View>
+                <DateTimePickerComponent
+                onStartChange={(val) => setStartTime(val)}
+                onEndChange={(val) => setEndTime(val)}
+                />
+
+                <Text style={{ marginTop: 20, color: "white" }}>
+                Start: {startTime}
+                </Text>
+                <Text style={{ color: "white" }}>
+                End: {endTime}
+                </Text>
+            </View>   
         </SafeScreenWrapper>
     </View>
     )

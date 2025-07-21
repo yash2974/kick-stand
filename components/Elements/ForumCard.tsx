@@ -7,7 +7,6 @@ import relativeTime from "dayjs/plugin/relativeTime";
 import { useNavigation } from "@react-navigation/native";
 import type { HomeStackParamList, Forums } from "../homestack/Forums";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
-dayjs.extend(utc);
 dayjs.extend(relativeTime);
 
 type NavigationProp = NativeStackNavigationProp<HomeStackParamList, "ForumPost">;
@@ -29,9 +28,7 @@ export const ForumCard = ({ item }: { item: Forums }) => {
       );
     }
   }, [item.image_url]);
-
-  const time = dayjs(item.created_at).fromNow();
-
+  const time = dayjs(item.created_at + "Z").fromNow();
   return (
     <TouchableHighlight onPress={()=>{navigation.navigate("ForumPost", {item, time, aspectRatio})}}>
         <View style={{ marginVertical: 2 }}>

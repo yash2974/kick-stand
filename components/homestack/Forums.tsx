@@ -14,6 +14,7 @@ import { createNativeStackNavigator, NativeStackNavigationProp } from "@react-na
 import CreateForums from "../Elements/CreateForums";
 import ForumPost from "./ForumPost";
 import { RootStackParamList } from "../../App";
+import LottieView from 'lottie-react-native';
 
 
 
@@ -46,9 +47,11 @@ export function ForumsContent() {
   const navigationRoot = useNavigation<RootNavigationProp>();
   const { userInfo , setUserInfo} = useContext(AuthContext);
   const [forums, setForums] = useState([]);
+  const [loading, setLoading] = useState(false);
 
   //fetch forums
   const fetchForums = async (query: string) => {
+    setLoading(true);
     const accessToken = await getValidAccessToken();
     if (!accessToken){
       handleLogout(navigationRoot, setUserInfo);
@@ -75,6 +78,9 @@ export function ForumsContent() {
     }
     catch (error) {
       console.log("error");
+    }
+    finally{
+      setLoading(false)
     }
   }
   //
@@ -124,7 +130,18 @@ export function ForumsContent() {
             contentContainerStyle={{ paddingBottom: 20 }}
             showsVerticalScrollIndicator={false}
             ListEmptyComponent={
-                <Text>Uh oh nothing here.</Text>
+              loading ? (
+                <View style={{justifyContent: "center", alignItems: "center", marginVertical: 100}}>
+                  <LottieView source={require('../../assets/loading/loadingAnimation.json')} autoPlay loop style={{ width: 100, height: 100 }} />
+                  <Text style={{ color: '#9c908f', fontFamily: "Inter_18pt-Bold", fontSize: 10}}>Getting your rides ready…</Text>
+                </View>
+              ) : (
+                <View style={{justifyContent: "center", alignItems: "center", marginVertical: 100}}>
+                  <MaterialCommunityIcons name="engine-off" size={40} color="#9c908f"/>
+                  <Text style={{ color: '#9c908f', fontFamily: "Inter_18pt-Bold", fontSize: 10}}>No rides yet :)</Text>
+                  <Text style={{ color: '#9c908f', fontFamily: "Inter_18pt-Bold", fontSize: 10}}>Lift your Kickstand by hitting Create Ride!</Text>
+                </View>
+              )
             }
           />
         </View>

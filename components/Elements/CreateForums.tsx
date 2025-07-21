@@ -88,7 +88,10 @@ const CreateForums = () => {
     if (response.ok) {
       console.log("Forum post created successfully!", data);
       resetForm();
-      homenavigation.goBack();
+      homenavigation.reset({
+        index: 0,
+        routes: [{ name: 'ForumsContent' }],
+      });
     } else {
       console.error("Error creating forum:", data);
     }
@@ -225,6 +228,8 @@ const CreateForums = () => {
             value={title}
             onChangeText={setTitle}
             multiline
+            numberOfLines={3} 
+            maxLength={200}
             style={{
               color: "#ECEFF1",
               fontSize: 20,
