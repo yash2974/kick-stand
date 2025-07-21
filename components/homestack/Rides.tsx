@@ -131,7 +131,7 @@ export default function Rides() {
 
           <View style={{ flexDirection: 'row', alignItems: 'center' }}>
             <MaterialCommunityIcons name="calendar-month" size={20} color="#9c908f" />
-            <Text style={{ color:"#9c908f"}}> {new Date(item.start_time).toLocaleString()}</Text>
+            <Text style={{ color:"#9c908f"}}> {new Date(item.start_time + "Z").toLocaleString()}</Text>
           </View>
           <View style={{ flexDirection: 'row', alignItems: 'center',width: '100%', justifyContent: 'space-between', marginTop: 10 }}>
             <TouchableOpacity style={{ flexDirection: 'row', alignItems: 'center', marginRight: 10, backgroundColor: "#C62828", borderRadius: 20, padding: 5, paddingHorizontal: 10 }} onPress={() => setSelectedRide(item)}>

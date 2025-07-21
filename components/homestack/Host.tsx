@@ -139,7 +139,7 @@ function HostContent() {
     
           <View style={{ flexDirection: 'row', alignItems: 'center' }}>
             <MaterialCommunityIcons name="calendar-month" size={20} color="#9c908f" />
-            <Text style={{ color:"#9c908f"}}> {new Date(item.start_time).toLocaleString()}</Text>
+            <Text style={{ color:"#9c908f"}}> {new Date(item.start_time + "Z").toLocaleString()}</Text>
           </View>
           <View style={{ flexDirection: 'row', alignItems: 'center',width: '100%', justifyContent: 'space-between', marginTop: 10 }}>
             <View style={{ flexDirection:'row'}}>

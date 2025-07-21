@@ -39,6 +39,7 @@ const CreateRide = () => {
 
             if (!title || !description || !startLocation || !endLocation || !startTime || !endTime){
                 alert("fill all fields");
+                setLoading(false);
                 return;
             }
             const start_time = startTime
@@ -64,7 +65,7 @@ const CreateRide = () => {
                         end_time: utcTimeEnd,
                         current_riders: 1,
                         image_url: image_url,
-                        private: true,
+                        private: privateRide,
                         map_url: map_url
                     }),
                 });
@@ -261,6 +262,7 @@ const CreateRide = () => {
                 <Text style={{ color: "white" }}>
                 End: {endTime}
                 </Text>
+                <Button title="private" onPress={()=>setPrivateRide(!privateRide)}></Button>
             </View>   
         </SafeScreenWrapper>
     </View>

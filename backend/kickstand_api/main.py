@@ -32,7 +32,7 @@ def delete_codes():
     db = database.SessionLocal()
     try:
         now = datetime.now(timezone.utc)
-        expired = db.query(models.Ride).filter(models.Ride.start_time +  timedelta(hours=26) <= now, models.Ride.code != None).all()
+        expired = db.query(models.Ride).filter(models.Ride.start_time <= now, models.Ride.code != None).all()
         for ride in expired:
             ride.code = None
         db.commit()
