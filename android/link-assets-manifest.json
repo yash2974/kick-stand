@@ -2,6 +2,14 @@
   "migIndex": 1,
   "data": [
     {
+      "path": "assets/fonts/BebasNeue-Regular.ttf",
+      "sha1": "8b3aaeb978f3cb5f575860774b50c332338563c1"
+    },
+    {
+      "path": "assets/fonts/Bitcount-VariableFont_CRSV,ELSH,ELXP,slnt,wght.ttf",
+      "sha1": "d136f6de609d41ee0446cf8e4c5ee11bb49bbc24"
+    },
+    {
       "path": "assets/fonts/Inter_18pt-Black.ttf",
       "sha1": "4dbdd9baf9a7049838cc0e472e0136c4f310cc78"
     },
@@ -216,6 +224,10 @@
     {
       "path": "assets/fonts/Inter_28pt-ThinItalic.ttf",
       "sha1": "beed0d0fb7783d5da5d366036b5e481f895e1970"
+    },
+    {
+      "path": "assets/fonts/SpecialGothicExpandedOne-Regular.ttf",
+      "sha1": "d6de111b44914a4912e00d96d0302fc34239375a"
     }
   ]
 }

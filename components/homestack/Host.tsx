@@ -8,7 +8,7 @@ import { ScreenContentWrapper } from "react-native-screens";
 import SafeScreenWrapper from "./SafeScreenWrapper";
 import { DateTimePickerComponent } from "../Elements/DateTimePickerComponent";
 import { ScrollView } from "react-native-gesture-handler";
-import CreateRide from "../Elements/CreateRideModal";
+import CreateRide from "../Elements/CreateRide";
 import DeleteRide from "../Elements/DeleteRide";
 import * as Keychain from 'react-native-keychain'
 import { getValidAccessToken } from '../../Auth/checkToken';
@@ -20,7 +20,7 @@ import { RootNavigationProp } from "../../App";
 import { handleLogout } from "../../Auth/handleLogout";
 
 export type HostStackParamList = {
-  Host: undefined;
+  HostContent: undefined;
   CreateRide: undefined;
 }
 
@@ -179,14 +179,14 @@ function HostContent() {
                     ListEmptyComponent={
                         loading ? (
                           <View style={{justifyContent: "center", alignItems: "center", marginVertical: 100}}>
-                            <LottieView source={require('../../assets/loading/loadingAnimation.json')} autoPlay loop style={{ width: 200, height: 200 }} />
-                            <Text style={{ color: '#9c908f', fontFamily: "Inter_18pt-Bold", fontSize: 15}}>Getting your rides ready…</Text>
+                            <LottieView source={require('../../assets/loading/loadingAnimation.json')} autoPlay loop style={{ width: 100, height: 100 }} />
+                            <Text style={{ color: '#9c908f', fontFamily: "Inter_18pt-Bold", fontSize: 10}}>Getting your rides ready…</Text>
                           </View>
                         ) : (
                           <View style={{justifyContent: "center", alignItems: "center", marginVertical: 100}}>
-                            <MaterialCommunityIcons name="engine-off" size={50} color="#9c908f"/>
-                            <Text style={{ color: '#9c908f', fontFamily: "Inter_18pt-Bold", fontSize: 15}}>No rides yet :)</Text>
-                            <Text style={{ color: '#9c908f', fontFamily: "Inter_18pt-Bold", fontSize: 15}}>Lift your Kickstand by hitting Create Ride!</Text>
+                            <MaterialCommunityIcons name="engine-off" size={40} color="#9c908f"/>
+                            <Text style={{ color: '#9c908f', fontFamily: "Inter_18pt-Bold", fontSize: 10}}>No rides yet :)</Text>
+                            <Text style={{ color: '#9c908f', fontFamily: "Inter_18pt-Bold", fontSize: 10}}>Lift your Kickstand by hitting Create Ride!</Text>
                           </View>
                         )
                     }
@@ -223,9 +223,9 @@ function HostContent() {
 export default function Host() {
   return (
     
-      <HostStack.Navigator initialRouteName={"Host"}>
+      <HostStack.Navigator initialRouteName={"HostContent"}>
         <HostStack.Screen 
-          name="Host" 
+          name="HostContent" 
           component={HostContent}
           options={{ headerShown: false }}
         />

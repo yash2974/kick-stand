@@ -1,4 +1,4 @@
-from datetime import date, datetime
+from datetime import date, datetime, timezone
 from fastapi import FastAPI, Depends, File, Form, HTTPException, Query, UploadFile
 from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
 from sqlalchemy import func, or_
@@ -15,7 +15,6 @@ import os
 from dotenv import load_dotenv
 import jwt
 import requests
-
 
 
 load_dotenv()
@@ -39,7 +38,7 @@ def get_db():
         yield db
     finally:
         db.close()
-
+    
 def verify_token(credentials: HTTPAuthorizationCredentials = Depends(security)):
     token = credentials.credentials
     try:
@@ -53,7 +52,6 @@ def verify_token(credentials: HTTPAuthorizationCredentials = Depends(security)):
 @app.head("/health")
 async def health_check_head():
     return
-
 
 @app.post("/users/", response_model=schema.UserOut)
 def create_user(user: schema.UserCreate, db: Session = Depends(get_db), token_data: dict = Depends(verify_token)):
@@ -195,7 +193,7 @@ def get_rides(query: Optional[str] = Query(""), created_by: Optional[str] = Quer
         # Include all the same fields in GROUP BY
     )
     
-    base_query = base_query.filter(models.Ride.end_time > datetime.utcnow())
+    base_query = base_query.filter(models.Ride.start_time > datetime.now(timezone.utc))
     
     # Apply filter if created_by is provided
     if created_by:

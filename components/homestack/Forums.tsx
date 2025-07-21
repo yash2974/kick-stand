@@ -11,7 +11,7 @@ import { getValidAccessToken } from "../../Auth/checkToken";
 import { FlatList } from "react-native-gesture-handler";
 import { ForumCard } from "../Elements/ForumCard";
 import { createNativeStackNavigator, NativeStackNavigationProp } from "@react-navigation/native-stack";
-import CreateForums from "./CreateForums";
+import CreateForums from "../Elements/CreateForums";
 import ForumPost from "./ForumPost";
 import { RootStackParamList } from "../../App";
 
@@ -32,7 +32,7 @@ export type Forums = {
 }
 
 export type HomeStackParamList = {
-    Forums: undefined;
+    ForumsContent: undefined;
     CreateForums: undefined;
     ForumPost: {item: Forums, time: string, aspectRatio: number};
 }
@@ -136,9 +136,9 @@ export function ForumsContent() {
 
 export default function Forums() {
   return (
-      <HomeStack.Navigator initialRouteName={"Forums"}>
+      <HomeStack.Navigator initialRouteName={"ForumsContent"}>
         <HomeStack.Screen 
-          name="Forums" 
+          name="ForumsContent" 
           component={ForumsContent}
           options={{ headerShown: false }}
         />

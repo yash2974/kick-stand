@@ -1,10 +1,10 @@
 import { View, Text, TouchableOpacity } from 'react-native'
 import React, { useContext, useState } from 'react'
-import type { Forums } from './Forums'
+import type { Forums } from '../homestack/Forums'
 import type { RootNavigationProp } from '../../App'
-import type { HomeNavigationProp } from './Forums'
+import type { HomeNavigationProp } from '../homestack/Forums'
 import { useNavigation } from '@react-navigation/native'
-import SafeScreenWrapper from './SafeScreenWrapper'
+import SafeScreenWrapper from '../homestack/SafeScreenWrapper'
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import { TextInput } from 'react-native-gesture-handler'
 import {launchImageLibrary, launchCamera} from 'react-native-image-picker';

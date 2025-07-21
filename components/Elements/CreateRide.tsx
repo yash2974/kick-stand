@@ -1,5 +1,5 @@
 import { View, Text, Modal, StyleSheet, TextInput, Button, TouchableOpacity } from 'react-native'
-import React, { useContext, useEffect } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { DateTimePickerComponent } from './DateTimePickerComponent';
 import { AuthContext } from '../authstack/AuthContext';
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
@@ -7,6 +7,8 @@ import { getValidAccessToken } from '../../Auth/checkToken';
 import { handleLogout } from '../../Auth/handleLogout';
 import { useNavigation } from '@react-navigation/native';
 import type { RootNavigationProp } from '../../App';
+import type { HostNavigationProp } from '../homestack/Host';
+import SafeScreenWrapper from '../homestack/SafeScreenWrapper';
 
 const CreateRide = () => {
 
@@ -18,6 +20,8 @@ const CreateRide = () => {
     const [endLocation, setEndLocation] = React.useState("");
     const { userInfo, setUserInfo } = useContext(AuthContext)
     const rootNavigation = useNavigation<RootNavigationProp>();
+    const hostnavigation = useNavigation<HostNavigationProp>();
+    const [loading, setLoading] = useState(false)
 
     const user_id = userInfo?.user.id
     const image_url = userInfo?.user.photo
@@ -77,9 +81,61 @@ const CreateRide = () => {
         }, [startTime, endTime])
 
     return(
-        <View>
-            <Text>MyComponent</Text>
-        </View>
+        <View style={{ flex: 1, backgroundColor: "#121212" }}>
+            <SafeScreenWrapper>
+            <View
+                style={{
+                flexDirection: "row",
+                justifyContent: "space-between",
+                alignItems: "center",
+                paddingHorizontal: 15,
+                paddingTop: 15,
+                }}
+            >
+                <View style={{ flexDirection: "row", alignItems: "center" }}>
+                <TouchableOpacity onPress={() => hostnavigation.goBack()}>
+                    <MaterialCommunityIcons name="arrow-left" size={20} color="#C62828" />
+                </TouchableOpacity>
+                <Text
+                    style={{
+                    fontFamily: "Inter_18pt-SemiBold",
+                    fontSize: 20,
+                    color: "#ECEFF1",
+                    marginHorizontal: 6,
+                    }}
+                >
+                    Host Ride
+                </Text>
+                </View>
+                <TouchableOpacity
+                style={{
+                    backgroundColor: loading ? "#9E9E9E":"#C62828",
+                    alignItems: "center",
+                    paddingHorizontal: 15,
+                    paddingVertical: 5,
+                    borderRadius: 20,
+                    flexDirection: "row",
+                    justifyContent: "center"
+                }}
+                onPress={()=>console.log("host")}
+                disabled = {loading}
+                >
+                <Text
+                    style={{
+                    fontFamily: "Inter_18pt-Bold",
+                    fontSize: 12,
+                    color: "#ECEFF1",
+                    marginRight: 4
+                    }}
+                >
+                    Post
+                </Text>
+                <MaterialCommunityIcons name="send" size={12} style={{color: "#ECEFF1"}}/>
+                </TouchableOpacity>
+            </View>
+            
+        </SafeScreenWrapper>
+    </View>
     )
 };
 
