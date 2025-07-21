@@ -17,12 +17,38 @@ import jwt
 import requests
 import random
 import string
+import pytz
+from contextlib import asynccontextmanager
+from apscheduler.schedulers.background import BackgroundScheduler  # runs tasks in the background
+from apscheduler.triggers.cron import CronTrigger  # allows us to specify a recurring time for execution
 
 
 load_dotenv()
 security = HTTPBearer()
 JWT_SECRET = os.getenv("JWT_SECRET")
 models.Base.metadata.create_all(bind=database.engine)
+
+def delete_codes():
+    db = database.SessionLocal()
+    try:
+        now = datetime.now(timezone.utc)
+        expired = db.query(models.Ride).filter(models.Ride.start_time <= now, models.Ride.code != None).all()
+        for ride in expired:
+            ride.code = None
+        db.commit()
+    finally:
+        db.close()
+
+scheduler = BackgroundScheduler()
+trigger = CronTrigger(hour=16, minute=40)
+scheduler.add_job(delete_codes, trigger)
+scheduler.start()
+
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    yield
+    scheduler.shutdown()
+
 app = FastAPI()
 mongo_uri = os.getenv("MONGO_URI")
 client = AsyncIOMotorClient(mongo_uri)
@@ -40,6 +66,14 @@ def get_db():
         yield db
     finally:
         db.close()
+
+def ist_to_utc(ist_dt):
+    ist = pytz.timezone("Asia/Kolkata")
+    utc = pytz.utc
+    # Localize IST datetime if it's naive
+    if ist_dt.tzinfo is None:
+        ist_dt = ist.localize(ist_dt)
+    return ist_dt.astimezone(utc)
     
 def verify_token(credentials: HTTPAuthorizationCredentials = Depends(security)):
     token = credentials.credentials

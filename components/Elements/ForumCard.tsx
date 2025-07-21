@@ -1,11 +1,13 @@
 import { useEffect, useState } from "react";
 import { View, Text, Image, TouchableOpacity, Pressable, TouchableHighlight } from "react-native";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
+import utc from "dayjs/plugin/utc";
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
 import { useNavigation } from "@react-navigation/native";
 import type { HomeStackParamList, Forums } from "../homestack/Forums";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
+dayjs.extend(utc);
 dayjs.extend(relativeTime);
 
 type NavigationProp = NativeStackNavigationProp<HomeStackParamList, "ForumPost">;
