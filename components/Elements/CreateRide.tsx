@@ -31,9 +31,6 @@ const CreateRide = () => {
 
     const createRide = async () => {
         setLoading(true)
-        console.log("enter");
-        console.log({ title, description, startLocation, endLocation, startTime, endTime , user_id, map_url});
-
         const accessToken = await getValidAccessToken();
             if (!accessToken){
                 handleLogout(rootNavigation, setUserInfo);
@@ -44,17 +41,14 @@ const CreateRide = () => {
                 alert("fill all fields");
                 return;
             }
-            console.log("1")
             const start_time = startTime
             const localDateStart = new Date(start_time)
             const utcTimeStart = localDateStart.toISOString();
             const end_time = startTime
             const localDateEnd = new Date(end_time)
             const utcTimeEnd = localDateEnd.toISOString();
-            console.log("2");
-
             try {
-                const response = await fetch("http://192.168.1.9:8001/rides/", {
+                const response = await fetch("https://kick-stand.onrender.com/rides/", {
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json",
@@ -79,6 +73,11 @@ const CreateRide = () => {
                 }
                 const data = await response.json();
                 console.log("Ride created successfully:", data);
+                resetFields();
+                hostnavigation.reset({
+                    index: 0,
+                    routes: [{ name: 'HostContent' }],
+                });
             } catch (error) {
                 console.error("Error creating ride:", error);
             }
@@ -99,6 +98,7 @@ const CreateRide = () => {
         setEndLocation("");
         setStartTime("");
         setEndTime("");
+        setMap_url("")
     }
 
     useEffect(()=>{
