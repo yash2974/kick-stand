@@ -247,8 +247,8 @@ def get_rides(query: Optional[str] = Query(""), created_by: Optional[str] = Quer
     
     # Order by start_time descending
     base_query = base_query.order_by(models.Ride.start_time.desc())
-
-    base_query = base_query.filter(models.Ride.private == False)
+    if not created_by:
+        base_query = base_query.filter(models.Ride.private == False)
 
     #check grewgwe
     
