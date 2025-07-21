@@ -174,7 +174,7 @@ useEffect(()=>{
               <FlatList
                 data={visibleRides}
                 renderItem={renderRide}
-                keyExtractor={(item) => item.title}
+                keyExtractor={(item) => String(item.ride_id)}
                 contentContainerStyle={{ paddingBottom: 20 }}
                 showsVerticalScrollIndicator={false}
                 ListEmptyComponent={

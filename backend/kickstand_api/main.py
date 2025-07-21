@@ -247,7 +247,9 @@ def get_rides(query: Optional[str] = Query(""), created_by: Optional[str] = Quer
     # Order by start_time descending
     base_query = base_query.order_by(models.Ride.start_time.desc())
 
-    
+    base_query = base_query.filter(models.Ride.private == False)
+
+    #check grewgwe
     
     
     if query.strip():
@@ -501,8 +503,16 @@ async def delete_forums(data: schema.DeleteForum):
     comments_result = await comments_collection.delete_many({
         "post_id": data.post_id
     })
+    upvotes_result = await upvotes_collection.delete_many({
+        "post_id": data.post_id
+    })
+    downvotes_result = await downvotes_collection.delete_many({
+        "post_id": data.post_id
+    })
     return {"message": "deleted" if result.deleted_count else "not found",
-            "comments_deleted": comments_result.deleted_count}
+            "comments_deleted": comments_result.deleted_count,
+            "upvotes_delete": upvotes_result.deleted_count,
+            "downvotes_deleted": downvotes_result.deleted_count}
 
 @app.get("/forums")
 async def forums(query: Optional[str] = None):
@@ -638,15 +648,6 @@ async def down_vote_post(user_id: str, post_id: str):
             return True
         else:
             return {"error": "Update failed"}
-    
-@app.post("/remove-post/{post_id}")
-async def delete_post(post_id: str):
-    result = await forums_collection.delete_one({"_id": ObjectId(post_id)})
-    if result.deleted_count == 1:
-        result_comment = await comments_collection.delete_many({"post_id": post_id})
-        return {"message": "Deleted", 
-                "comments_deleted": result_comment.deleted_count}
-    return {"error": "Not found"}
 
 @app.post("/report-post/")
 async def report_post(post: schema.ReportPost):
