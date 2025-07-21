@@ -379,7 +379,7 @@ def reject_ride_join_request(request: schema.RideJoinRequests, db: Session = Dep
     db.commit()
     return db_request
 
-@app.get("/rides/rideparticipants/{user_id}")
+@app.get("/rides/rideparticipants/")
 def get_rides_of_user_joined(db: Session = Depends(get_db), token_data: dict = Depends(verify_token)):
     user_id = token_data["sub"]
     db_rides = db.query(models.RideParticipant).filter(
