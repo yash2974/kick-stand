@@ -9,7 +9,7 @@ import { useNavigation } from '@react-navigation/native';
 import type { RootNavigationProp } from '../../App';
 import type { HostNavigationProp } from '../homestack/Host';
 import SafeScreenWrapper from '../homestack/SafeScreenWrapper';
-import dayjs from 'dayjs';
+
 
 const CreateRide = () => {
 
