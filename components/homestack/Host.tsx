@@ -39,6 +39,7 @@ type Ride = {
   ride_id: number;
   invite_count: number;
   map_url: string;
+  private: boolean
 };
 
 
@@ -99,8 +100,26 @@ function HostContent() {
                 source={{ uri: item.image_url }}
                 style={{ width: 30, height: 30, borderRadius: 4, marginRight: 8 }}
               />
-              <Text style={{fontFamily: "Inter_18pt-SemiBold", color: "#ECEFF1", fontSize: 18}}>
+              <Text
+                style={{
+                  fontFamily: "Inter_18pt-SemiBold",
+                  color: "#ECEFF1",
+                  fontSize: 18,
+                  marginRight: 4,
+                  lineHeight: 20
+                }}
+              >
                 {item.title}
+              </Text>
+              <Text
+                style={{
+                  fontFamily: "Inter_18pt-Regular",
+                  color: "#C62828",
+                  fontSize: 10,
+                  lineHeight: 20 // match lineHeight of title
+                }}
+              >
+                {item.private ? "(Private)" : null}
               </Text>
             </View>
             <TouchableOpacity onPress={()=>Linking.openURL(item.map_url)}>

@@ -64,7 +64,7 @@ const CreateRide = () => {
                         end_time: utcTimeEnd,
                         current_riders: 1,
                         image_url: image_url,
-                        private: false,
+                        private: true,
                         map_url: map_url
                     }),
                 });
