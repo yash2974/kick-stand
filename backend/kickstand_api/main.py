@@ -152,7 +152,7 @@ def postRider(user_id: str, ride_id: str, db: Session = Depends(get_db), token_d
 def generate_code(length, db: Session = Depends(get_db)):
     while (10):
         code = ''.join(random.choices(string.ascii_uppercase, k=length))
-        exists =  db.query(schema.Ride).filter(schema.Ride.code == code).first()
+        exists =  db.query(models.Ride).filter(models.Ride.code == code).first()
         if not exists:
             return code
     
