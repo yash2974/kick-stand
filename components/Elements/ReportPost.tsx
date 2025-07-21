@@ -32,7 +32,7 @@ const DeletePost = ({ visible, onClose, post_id, loading, setLoading, user_id, p
           if (loading) return;
           setLoading(true);
           try {
-              const response = await fetch (`http://192.168.1.9:8001/report-post/`,{
+              const response = await fetch (`https://kick-stand.onrender.com/report-post/`,{
                   method: "POST",
                   headers: {
                   "Content-Type": "application/json",

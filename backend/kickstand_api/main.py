@@ -1,4 +1,4 @@
-from datetime import date, datetime, timezone
+from datetime import date, datetime, timedelta, timezone
 from fastapi import FastAPI, Depends, File, Form, HTTPException, Query, UploadFile
 from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
 from sqlalchemy import func, or_
@@ -32,7 +32,7 @@ def delete_codes():
     db = database.SessionLocal()
     try:
         now = datetime.now(timezone.utc)
-        expired = db.query(models.Ride).filter(models.Ride.start_time <= now, models.Ride.code != None).all()
+        expired = db.query(models.Ride).filter(models.Ride.start_time +  timedelta(hours=26) <= now, models.Ride.code != None).all()
         for ride in expired:
             ride.code = None
         db.commit()

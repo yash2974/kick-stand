@@ -54,7 +54,7 @@ export function ForumsContent() {
       handleLogout(navigationRoot, setUserInfo);
     }
     try{
-      let url = "http://192.168.1.9:8001/forums"
+      let url = "https://kick-stand.onrender.com/forums"
       if (query){
         url+= `?query=${encodeURIComponent(query)}`;
       }

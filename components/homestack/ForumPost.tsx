@@ -46,7 +46,7 @@ const ForumPost = () => {
         }
         setLoading(true)
         try {
-            const response = await fetch (`http://192.168.1.9:8001/upvoted_by/${item._id}/${user_id}`,{
+            const response = await fetch (`https://kick-stand.onrender.com/upvoted_by/${item._id}/${user_id}`,{
                 method: "GET",
                 headers: {
                 "Content-Type": "application/json",
@@ -74,7 +74,7 @@ const ForumPost = () => {
         }
         setLoading(true)
         try {
-            const response = await fetch (`http://192.168.1.9:8001/downvoted_by/${item._id}/${user_id}`,{
+            const response = await fetch (`https://kick-stand.onrender.com/downvoted_by/${item._id}/${user_id}`,{
                 method: "GET",
                 headers: {
                 "Content-Type": "application/json",
@@ -102,7 +102,7 @@ const ForumPost = () => {
         }
         setLoading(true)
         try {
-            const response = await fetch (`http://192.168.1.9:8001/comment/${item._id}`,{
+            const response = await fetch (`https://kick-stand.onrender.com/comment/${item._id}`,{
                 method: "GET",
                 headers: {
                 "Content-Type": "application/json",
@@ -131,7 +131,7 @@ const ForumPost = () => {
         if (loading) return;
         setLoading(true)
         try {
-            const response = await fetch (`http://192.168.1.9:8001/upvote/${item._id}/${user_id}`,{
+            const response = await fetch (`https://kick-stand.onrender.com/upvote/${item._id}/${user_id}`,{
                 method: "POST",
                 headers: {
                 "Content-Type": "application/json",
@@ -149,8 +149,9 @@ const ForumPost = () => {
         }
         catch (error){
             console.log("error");
+            
         }
-        finally{(setLoading(false))}
+        finally{setLoading(false)}
     }
 
     const downvotePost = async ()=> {
@@ -162,7 +163,7 @@ const ForumPost = () => {
         if (loading) return;
         setLoading(true)
         try {
-            const response = await fetch (`http://192.168.1.9:8001/downvote/${item._id}/${user_id}`,{
+            const response = await fetch (`https://kick-stand.onrender.com/downvote/${item._id}/${user_id}`,{
                 method: "POST",
                 headers: {
                 "Content-Type": "application/json",
@@ -193,7 +194,7 @@ const ForumPost = () => {
         if (loading) return;
         setLoading(true)
         try {
-            const response = await fetch (`http://192.168.1.9:8001/comment/${item._id}`,{
+            const response = await fetch (`https://kick-stand.onrender.com/comment/${item._id}`,{
                 method: "POST",
                 headers: {
                 "Content-Type": "application/json",

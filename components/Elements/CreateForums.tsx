@@ -74,7 +74,7 @@ const CreateForums = () => {
       formData.append('image', imageFile);
     }
 
-    const response = await fetch('http://192.168.1.9:8001/create-forum/', {
+    const response = await fetch('https://kick-stand.onrender.com/create-forum/', {
       method: 'POST',
       body: formData,
       headers: {

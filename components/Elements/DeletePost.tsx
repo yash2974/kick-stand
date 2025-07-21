@@ -31,7 +31,7 @@ const DeletePost = ({ visible, onClose, post_id, loading, setLoading, user_id}: 
           if (loading) return;
           setLoading(true);
           try {
-              const response = await fetch (`http://192.168.1.9:8001/forum-delete`,{
+              const response = await fetch (`https://kick-stand.onrender.com/forum-delete`,{
                   method: "POST",
                   headers: {
                   "Content-Type": "application/json",
