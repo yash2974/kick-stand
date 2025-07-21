@@ -1,4 +1,4 @@
-from sqlalchemy import Column, Date, DateTime, Float, ForeignKey, Integer, String, Text, Time, UniqueConstraint, func
+from sqlalchemy import Boolean, Column, Date, DateTime, Float, ForeignKey, Integer, String, Text, Time, UniqueConstraint, func
 from database import Base
 from datetime import date
 
@@ -38,6 +38,8 @@ class Ride(Base):
     current_riders = Column(Integer, default=1)
     created_at = Column(DateTime, server_default=func.now())
     image_url = Column(String, nullable=True)
+    private = Column(Boolean, nullable=False)
+    code = Column(String, nullable=True)
 
 class RideParticipant(Base):
     __tablename__ = "rideparticipants"

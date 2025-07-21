@@ -15,6 +15,8 @@ import os
 from dotenv import load_dotenv
 import jwt
 import requests
+import random
+import string
 
 
 load_dotenv()
@@ -147,9 +149,18 @@ def postRider(user_id: str, ride_id: str, db: Session = Depends(get_db), token_d
     db.commit()
     db.refresh(host_participant)
 
+def generate_code(length=6, db: Session = Depends(get_db)):
+    while (10):
+        code = ''.join(random.choices(string.ascii_uppercase, k=length))
+        exists =  db.query(schema.Ride).filter(schema.Ride.code == code).first()
+        if not exists:
+            return code
+    
+
 @app.post("/rides/", response_model=schema.Ride)
 def create_ride(ride: schema.Ride, db: Session = Depends(get_db), token_data: dict = Depends(verify_token)):
     ride_data = ride.model_dump()
+    ride_data["code"] = generate_code(db)
     db_ride = models.Ride(**ride_data)
     db.add(db_ride)
     db.commit()
