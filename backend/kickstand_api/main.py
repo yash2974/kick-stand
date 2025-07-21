@@ -238,7 +238,7 @@ def get_rides(query: Optional[str] = Query(""), created_by: Optional[str] = Quer
         # Include all the same fields in GROUP BY
     )
     
-    base_query = base_query.filter(models.Ride.start_time > datetime.now(timezone.utc))
+    base_query = base_query.filter(models.Ride.start_time + timedelta(hours=26) > datetime.now(timezone.utc))
     
     # Apply filter if created_by is provided
     if created_by:

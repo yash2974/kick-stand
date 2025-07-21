@@ -21,6 +21,7 @@ const CreateRide = () => {
     const { userInfo, setUserInfo } = useContext(AuthContext)
     const rootNavigation = useNavigation<RootNavigationProp>();
     const hostnavigation = useNavigation<HostNavigationProp>();
+    const [privateRide, setPrivateRide] = useState(false)
     const [loading, setLoading] = useState(false)
 
     const user_id = userInfo?.user.id
@@ -53,7 +54,8 @@ const CreateRide = () => {
                         start_time: startTime,
                         end_time: endTime,
                         current_riders: 1,
-                        image_url: image_url
+                        image_url: image_url,
+                        private: privateRide
                     }),
                 });
                 if (!response.ok) {
