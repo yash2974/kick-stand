@@ -1,5 +1,6 @@
 import React, { use, useEffect } from "react";
 import {View, Text, TextInput, Image, TouchableOpacity, StyleSheet, FlatList, Button, Modal, Linking} from "react-native";
+import Clipboard from '@react-native-clipboard/clipboard';
 import { AuthContext } from "../authstack/AuthContext";
 import { get } from "react-native/Libraries/TurboModule/TurboModuleRegistry";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
@@ -107,7 +108,6 @@ function HostContent() {
                   color: "#ECEFF1",
                   fontSize: 18,
                   marginRight: 4,
-                  lineHeight: 20
                 }}
               >
                 {item.title}
@@ -117,46 +117,49 @@ function HostContent() {
                   fontFamily: "Inter_18pt-Regular",
                   color: "#C62828",
                   fontSize: 10,
-                  lineHeight: 20 // match lineHeight of title
                 }}
               >
                 {item.private ? "(Private)" : null}
               </Text>
             </View>
-            <View>
-              <Text>{item.code}</Text>
-            </View>
             <TouchableOpacity onPress={()=>Linking.openURL(item.map_url)}>
               <Image source={require('../../assets/photos/logo.png')} style={{ width: 25, height: 25 }}/> 
             </TouchableOpacity>
           </View>
-          <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-            <Text style={{ color: "#9c908f" }}>{item.start_location}</Text>
+          <View style={{ flexDirection: 'row', alignItems: 'center', marginVertical: 2}}>
+            <Text style={{ color: "#9c908f", fontFamily: "Inter_18pt-Regular", fontSize: 12
+             }}>{item.start_location}</Text>
             <MaterialCommunityIcons
               name="arrow-left-right"
-              size={20}
-              color="#9c908f"
+              size={15}
+              color="#66BB6A"
               style={{ marginHorizontal: 5 }} // horizontal spacing instead of vertical
             />
-            <Text style={{ color: "#9c908f" }}>{item.end_location}</Text>
+            <Text style={{ color: "#9c908f", fontFamily: "Inter_18pt-Regular", fontSize: 12
+             }}>{item.end_location}</Text>
           </View>
     
           <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-            <MaterialCommunityIcons name="calendar-month" size={20} color="#9c908f" />
-            <Text style={{ color:"#9c908f"}}> {new Date(item.start_time + "Z").toLocaleString()}</Text>
+            <MaterialCommunityIcons name="calendar-month" size={15} color="#9c908f" />
+            <Text style={{ color:"#9c908f", fontFamily: "Inter_18pt-Regular", fontSize: 12}}> {new Date(item.start_time + "Z").toLocaleString()}</Text>
           </View>
           <View style={{ flexDirection: 'row', alignItems: 'center',width: '100%', justifyContent: 'space-between', marginTop: 10 }}>
             <View style={{ flexDirection:'row'}}>
-                <TouchableOpacity style={{ flexDirection: 'row', alignItems: 'center', marginRight: 10, backgroundColor: "#C62828", borderRadius: 20, padding: 5, paddingHorizontal: 10 }} onPress={()=>setSelectedRideIdDelete(item.ride_id)}>
-                <Text style={{ color: "#ECEFF1", fontSize: 12 }}>Delete Ride</Text>
+                <TouchableOpacity style={{ flexDirection: 'row', alignItems: 'center', marginRight: 10, backgroundColor: "#C62828", borderRadius: 20, paddingVertical: 4, paddingHorizontal:8 }} onPress={()=>setSelectedRideIdDelete(item.ride_id)}>
+                <Text style={{ color: "#121212", fontSize: 10, fontFamily: "Inter_18pt-SemiBold" }}>Delete Ride</Text>
                 </TouchableOpacity>
-                <TouchableOpacity onPress={()=>setSelectedRideId(item.ride_id)} style={{ flexDirection: 'row', alignItems: 'center', marginRight: 10, backgroundColor: "#C62828", borderRadius: 20, padding: 5, paddingHorizontal: 10 }}>
-                <Text style={{ color: "#ECEFF1", fontSize: 12 }}>Lobby</Text>
+                <TouchableOpacity onPress={()=>setSelectedRideId(item.ride_id)} style={{ flexDirection: 'row', alignItems: 'center', marginRight: 10, backgroundColor: "#C62828", borderRadius: 20, paddingVertical: 4, paddingHorizontal: 8 }}>
+                <Text style={{ color: "#121212", fontSize: 10, fontFamily: "Inter_18pt-SemiBold" }}>Lobby</Text>
                 </TouchableOpacity>
             </View>
             <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+              <TouchableOpacity onPress={()=>Clipboard.setString(item.code)}>
+                <View style={{backgroundColor: "#121212", paddingVertical: 2, paddingHorizontal: 5, marginRight: 15, width: 70, justifyContent: "center", alignItems: "center"}}>
+                  <Text style={{fontFamily: "Inter_18pt-Bold", color: "#66BB6A", fontSize: 13}}>{item.code}</Text>
+                </View>
+              </TouchableOpacity>
               <MaterialCommunityIcons name="account-group" size={20} color="#9c908f" />
-              <Text style={{ color:"#9c908f"}}> {item.current_riders}</Text>
+              <Text style={{ color:"#9c908f", fontFamily: "Inter_18pt-Regular"}}> {item.current_riders}</Text>
             </View>
           </View>
         </View>
@@ -228,10 +231,10 @@ function HostContent() {
                   alignItems: "center",
                 }}
               >
-                <Text style={{ fontSize: 20, fontFamily: "Inter_18pt-SemiBold", color: "#ECEFF1" }}>
+                <Text style={{ fontSize: 20, fontFamily: "Inter_18pt-Bold", color: "#121212" }}>
                   Create Ride
                 </Text>
-                <Text style={{ color: "#ECEFF1", fontSize: 12, marginTop: 4 }}>
+                <Text style={{ color: "#121212", fontSize: 12, fontFamily: "Inter_18pt-SemiBold" }}>
                   Tap to start hosting your next journey
                 </Text>
               </TouchableOpacity>
@@ -239,7 +242,6 @@ function HostContent() {
               
               
             </View>
-            {/* <CreateRideModal visible={createRidevisible} onClose={()=>{setCreateRideVisible(false)}}/> */}
           </SafeScreenWrapper>
         </View>
     );
@@ -268,7 +270,7 @@ export default function Host() {
 const styles = StyleSheet.create({
   card: {
     backgroundColor: '#222',
-    padding: 16,
+    padding: 14,
     marginTop: 8,
     marginBottom: 10,
     borderRadius: 12,

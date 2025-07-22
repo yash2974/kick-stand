@@ -62,13 +62,20 @@ export default function HomeScreen() {
         }
       });
       const data = await response.json();
-      setDbUser(data);
-      console.log("User data", data);
+      if (data === null) {
+        // User not found in DB, reset navigation
+        navigation.reset({ index: 0, routes: [{ name: 'NewUser' as never }] });
+        setLoading(false)
+      } else {
+        // Successfully got user data
+        setDbUser(data);
+        console.log("User data", data);
+        setLoading(false)
+      }
     } catch {
-      navigation.reset({ index: 0, routes: [{ name: 'NewUser' as never }] });
-    } finally {
-      setLoading(false);
-    }
+      console.log("Network error or API offline");
+      setTimeout(getUserData, 3000); // retry in 3 seconds
+    } 
   };
 
   useEffect(() => {

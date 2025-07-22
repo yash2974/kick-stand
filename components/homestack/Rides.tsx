@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { View, Text, TextInput, FlatList, StyleSheet, Image, TouchableOpacity, Linking } from "react-native";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import SafeScreenWrapper from "./SafeScreenWrapper";
@@ -8,6 +8,7 @@ import { getValidAccessToken } from "../../Auth/checkToken";
 import { handleLogout } from "../../Auth/handleLogout";
 import { useNavigation, NavigationProp } from "@react-navigation/native";
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import ReportRide from "../Elements/ReportRide";
 
 type Ride = {
   ride_id: number;
@@ -31,9 +32,10 @@ export default function Rides() {
   // const [rideJoinRequestModalVisible, setRideJoinRequestModalVisible] = React.useState(false);
   const [selectedRide, setSelectedRide] = React.useState<Ride | null>(null);
   const [participatedRides, setParticipatedRides] = React.useState<number[]>([]);
-  const { userInfo, setUserInfo } = useContext(AuthContext)
-  const [search, setSearch] = React.useState("")
-  const [debouncedSearch, setDebouncedSearch] = React.useState("")
+  const { userInfo, setUserInfo } = useContext(AuthContext);
+  const [search, setSearch] = React.useState("");
+  const [debouncedSearch, setDebouncedSearch] = React.useState("");
+  const [selectedRideReport, setSelectedRideReport] = React.useState<Ride | null>(null);  
   const user_id = userInfo?.user.id
   const navigation = useNavigation();
   const insets = useSafeAreaInsets();
@@ -118,7 +120,6 @@ export default function Rides() {
                     color: "#ECEFF1",
                     fontSize: 18,
                     marginRight: 4,
-                    lineHeight: 20
                   }}
                 >
                   {item.title}
@@ -127,35 +128,49 @@ export default function Rides() {
               <TouchableOpacity onPress={()=>Linking.openURL(item.map_url)}>
                 <Image source={require('../../assets/photos/logo.png')} style={{ width: 25, height: 25 }}/> 
               </TouchableOpacity>
-            </View>
-          <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-            <Text style={{ color: "#9c908f" }}>{item.start_location}</Text>
+          </View>
+          <View style={{ flexDirection: 'row', alignItems: 'center', marginVertical: 2}}>
+            <Text style={{ color: "#9c908f", fontFamily: "Inter_18pt-Regular", fontSize: 12
+              }}>{item.start_location}</Text>
             <MaterialCommunityIcons
               name="arrow-left-right"
-              size={20}
-              color="#9c908f"
+              size={15}
+              color="#66BB6A"
               style={{ marginHorizontal: 5 }} // horizontal spacing instead of vertical
             />
-            <Text style={{ color: "#9c908f" }}>{item.end_location}</Text>
+            <Text style={{ color: "#9c908f", fontFamily: "Inter_18pt-Regular", fontSize: 12
+              }}>{item.end_location}</Text>
           </View>
 
           <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-            <MaterialCommunityIcons name="calendar-month" size={20} color="#9c908f" />
-            <Text style={{ color:"#9c908f"}}> {new Date(item.start_time + "Z").toLocaleString()}</Text>
+            <MaterialCommunityIcons name="calendar-month" size={15} color="#9c908f" />
+            <Text style={{ color:"#9c908f", fontFamily: "Inter_18pt-Regular", fontSize: 12}}> {new Date(item.start_time + "Z").toLocaleString()}</Text>
           </View>
           <View style={{ flexDirection: 'row', alignItems: 'center',width: '100%', justifyContent: 'space-between', marginTop: 10 }}>
-            <TouchableOpacity style={{ flexDirection: 'row', alignItems: 'center', marginRight: 10, backgroundColor: "#C62828", borderRadius: 20, padding: 5, paddingHorizontal: 10 }} onPress={() => setSelectedRide(item)}>
-              <Text style={{ color: "#ECEFF1", fontSize: 12 }}>Join Ride</Text>
-            </TouchableOpacity>
+            <View style={{flexDirection: "row", alignItems: "center"}}>
+              <TouchableOpacity style={{ flexDirection: 'row', alignItems: 'center', marginRight: 10, backgroundColor: "#C62828", borderRadius: 20, paddingVertical: 4, paddingHorizontal:8 }} onPress={() => setSelectedRide(item)}>
+                <Text style={{ color: "#121212", fontSize: 10, fontFamily: "Inter_18pt-SemiBold" }}>Join Ride</Text>
+              </TouchableOpacity>
+              <TouchableOpacity style={{ flexDirection: 'row', alignItems: 'center', marginRight: 10, backgroundColor: "#B0BEC5", borderRadius: 20, paddingVertical: 4, paddingHorizontal:8, justifyContent: "center" }} onPress={() => setSelectedRideReport(item)}>
+                <MaterialCommunityIcons
+                  name="alert-circle"
+                  size={12}
+                  color="#C62828"
+                  style={{marginRight: 3}}
+                />
+                <Text style={{ color: "#121212", fontSize: 10, fontFamily: "Inter_18pt-SemiBold" }}>Report</Text>
+              </TouchableOpacity>
+            </View>
             
             <View style={{ flexDirection: 'row', alignItems: 'center' }}>
               <MaterialCommunityIcons name="account-group" size={20} color="#9c908f" />
-              <Text style={{ color:"#9c908f"}}> {item.current_riders}</Text>
+              <Text style={{ color:"#9c908f", fontFamily: "Inter_18pt-Regular"}}> {item.current_riders}</Text>
             </View>
           </View>
         </View>
       </View>
     }
+    
     </View>
     
 );
@@ -206,12 +221,16 @@ useEffect(()=>{
                 created_by={selectedRide.created_by}
                 
               /> }
+              {
+                selectedRideReport && <ReportRide visible={true} onClose={()=>setSelectedRideReport(null)} ride_id={selectedRideReport.ride_id} loading={loading} setLoading={setLoading} user_id={user_id} ride_owner_user_id={selectedRideReport.created_by}/>
+              }
     
             </View>
 
         </View>  
         
     </View>
+    
     </SafeScreenWrapper>
     </View>
       
@@ -223,12 +242,11 @@ useEffect(()=>{
 const styles = StyleSheet.create({
   card: {
     backgroundColor: '#222',
-    padding: 16,
+    padding: 14,
     marginTop: 8,
-    marginBottom: 8,
+    marginBottom: 10,
     borderRadius: 12,
     elevation: 4,
-    flexDirection: 'row',
     flex:1
   },
   title: {

@@ -1,4 +1,4 @@
-import { View, Text, Modal, StyleSheet, TextInput, Button, TouchableOpacity, Image, Linking } from 'react-native'
+import { View, Text, Modal, StyleSheet, TextInput, Button, TouchableOpacity, Image, Linking, ActivityIndicator } from 'react-native'
 import React, { useContext, useEffect, useState } from 'react'
 import { DateTimePickerComponent } from './DateTimePickerComponent';
 import { AuthContext } from '../authstack/AuthContext';
@@ -142,7 +142,9 @@ const CreateRide = () => {
                     paddingVertical: 5,
                     borderRadius: 20,
                     flexDirection: "row",
-                    justifyContent: "center"
+                    justifyContent: "center",
+                    width:70,
+                    height: 30
                 }}
                 onPress={()=>createRide()}
                 disabled = {loading}
@@ -157,7 +159,7 @@ const CreateRide = () => {
                 >
                     Post
                 </Text>
-                <MaterialCommunityIcons name="send" size={12} style={{color: "#ECEFF1"}}/>
+                { loading ? <ActivityIndicator size="small" color="#ECEFF1"/> : <MaterialCommunityIcons name="send" size={12} style={{color: "#ECEFF1"}}/>}               
                 </TouchableOpacity>
             </View>
             <View style={{ flex: 1, paddingHorizontal: 15 }}>
@@ -188,7 +190,7 @@ const CreateRide = () => {
                     fontSize: 15,
                     marginVertical: 8,
                     textAlignVertical: "top",
-                    fontFamily: "Inter_18pt-Regular"
+                    fontFamily: "Inter_18pt-Regular",
                 }}
                 />
                 <View style={{height: 1, backgroundColor: "#1F1F1F"}}/>
@@ -255,14 +257,35 @@ const CreateRide = () => {
                 onStartChange={(val) => setStartTime(val)}
                 onEndChange={(val) => setEndTime(val)}
                 />
+                <TouchableOpacity onPress={()=>setPrivateRide(!privateRide)}>
+                    {privateRide ? (
+                        <View style={{flexDirection: "row", gap: 2, alignItems:"center"}}>
+                            <MaterialCommunityIcons name="lock" size={30} style={{color: "#C62828"}}/>
+                            <Text style={{
+                        marginHorizontal: 8,
+                        color: "#C62828",
+                        fontSize: 12,
+                        marginVertical: 8,
+                        textAlignVertical: "top",
+                        flex: 1,
+                        fontFamily: "Inter_18pt-Regular"
+                    }}>Private Ride</Text>
+                        </View>) :
+                    (   <View style={{flexDirection: "row", gap: 2, alignItems:"center"}}>
+                            <MaterialCommunityIcons name="lock-open" size={30} style={{color: "#66BB6A"}}/>
+                            <Text style={{
+                        marginHorizontal: 8,
+                        color: "#66BB6A",
+                        fontSize: 12,
+                        marginVertical: 8,
+                        textAlignVertical: "top",
+                        flex: 1,
+                        fontFamily: "Inter_18pt-Regular"
+                    }}>Public Ride</Text>
+                        </View>)}
+                </TouchableOpacity>
 
-                <Text style={{ marginTop: 20, color: "white" }}>
-                Start: {startTime}
-                </Text>
-                <Text style={{ color: "white" }}>
-                End: {endTime}
-                </Text>
-                <Button title="private" onPress={()=>setPrivateRide(!privateRide)}></Button>
+                
             </View>   
         </SafeScreenWrapper>
     </View>

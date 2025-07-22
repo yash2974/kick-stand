@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Button, Text, TouchableOpacity, View } from "react-native";
+import { Button, Text, TouchableOpacity, View, Image } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import DateTimePicker from "@react-native-community/datetimepicker";
 
@@ -10,7 +10,9 @@ type Props = {
 
 export const DateTimePickerComponent = ({ onStartChange, onEndChange }: Props) => {
     const [startDate, setStartDate] = useState(new Date());
+    const [startDateString, setStartDateString] = useState("");
     const [endDate, setEndDate] = useState(new Date());
+    const [endDateString, setEndDateString] = useState("");
     const [showPicker, setShowPicker] = useState(false);
     const [mode, setMode] = useState<'date' | 'time'>('date');
     const [isStart, setIsStart] = useState(true); // Which field is being edited
@@ -22,21 +24,41 @@ export const DateTimePickerComponent = ({ onStartChange, onEndChange }: Props) =
     };
 
     const onChange = (event: any, selectedDate?: Date) => {
-        if (selectedDate) {
-        if (isStart) {
-            setStartDate(selectedDate);
-            const formatted = formatDateTime(selectedDate);
-            setStart(formatted);
-            onStartChange(formatted);
-        } else {
-            setEndDate(selectedDate);
-            const formatted = formatDateTime(selectedDate);
-            setEnd(formatted);
-            onEndChange(formatted);
-        }
-        }
-        setShowPicker(false);
-    };
+  if (!selectedDate) {
+    setShowPicker(false);
+    return;
+  }
+
+  if (mode === 'date') {
+    if (isStart) {
+      setStartDate(selectedDate);
+    } else {
+      setEndDate(selectedDate);
+    }
+    // Immediately open time picker for the same type
+    setMode('time');
+    setShowPicker(true);
+    return;
+  }
+
+  if (mode === 'time') {
+    if (isStart) {
+      setStartDate(selectedDate);
+      const formatted = formatDateTime(selectedDate);
+      setStart(formatted);
+      onStartChange(formatted);
+      setStartDateString("Start: " + selectedDate.toLocaleString());
+    } else {
+      setEndDate(selectedDate);
+      const formatted = formatDateTime(selectedDate);
+      setEnd(formatted);
+      onEndChange(formatted);
+      setEndDateString("End: " + selectedDate.toLocaleString());
+    }
+    setShowPicker(false);
+  }
+};
+
 
     const showPickerFor = (type: 'start' | 'end', pickerMode: 'date' | 'time') => {
         setIsStart(type === 'start');
@@ -46,45 +68,35 @@ export const DateTimePickerComponent = ({ onStartChange, onEndChange }: Props) =
 
     return (
         <SafeAreaView>
-            <View style={{ flexDirection: "row", justifyContent: "space-between", marginBottom: 8 }}>
-                <View style={{ flex: 1, marginRight: 8 }}>
-                    <View style={{ marginVertical: 8 }}>
-                    <TouchableOpacity
-                        style={{ backgroundColor: "#66BB6A", padding: 5, borderRadius: 8 }}
-                        onPress={() => showPickerFor('start', 'date')}
-                    >
-                        <Text style={{ color: "white", textAlign: "center" }}>Start Date</Text>
+            <View style={{marginBottom: 8}}>
+                <View style={{flexDirection: "column"}} >
+                    <TouchableOpacity style={{flexDirection: "row", alignItems: "center", marginBottom: 10}} onPress={() => showPickerFor('start', 'date')}>
+                        <Image source={require('../../assets/photos/calendar.png')} style={{ width: 30, height: 30 }}/>
+                        <Text style={{
+                        marginHorizontal: 6,
+                        color: "#66BB6A",
+                        fontSize: 12,
+                        marginVertical: 8,
+                        textAlignVertical: "top",
+                        fontFamily: "Inter_18pt-Regular",
+                        marginLeft: 10
+                    }}>{startDateString ? startDateString : "Select Start Time"}</Text>
                     </TouchableOpacity>
-                    </View>
-                    <View style={{ marginTop: 4 }}>
-                    <TouchableOpacity
-                        style={{ backgroundColor: "#66BB6A", padding: 5, borderRadius: 8 }}
-                        onPress={() => showPickerFor('start', 'time')}
-                    >
-                        <Text style={{ color: "white", textAlign: "center" }}>Start Time</Text>
+                    <TouchableOpacity style={{flexDirection: "row", alignItems: "center"}} onPress={() => showPickerFor('end', 'date')}>
+                        <Image source={require('../../assets/photos/calendar.png')} style={{ width: 30, height: 30 }}/>
+                        <Text style={{
+                        marginHorizontal: 6,
+                        color: "#66BB6A",
+                        fontSize: 12,
+                        marginVertical: 8,
+                        textAlignVertical: "top",
+                        fontFamily: "Inter_18pt-Regular",
+                        marginLeft: 10
+                    }}>{endDateString ? endDateString : "Select End Time"}</Text>
                     </TouchableOpacity>
-                    </View>
                 </View>
-
-                <View style={{ flex: 1, marginLeft: 8 }}>
-                    <View style={{ marginVertical: 8 }}>
-                    <TouchableOpacity
-                        style={{ backgroundColor: "#EF6C00", padding: 5, borderRadius: 8 }}
-                        onPress={() => showPickerFor('end', 'date')}
-                    >
-                        <Text style={{ color: "white", textAlign: "center" }}>End Date</Text>
-                    </TouchableOpacity>
-                    </View>
-                    <View style={{ marginTop: 4 }}>
-                    <TouchableOpacity
-                        style={{ backgroundColor: "#EF6C00", padding: 5, borderRadius: 8 }}
-                        onPress={() => showPickerFor('end', 'time')}
-                    >
-                        <Text style={{ color: "white", textAlign: "center" }}>End Time</Text>
-                    </TouchableOpacity>
-                    </View>
-                </View>
-                </View>
+                    
+            </View>
 
 
 

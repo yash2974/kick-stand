@@ -522,14 +522,24 @@ async def delete_forums(data: schema.DeleteForum):
 @app.get("/forums")
 async def forums(query: Optional[str] = None):
     forums = []
-    forums_posts = forums_collection.find()
+    one_week_ago = datetime.utcnow() - timedelta(days=7)
+
+    if query == "Hot":
+        forums_posts = forums_collection.find({
+            "created_at": {"$gte": one_week_ago}
+        })
+    else:
+        forums_posts = forums_collection.find()
+
     async for forum in forums_posts:
         forum["_id"] = str(forum["_id"])
         forums.append(forum)
+
     if query == "Hot":
         forums.sort(key=lambda f: f.get("upvote", 0), reverse=True)
     else:
         forums.reverse()
+
     return forums
 
 @app.get("/forums/{post_id}")
