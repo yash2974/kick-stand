@@ -686,7 +686,7 @@ async def report_post(post: schema.ReportPost):
 async def report_ride(ride: schema.ReportRide):
     report = ride.model_dump()
     result = await reports_collection.find_one({
-        "post_id": ride.ride_id,
+        "ride_id": ride.ride_id,
         "user_id": ride.user_id,
         "reported_by": ride.reported_by
     })
