@@ -39,7 +39,7 @@ const DeletePost = ({ visible, onClose, ride_id, loading, setLoading, user_id, r
                   // Authorization: `Bearer ${accessToken}`,
                   },
                   body: JSON.stringify({
-                      post_id: ride_id,
+                      ride_id: ride_id,
                       user_id: ride_owner_user_id,
                       reported_by: user_id
                   })

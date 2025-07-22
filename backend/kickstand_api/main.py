@@ -685,6 +685,15 @@ async def report_post(post: schema.ReportPost):
 @app.post("/report-ride/")
 async def report_ride(ride: schema.ReportRide):
     report = ride.model_dump()
+    result = await reports_collection.find_one({
+        "post_id": ride.ride_id,
+        "user_id": ride.user_id,
+        "reported_by": ride.reported_by
+    })
+    if result:
+        return ({
+        "message": "you have already reported!! ",
+        })
     result = await reports_collection.insert_one(report)
     return ({
         "message": "reported user" + ride.user_id,
