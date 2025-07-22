@@ -220,6 +220,7 @@ def get_rides(query: Optional[str] = Query(""), created_by: Optional[str] = Quer
         models.Ride.image_url,
         models.Ride.map_url,
         models.Ride.private,
+        models.Ride.code,
         func.count(models.RideJoinRequest.request_id).label('invite_count')
     ).outerjoin(
         models.RideJoinRequest, 
@@ -238,6 +239,7 @@ def get_rides(query: Optional[str] = Query(""), created_by: Optional[str] = Quer
         models.Ride.image_url,
         models.Ride.map_url,
         models.Ride.private,
+        models.Ride.code
         # Include all the same fields in GROUP BY
     )
     

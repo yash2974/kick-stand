@@ -1,5 +1,5 @@
 import React, { useContext, useEffect } from "react";
-import { View, Text, TextInput, FlatList, StyleSheet, Image, TouchableOpacity } from "react-native";
+import { View, Text, TextInput, FlatList, StyleSheet, Image, TouchableOpacity, Linking } from "react-native";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import SafeScreenWrapper from "./SafeScreenWrapper";
 import RideJoinRequest from "../Elements/RideJoinRequest";
@@ -20,6 +20,7 @@ type Ride = {
   end_time: string;
   current_riders: number;
   created_by: string;
+  map_url: string;
 };
 
 export default function Rides() {
@@ -105,19 +106,28 @@ export default function Rides() {
     // fetch ride participants via api and condtinal render to show only rides not joined
       <View style={styles.card}>
         <View>
-            <View style={{ flexDirection: 'row', alignItems: 'flex-start' }}>
-          <View style={{ marginRight: 10 }}>
-            <Image
-              source={{ uri: item.image_url }}
-              style={{ width: 30, height: 30, borderRadius: 4 }}
-            />
-          </View>
-          <View style={{ justifyContent: 'flex-end' }}>
-            <Text style={[styles.title, { lineHeight: 30 }]}>
-              {item.title}
-            </Text>
-          </View>
-        </View>
+            <View style={{ flexDirection: 'row', alignItems: "center", justifyContent: "space-between" }}>
+              <View style={{ marginRight: 10, flexDirection: "row", alignItems: "center"}}>
+                <Image
+                  source={{ uri: item.image_url }}
+                  style={{ width: 30, height: 30, borderRadius: 4, marginRight: 8 }}
+                />
+                <Text
+                  style={{
+                    fontFamily: "Inter_18pt-SemiBold",
+                    color: "#ECEFF1",
+                    fontSize: 18,
+                    marginRight: 4,
+                    lineHeight: 20
+                  }}
+                >
+                  {item.title}
+                </Text>
+              </View>
+              <TouchableOpacity onPress={()=>Linking.openURL(item.map_url)}>
+                <Image source={require('../../assets/photos/logo.png')} style={{ width: 25, height: 25 }}/> 
+              </TouchableOpacity>
+            </View>
           <View style={{ flexDirection: 'row', alignItems: 'center' }}>
             <Text style={{ color: "#9c908f" }}>{item.start_location}</Text>
             <MaterialCommunityIcons

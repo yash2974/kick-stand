@@ -110,6 +110,7 @@ class RideWithInviteCount(BaseModel):
     invite_count: int
     map_url: str
     private: bool
+    code: str
     
     class Config:
         from_attributes = True

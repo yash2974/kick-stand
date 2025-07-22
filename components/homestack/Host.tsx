@@ -39,7 +39,8 @@ type Ride = {
   ride_id: number;
   invite_count: number;
   map_url: string;
-  private: boolean
+  private: boolean;
+  code: string
 };
 
 
@@ -121,6 +122,9 @@ function HostContent() {
               >
                 {item.private ? "(Private)" : null}
               </Text>
+            </View>
+            <View>
+              <Text>{item.code}</Text>
             </View>
             <TouchableOpacity onPress={()=>Linking.openURL(item.map_url)}>
               <Image source={require('../../assets/photos/logo.png')} style={{ width: 25, height: 25 }}/> 
