@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import { View, Text, TextInput, FlatList, StyleSheet, Image, TouchableOpacity, Linking } from "react-native";
+import { View, Text, TextInput, FlatList, StyleSheet, Image, TouchableOpacity, Linking, KeyboardAvoidingView, Platform, RefreshControl} from "react-native";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import SafeScreenWrapper from "./SafeScreenWrapper";
 import RideJoinRequest from "../Elements/RideJoinRequest";
@@ -8,6 +8,7 @@ import { getValidAccessToken } from "../../Auth/checkToken";
 import { handleLogout } from "../../Auth/handleLogout";
 import { useNavigation, NavigationProp } from "@react-navigation/native";
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import Clipboard from "@react-native-clipboard/clipboard";
 import ReportRide from "../Elements/ReportRide";
 
 type Ride = {
@@ -22,6 +23,7 @@ type Ride = {
   current_riders: number;
   created_by: string;
   map_url: string;
+  code: string
 };
 
 export default function Rides() {
@@ -35,10 +37,18 @@ export default function Rides() {
   const { userInfo, setUserInfo } = useContext(AuthContext);
   const [search, setSearch] = React.useState("");
   const [debouncedSearch, setDebouncedSearch] = React.useState("");
-  const [selectedRideReport, setSelectedRideReport] = React.useState<Ride | null>(null);  
+  const [selectedRideReport, setSelectedRideReport] = React.useState<Ride | null>(null); 
+  const [refreshing, setRefreshing] = useState(false); 
   const user_id = userInfo?.user.id
   const navigation = useNavigation();
   const insets = useSafeAreaInsets();
+
+  const onRefresh = async () => {
+    setRefreshing(true);
+    await fetchRides(debouncedSearch);
+    await userRides();
+    setRefreshing(false);
+  };
 
   const userRides = async () => {
     const accessToken = await getValidAccessToken();
@@ -163,6 +173,11 @@ export default function Rides() {
             </View>
             
             <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+              <TouchableOpacity onPress={()=>Clipboard.setString(item.code)}>
+                <View style={{backgroundColor: "#121212", paddingVertical: 2, paddingHorizontal: 5, marginRight: 15, width: 70, justifyContent: "center", alignItems: "center"}}>
+                  <Text style={{fontFamily: "Inter_18pt-Bold", color: "#66BB6A", fontSize: 13}}>{item.code}</Text>
+                </View>
+              </TouchableOpacity>
               <MaterialCommunityIcons name="account-group" size={20} color="#9c908f" />
               <Text style={{ color:"#9c908f", fontFamily: "Inter_18pt-Regular"}}> {item.current_riders}</Text>
             </View>
@@ -184,13 +199,17 @@ useEffect(()=>{
 
 
   return (
+    <KeyboardAvoidingView
+    style={{ flex: 1 }}
+    behavior={Platform.OS === "ios" ? "padding" : "height"} 
+    keyboardVerticalOffset={Platform.OS === "ios" ? 100 : 0} 
+    >
     <View style={{flex:1, backgroundColor: "#121212"}}>
     <SafeScreenWrapper>
-    <View style={{ flex: 1, justifyContent: "flex-start", backgroundColor : "#121212" , padding: 15}}>
-      
+    <View style={{ flex: 1, justifyContent: "space-between", backgroundColor : "#121212" , padding: 15}}> 
         <View>
             <View >
-              <View style={{flexDirection:"row",backgroundColor:"#424242", paddingHorizontal: 20, alignItems:"center", borderRadius: 10, marginBottom: 16}}>
+              <View style={{flexDirection:"row",backgroundColor:"#424242", paddingHorizontal: 20, alignItems:"center", borderRadius: 10, marginBottom: 8}}>
                   <MaterialCommunityIcons name="map-marker" size={20} color="#FFFFFF"/>
                   <TextInput placeholder="Search Locations" style={{flex: 1}} onChangeText={setSearch} value={search}></TextInput>
               </View>
@@ -209,6 +228,13 @@ useEffect(()=>{
                     <Text style={{ color: '#ECEFF1', textAlign: 'center' }}>No rides available</Text>
                   )
                 }
+                refreshControl={
+                  <RefreshControl refreshing={refreshing}
+                  onRefresh={onRefresh}
+                  colors={["#C62828"]}
+                  progressBackgroundColor="#121212"
+                  progressViewOffset={50} />
+                }
               />
               {selectedRide && <RideJoinRequest
                 visible={true}
@@ -224,15 +250,18 @@ useEffect(()=>{
               {
                 selectedRideReport && <ReportRide visible={true} onClose={()=>setSelectedRideReport(null)} ride_id={selectedRideReport.ride_id} loading={loading} setLoading={setLoading} user_id={user_id} ride_owner_user_id={selectedRideReport.created_by}/>
               }
-    
             </View>
-
         </View>  
-        
+        <View style={{flexDirection:"row",backgroundColor:"#121212", borderColor: "#C62828", borderWidth: 1, paddingHorizontal: 20, alignItems:"center", borderRadius: 10, paddingVertical: 5}}>
+          <TextInput placeholder="Enter code (XYJWQB)" style={{flex: 1, fontFamily: "Inter_18pt-SemiBold"}} onChangeText={setSearch} value={search} placeholderTextColor="#424242"/>
+          <MaterialCommunityIcons name="motorbike" size={24} color="#C62828" />
+
+        </View>
     </View>
     
     </SafeScreenWrapper>
     </View>
+    </KeyboardAvoidingView>
       
     
   );

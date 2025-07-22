@@ -9,13 +9,16 @@ type DeleteRideProps = {
   visible: boolean;
   onClose: () => void;
   ride_id: number; 
+  loading: boolean;
+  setLoading: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
-const DeleteRide = ({ visible, onClose, ride_id }: DeleteRideProps) => {
+const DeleteRide = ({ visible, onClose, ride_id, loading, setLoading }: DeleteRideProps) => {
   const { setUserInfo } = useContext(AuthContext)
   const navigation = useNavigation()
 
   const deleteRides = async (ride_id: number) => {
+    setLoading(true)
     const accessToken = await getValidAccessToken();
       if (!accessToken){
         onClose();
@@ -41,6 +44,9 @@ const DeleteRide = ({ visible, onClose, ride_id }: DeleteRideProps) => {
       catch (error){
         console.log("error")
       }
+      finally{
+        setLoading(false)
+      }
   }
 
 
@@ -56,11 +62,11 @@ const DeleteRide = ({ visible, onClose, ride_id }: DeleteRideProps) => {
           <Text style={styles.modalText}>Do you want to delete Ride?</Text>
 
           <View style={styles.buttonRow}>
-            <TouchableOpacity onPress={()=>{deleteRides(ride_id)}} style={styles.buttonCancel}>
-              <Text style={{ color: '#fff' }}>Confirm</Text>
+            <TouchableOpacity onPress={()=>{deleteRides(ride_id)}} style={[styles.buttonCancel,{backgroundColor: loading ? "#9E9E9E" :"#C62828",}]}>
+              <Text style={{ color: '#ECEFF1', fontFamily: "Inter_18pt-Regular" }}>Confirm</Text>
             </TouchableOpacity>
-            <TouchableOpacity onPress={onClose} style={styles.buttonCancel}>
-              <Text style={{ color: '#fff' }}>Cancel</Text>
+            <TouchableOpacity onPress={onClose} style={[styles.buttonCancel,{backgroundColor: loading ? "#9E9E9E" :"#C62828",}]}>
+              <Text style={{ color: '#ECEFF1', fontFamily: "Inter_18pt-Regular" }}>Cancel</Text>
             </TouchableOpacity>
           </View>
         </View>
@@ -88,13 +94,13 @@ const styles = StyleSheet.create({
     fontSize: 18,
     marginBottom: 20,
     textAlign: "center",
+    fontFamily: "Inter_18pt-SemiBold"
   },
   buttonRow: {
     flexDirection: "row",
     gap: 10,
   },
   buttonCancel: {
-    backgroundColor: "#C62828",
     paddingVertical: 10,
     paddingHorizontal: 20,
     borderRadius: 8,

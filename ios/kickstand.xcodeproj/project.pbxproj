@@ -68,6 +68,7 @@
 		FEAF8E8E4DB44F12945B291D /* BebasNeue-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 86EC6E52FF824EEF80023E2F /* BebasNeue-Regular.ttf */; };
 		A0EA9D76F3104B6C8535F14A /* SpecialGothicExpandedOne-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6291455B79FE4A3E83F30F65 /* SpecialGothicExpandedOne-Regular.ttf */; };
 		1B376C6FCBB74640BC1D9F7E /* Bitcount-VariableFont_CRSV,ELSH,ELXP,slnt,wght.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 516BBE6AD9044F309BEC085A /* Bitcount-VariableFont_CRSV,ELSH,ELXP,slnt,wght.ttf */; };
+		10DF4608FEDE4FDF9EBF1865 /* Cookie-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = BBB31D3E33B945F9A206622C /* Cookie-Regular.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -149,6 +150,7 @@
 		86EC6E52FF824EEF80023E2F /* BebasNeue-Regular.ttf */ = {isa = PBXFileReference; name = "BebasNeue-Regular.ttf"; path = "../assets/fonts/BebasNeue-Regular.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 		6291455B79FE4A3E83F30F65 /* SpecialGothicExpandedOne-Regular.ttf */ = {isa = PBXFileReference; name = "SpecialGothicExpandedOne-Regular.ttf"; path = "../assets/fonts/SpecialGothicExpandedOne-Regular.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 		516BBE6AD9044F309BEC085A /* Bitcount-VariableFont_CRSV,ELSH,ELXP,slnt,wght.ttf */ = {isa = PBXFileReference; name = "Bitcount-VariableFont_CRSV,ELSH,ELXP,slnt,wght.ttf"; path = "../assets/fonts/Bitcount-VariableFont_CRSV,ELSH,ELXP,slnt,wght.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		BBB31D3E33B945F9A206622C /* Cookie-Regular.ttf */ = {isa = PBXFileReference; name = "Cookie-Regular.ttf"; path = "../assets/fonts/Cookie-Regular.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -291,6 +293,7 @@
 				86EC6E52FF824EEF80023E2F /* BebasNeue-Regular.ttf */,
 				6291455B79FE4A3E83F30F65 /* SpecialGothicExpandedOne-Regular.ttf */,
 				516BBE6AD9044F309BEC085A /* Bitcount-VariableFont_CRSV,ELSH,ELXP,slnt,wght.ttf */,
+				BBB31D3E33B945F9A206622C /* Cookie-Regular.ttf */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -422,6 +425,7 @@
 				FEAF8E8E4DB44F12945B291D /* BebasNeue-Regular.ttf in Resources */,
 				A0EA9D76F3104B6C8535F14A /* SpecialGothicExpandedOne-Regular.ttf in Resources */,
 				1B376C6FCBB74640BC1D9F7E /* Bitcount-VariableFont_CRSV,ELSH,ELXP,slnt,wght.ttf in Resources */,
+				10DF4608FEDE4FDF9EBF1865 /* Cookie-Regular.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

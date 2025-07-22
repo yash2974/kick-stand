@@ -12,12 +12,15 @@ import { Gesture, GestureHandlerRootView } from 'react-native-gesture-handler';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { WEB_CLIENT_ID, IOS_CLIENT_ID } from './Auth/key';
 import LottieView from 'lottie-react-native';
+import Support from './components/Elements/Support';
+
 
 
 export type RootStackParamList = {
   Login: undefined;
   Home: undefined;
   NewUser: undefined; 
+  Support: undefined;
 };
 GoogleSignin.configure({
   webClientId: WEB_CLIENT_ID, // Required for getting the ID token
@@ -81,6 +84,11 @@ const AppContent = () => {
           name="Home" 
           component={HomeScreen} 
           options={{ headerShown: false }} 
+        />
+        <Stack.Screen
+          name="Support"
+          component={Support}
+          options={{ headerShown: false }}
         />
       </Stack.Navigator>
     </NavigationContainer>

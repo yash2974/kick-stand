@@ -84,6 +84,7 @@ const CreateRide = () => {
             }
             finally{
                 setLoading(false)
+                rootNavigation.navigate("Support")
             }
     }
 

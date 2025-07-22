@@ -100,6 +100,7 @@ const CreateForums = () => {
   }
   finally {
     setLoading(false);
+    rootNavigation.navigate("Support");
   }
 };
 

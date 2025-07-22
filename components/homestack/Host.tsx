@@ -91,6 +91,7 @@ function HostContent() {
           setLoading(false);
         }
     };
+    
 
     const renderRide = ({ item }: { item: Ride }) => (
       <View style={styles.card}>
@@ -188,7 +189,9 @@ function HostContent() {
               ride_id={selectedRideIdDelete}
               onClose={()=> {setSelectedRideIdDelete(null)
                 getRides(userInfo?.user.id);
-              }}/>
+              }}
+              loading={loading}
+              setLoading={setLoading}/>
             )}
             <View style={{ flex: 1, justifyContent: "flex-start", padding: 15}}>
               <View style={{ flex:3, marginBottom: 8 }}>

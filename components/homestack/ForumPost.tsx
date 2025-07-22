@@ -238,10 +238,10 @@ const ForumPost = () => {
 
     return (
         <KeyboardAvoidingView
-    style={{ flex: 1 }}
-    behavior={Platform.OS === "ios" ? "padding" : "height"} 
-    keyboardVerticalOffset={Platform.OS === "ios" ? 100 : 0} 
-  >
+        style={{ flex: 1 }}
+        behavior={Platform.OS === "ios" ? "padding" : "height"} 
+        keyboardVerticalOffset={Platform.OS === "ios" ? 100 : 0} 
+        >
         <View style={{flex:1, backgroundColor: "#121212"}}>
             
             <SafeScreenWrapper>

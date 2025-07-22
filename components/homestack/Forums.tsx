@@ -133,7 +133,7 @@ export function ForumsContent() {
               loading ? (
                 <View style={{justifyContent: "center", alignItems: "center", marginVertical: 100}}>
                   <LottieView source={require('../../assets/loading/loadingAnimation.json')} autoPlay loop style={{ width: 100, height: 100 }} />
-                  <Text style={{ color: '#9c908f', fontFamily: "Inter_18pt-Bold", fontSize: 10}}>Getting your rides ready…</Text>
+                  <Text style={{ color: '#9c908f', fontFamily: "Inter_18pt-Bold", fontSize: 10}}>Getting your forums</Text>
                 </View>
               ) : (
                 <View style={{justifyContent: "center", alignItems: "center", marginVertical: 100}}>
