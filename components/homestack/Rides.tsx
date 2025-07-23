@@ -10,6 +10,7 @@ import { useNavigation, NavigationProp } from "@react-navigation/native";
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import Clipboard from "@react-native-clipboard/clipboard";
 import ReportRide from "../Elements/ReportRide";
+import LottieView from "lottie-react-native";
 
 type Ride = {
   ride_id: number;
@@ -223,9 +224,16 @@ useEffect(()=>{
                 showsVerticalScrollIndicator={false}
                 ListEmptyComponent={
                   loading ? (
-                    <Text style={{ color: '#ECEFF1', textAlign: 'center' }}>Loading rides...</Text>
+                    <View style={{justifyContent: "center", alignItems: "center", marginVertical: 100}}>
+                      <LottieView source={require('../../assets/loading/loadingAnimation.json')} autoPlay loop style={{ width: 100, height: 100 }} />
+                      <Text style={{ color: '#9c908f', fontFamily: "Inter_18pt-Bold", fontSize: 10}}>Getting your rides ready…</Text>
+                    </View>
                   ) : (
-                    <Text style={{ color: '#ECEFF1', textAlign: 'center' }}>No rides available</Text>
+                    <View style={{justifyContent: "center", alignItems: "center", marginVertical: 100}}>
+                      <MaterialCommunityIcons name="engine-off" size={40} color="#9c908f"/>
+                      <Text style={{ color: '#9c908f', fontFamily: "Inter_18pt-Bold", fontSize: 10}}>No rides yet :)</Text>
+                      <Text style={{ color: '#9c908f', fontFamily: "Inter_18pt-Bold", fontSize: 10}}>Lift your Kickstand by hitting Create Ride!</Text>
+                    </View>
                   )
                 }
                 refreshControl={
@@ -253,7 +261,7 @@ useEffect(()=>{
             </View>
         </View>  
         <View style={{flexDirection:"row",backgroundColor:"#121212", borderColor: "#C62828", borderWidth: 1, paddingHorizontal: 20, alignItems:"center", borderRadius: 10, paddingVertical: 5}}>
-          <TextInput placeholder="Enter code (XYJWQB)" style={{flex: 1, fontFamily: "Inter_18pt-SemiBold"}} onChangeText={setSearch} value={search} placeholderTextColor="#424242"/>
+          <TextInput placeholder="Enter code (XYJWQB)" style={{flex: 1, fontFamily: "Inter_18pt-Bold", color:"#424242"}} placeholderTextColor="#424242"/>
           <MaterialCommunityIcons name="motorbike" size={24} color="#C62828" />
 
         </View>

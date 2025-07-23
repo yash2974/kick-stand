@@ -309,11 +309,11 @@ const series = generatePieChartData();
   <ScrollView contentContainerStyle={{ flexGrow: 1, padding: 15, justifyContent: "space-between" }}>
 
             <View style={{ flexDirection: "row", alignItems:"center" }}>
-                <Text style={{ color : "#C62828" ,fontFamily:"Inter_18pt-Bold",fontSize: 17 }}>Hello </Text>
+                <Text style={{ color : "#C62828" ,fontFamily:"Bitcount-VariableFont_CRSV,ELSH,ELXP,slnt,wght",fontSize: 17 }}>Hello </Text>
                 {/* <Text style={{ color : "#9E9E9E" ,fontFamily:"Inter_18pt-Regular",fontSize: 17 }}>{user_name}</Text> */}
             </View>
             <View style={{ flexDirection: "row", alignItems: "center", justifyContent: "space-between" }}>
-                <Text style={{ color : "#C62828", fontFamily: "Inter_18pt-Bold", fontSize : 34}}>Garage</Text>
+                <Text style={{ color : "#C62828", fontFamily: "Bitcount-VariableFont_CRSV,ELSH,ELXP,slnt,wght", fontSize : 34}}>Garage</Text>
                 <Image
                     source={profile_picture ? { uri: profile_picture } : undefined}
                     style={{ width: 50, height: 50, borderRadius: 50 }}

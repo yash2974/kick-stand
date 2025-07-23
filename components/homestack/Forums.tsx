@@ -1,5 +1,5 @@
 import React, { useCallback, useContext, useEffect, useState } from "react";
-import { Button, Text, TouchableOpacity, View, Image, Dimensions } from "react-native";
+import { Button, Text, TouchableOpacity, View, Image, Dimensions, RefreshControl, FlatList } from "react-native";
 import SafeScreenWrapper from "./SafeScreenWrapper"; // adjust the path
 import { useNavigation, NavigationContainer, NavigationIndependentTree, useFocusEffect } from "@react-navigation/native";
 import { AuthContext } from "../authstack/AuthContext";
@@ -8,7 +8,7 @@ import * as Keychain from 'react-native-keychain'
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import { handleLogout } from "../../Auth/handleLogout";
 import { getValidAccessToken } from "../../Auth/checkToken";
-import { FlatList } from "react-native-gesture-handler";
+// import { FlatList } from "react-native-gesture-handler";
 import { ForumCard } from "../Elements/ForumCard";
 import { createNativeStackNavigator, NativeStackNavigationProp } from "@react-navigation/native-stack";
 import CreateForums from "../Elements/CreateForums";
@@ -48,6 +48,14 @@ export function ForumsContent() {
   const { userInfo , setUserInfo} = useContext(AuthContext);
   const [forums, setForums] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [refreshing, setRefreshing] = useState(false);
+
+  const onRefresh = async () => {
+    console.log("refresh")
+      setRefreshing(true);
+      await fetchForums("");
+      setRefreshing(false);
+    };
 
   //fetch forums
   const fetchForums = async (query: string) => {
@@ -104,7 +112,7 @@ export function ForumsContent() {
     <View style={{flex: 1, backgroundColor: "#121212"}}>
       <SafeScreenWrapper>
         <View style={{flex: 1, paddingTop: 15, paddingLeft: 15, paddingRight: 15}}>
-          <Text style={{fontFamily: "Inter_18pt-Bold", color: "#C62828", fontSize: 24}}>@kickstand</Text>
+          <Text style={{fontFamily: "Bitcount-VariableFont_CRSV,ELSH,ELXP,slnt,wght", color: "#C62828", fontSize: 24}}>@kickstand</Text>
           <View style={{flexDirection: "row", width: "100%", justifyContent: "space-between", marginVertical: 8}}>
             <View style={{flexDirection: "row", gap: 10}}>
               <TouchableOpacity style={{flexDirection: "row", alignItems: "baseline", backgroundColor: "#424242", padding: 8, borderRadius: 20}} onPress={()=>fetchForums("")}>
@@ -143,6 +151,13 @@ export function ForumsContent() {
                 </View>
               )
             }
+            refreshControl={
+              <RefreshControl refreshing={refreshing}
+              onRefresh={onRefresh}
+              colors={["#C62828"]}
+              progressBackgroundColor="#121212"
+              progressViewOffset={50} />
+        }
           />
         </View>
       </SafeScreenWrapper>

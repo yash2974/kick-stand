@@ -203,6 +203,38 @@ def create_ride(ride: schema.Ride, db: Session = Depends(get_db), token_data: di
     postRider(user_id=user_id, ride_id=ride_id, db=db)
     db.refresh(db_ride)
     return db_ride  
+
+@app.post("/join-ride-code/{code}", response_model=schema.Ride)
+def join_ride_code(code: str, db: Session = Depends(get_db), token_data: dict = Depends(verify_token)):
+    user_id = token_data["sub"]
+    ride = db.query(models.Ride).filter(models.Ride.code == code).first()
+    if not ride:
+        raise HTTPException(status_code=404, detail="Ride not found")
+    result = db.query(models.RideParticipant).filter(
+        models.RideParticipant.ride_id == ride.ride_id,
+        models.RideParticipant.user_id == user_id
+    ).first()
+    if result: 
+        raise HTTPException(status_code=404, detail="Already Joined")
+    participant = models.RideParticipant(
+        ride_id = ride.ride_id,
+        user_id = user_id,
+    )
+    participant_request = models.RideJoinRequest(
+        ride_id = ride.ride_id,
+        user_id = user_id,
+        status = "accepted"
+    )
+    db.query(models.Ride).filter(
+        models.Ride.ride_id == ride.ride_id
+    ).update({
+        models.Ride.current_riders: models.Ride.current_riders+1
+    })
+    db.add(participant)
+    db.add(participant_request)
+    db.commit()
+    db.refresh(participant)
+    return ride
        
 @app.get("/rides/", response_model=List[schema.RideWithInviteCount])
 def get_rides(query: Optional[str] = Query(""), created_by: Optional[str] = Query(None), db: Session = Depends(get_db), token_data: dict = Depends(verify_token)):

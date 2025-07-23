@@ -196,7 +196,7 @@ function HostContent() {
             <View style={{ flex: 1, justifyContent: "flex-start", padding: 15}}>
               <View style={{ flex:3, marginBottom: 8 }}>
                 <View style={{marginBottom: 8}}>
-                    <Text style={{ fontSize: 24, fontFamily: "Inter_18pt-SemiBold", color: "#C62828"}}>
+                    <Text style={{ fontSize: 24, fontFamily: "Bitcount-VariableFont_CRSV,ELSH,ELXP,slnt,wght", color: "#C62828"}}>
                         Active Rides
                     </Text>
                 </View>
