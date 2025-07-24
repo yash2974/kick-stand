@@ -567,13 +567,26 @@ async def forums(query: Optional[str] = None):
 
     return forums
 
-@app.get("/forums/{post_id}")
-async def get_forums(post_id: str):
-    forum = await forums_collection.find_one({"_id": ObjectId(post_id)})
-    if forum:
+@app.get("/forums/user")
+async def forums(query: Optional[str] = None, token_data: dict = Depends(verify_token)):
+    user_id = token_data["sub"]
+    forums = []
+    forums_posts = forums_collection.find({
+        "user_id": user_id
+    })
+    async for forum in forums_posts:
         forum["_id"] = str(forum["_id"])
-        return forum
-    return {"error"}
+        forums.append(forum)
+    forums.reverse()
+    return forums
+
+# @app.get("/forums/{post_id}")
+# async def get_forums(post_id: str):
+#     forum = await forums_collection.find_one({"_id": ObjectId(post_id)})
+#     if forum:
+#         forum["_id"] = str(forum["_id"])
+#         return forum
+#     return {"error"}
 
 @app.post("/comment/{post_id}")
 async def post_comment(post_id: str, comment: schema.PostComment):

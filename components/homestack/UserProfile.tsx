@@ -21,6 +21,12 @@ import {
 } from 'react-native-popup-menu';
 import { FlatList } from "react-native-gesture-handler";
 import { getValidAccessToken } from "../../Auth/checkToken";
+import VehicleDetailsModal from "../Elements/VehicleDetailsModal";
+import LottieView from "lottie-react-native";
+import AddVehicle from "../Elements/AddVehicleModal";
+import AddVehicleModal from "../Elements/AddVehicleModal";
+import type { Forums } from "./Forums";
+import { ForumCard } from "../Elements/ForumCard";
 
 type Vehicle = {
   vehicle_id: string;
@@ -49,6 +55,11 @@ export function UserProfileContent() {
   const [isLast, setIsLast] = useState(false);
   const [isFirst, setIsFirst] = useState(true);
   const [vehicles, setVehicles] = useState([]);
+  const [vehicleDetailsModal, setvehicleDetailsModal] = useState(false);
+  const [selectedVehicle, setSelectedVehicle] = useState("");
+  const [addVehicleModal, setAddVehicleModal] = useState(false);
+  const [userForums, setUserForums] = useState<Forums[]> ([]);
+  const [loadingForums, setLoadingForums] = useState(false);
   const user_image_url = userInfo?.user.photo;
 
   const getUserVehicles = async () => {
@@ -81,26 +92,65 @@ export function UserProfileContent() {
     
   }
 
+  const getUserForums = async () => {
+    setLoadingForums(true);
+    const accessToken = await getValidAccessToken();
+    if (!accessToken) {
+      handleLogout(rootnavigation, setUserInfo);
+    }
+    try {
+      const response = await fetch("https://kick-stand.onrender.com/forums/user",{
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${accessToken}`,
+        }
+      });
+      if (!response.ok){
+        console.log("error fetching");
+        setLoadingForums(false);
+        return;
+      }
+      const data = await response.json();
+      setUserForums(data);
+    }
+    catch (error) {
+      console.log("error");
+    } finally {
+      setLoadingForums(false);
+    }
+  }
+
   useEffect(()=> {
    getUserVehicles();
-  }, []);
+  }, [vehicles]);
+  useEffect(()=> {
+   getUserForums();
+  }, [userForums]);
+
 
   const renderVehicles = ({item}: {item: Vehicle}) => (
     <View style={{backgroundColor: "#121212", width: screenWidth, flexDirection: "row", paddingHorizontal: 10, alignItems: "center",padding: 10, justifyContent: "space-between"}}>
       <MaterialCommunityIcons name="arrow-left-circle" size={24} color= {isFirst ? "#424242" : "#C62828"} />
-      <View style={{flexDirection: "row", alignItems: "center"}}>
+      <TouchableOpacity style={{flexDirection: "row", alignItems: "center"}} onPress={()=>{
+          setSelectedVehicle(item.model_name)
+          setvehicleDetailsModal(true)}}>
         <Image source={require('../../assets/photos/motorbike.png')} style={{ width: 50, height: 50, marginHorizontal: 10 }}/> 
-        <View style={{ alignItems: "center", marginHorizontal: 10}}>
-          <Text>
-          <Text style={{fontFamily: "Inter_18pt-SemiBold", color: "#424242", fontSize: 10}}>Model: </Text><Text style={{fontFamily: "Inter_18pt-SemiBold", color: "#424242", fontSize: 10}}>{item.model_name}</Text>
+        <View style={{ alignItems: "center", marginHorizontal: 10 }}>
+        <View style={{ alignItems: "flex-start" }}>
+          <Text style={{ textAlign: "left" }}>
+            <Text style={{ fontFamily: "Inter_18pt-SemiBold", color: "#424242", fontSize: 10 }}>Model: </Text>
+            <Text style={{ fontFamily: "Inter_18pt-SemiBold", color: "#424242", fontSize: 10 }}>{item.model_name}</Text>
           </Text>
-          <Text>
-            <Text style={{fontFamily: "Inter_18pt-SemiBold", color: "#424242", fontSize: 10}}>Vehicle No: </Text><Text style={{fontFamily: "Inter_18pt-SemiBold", color: "#424242", fontSize: 10}}>{item.vehicle_id}</Text>
+          <Text style={{ textAlign: "left" }}>
+            <Text style={{ fontFamily: "Inter_18pt-SemiBold", color: "#424242", fontSize: 10 }}>Vehicle No: </Text>
+            <Text style={{ fontFamily: "Inter_18pt-SemiBold", color: "#424242", fontSize: 10 }}>{item.vehicle_id}</Text>
           </Text>
         </View>
       </View>
+      </TouchableOpacity>
       { isLast ? 
-        <TouchableOpacity>
+        <TouchableOpacity onPress={()=>setAddVehicleModal(true)}>
           <MaterialCommunityIcons name="plus-circle" size={24} color="#C62828" />
         </TouchableOpacity> 
         : <MaterialCommunityIcons name="arrow-right-circle" size={24} color="#C62828" />}
@@ -113,53 +163,64 @@ export function UserProfileContent() {
       <View style={{flex: 1, backgroundColor: "#121212"}}>
         <SafeScreenWrapper>
           <View style={{flex: 1, padding: 15, justifyContent: "space-between"}}>
+            <View>
             <View style={{flexDirection: "row", justifyContent: "space-between"}}>
               <View style={{flexDirection: "row", alignItems: "center"}}>
                 <Image source={user_image_url ? { uri: user_image_url } : require("../../assets/photos/racer.png")} style={{width: 80, height: 80, borderRadius: 50, borderWidth: 2, borderColor: "#C62828", marginRight: 14}}/>
                 <View>
-                  <Text style={{ color: "#ECEFF1", fontFamily: "Inter_18pt-SemiBold"}}>{userInfo?.user.givenName}</Text>
-                  <Text style={{ color: "#ECEFF1", fontFamily: "Inter_18pt-SemiBold"}}>RPM</Text>
+                  <Text style={{ color: "#ECEFF1", fontFamily: "Inter_18pt-SemiBold", fontSize: 14}}>{userInfo?.user.givenName}</Text>
+                  <Text style={{ color: "#ECEFF1", fontFamily: "Inter_18pt-SemiBold", fontSize: 14}}>RPM</Text>
                 </View>
               </View>
-              <View>
-                <Menu>
-                  <MenuTrigger 
-                    customStyles={{
-                    TriggerTouchableComponent: TouchableWithoutFeedback // disables default touchable feedback
-                  }}>
-                    <MaterialCommunityIcons name="cog" size={20} style={{color: "#C62828", marginHorizontal: 3}}/>
-                  </MenuTrigger>
-                   <MenuOptions 
-                     customStyles={{
-                      optionsContainer: {
-                        backgroundColor: '#1F1F1F',
-                        borderRadius: 10,
-                        padding: 5,
-                        width: 150,
-                      },
-                      optionWrapper: {
-                        padding: 10,
-                      },
-                      optionText: {
-                        color: '#C62828',
-                        fontFamily: 'Inter_18pt-SemiBold',
-                      },
+                <View>
+                  <Menu>
+                    <MenuTrigger 
+                      customStyles={{
+                      TriggerTouchableComponent: TouchableWithoutFeedback // disables default touchable feedback
                     }}>
-                      <MenuOption onSelect={() =>setReportBugVisible(true)}>
-                        <Text style={{ color: "#C62828", fontFamily: "Inter_18pt-SemiBold"}}>Report Bug</Text>
-                      </MenuOption>
-                      <View style={{ height: 1, backgroundColor: '#424242', marginVertical: 4 }} />
-                      <MenuOption onSelect={() => handleLogout(rootnavigation, setUserInfo)}>
-                        <Text style={{ color: "#C62828", fontFamily: "Inter_18pt-SemiBold"}}>Logout</Text>
-                      </MenuOption>
-                    </MenuOptions>
-                </Menu>
+                      <MaterialCommunityIcons name="cog" size={20} style={{color: "#C62828", marginHorizontal: 3}}/>
+                    </MenuTrigger>
+                    <MenuOptions 
+                      customStyles={{
+                        optionsContainer: {
+                          backgroundColor: '#1F1F1F',
+                          borderRadius: 10,
+                          padding: 5,
+                          width: 150,
+                        },
+                        optionWrapper: {
+                          padding: 10,
+                        },
+                        optionText: {
+                          color: '#C62828',
+                          fontFamily: 'Inter_18pt-SemiBold',
+                        },
+                      }}>
+                        <MenuOption onSelect={() =>setReportBugVisible(true)}>
+                          <Text style={{ color: "#C62828", fontFamily: "Inter_18pt-SemiBold"}}>Report Bug</Text>
+                        </MenuOption>
+                        <View style={{ height: 1, backgroundColor: '#424242', marginVertical: 4 }} />
+                        <MenuOption onSelect={() => handleLogout(rootnavigation, setUserInfo)}>
+                          <Text style={{ color: "#C62828", fontFamily: "Inter_18pt-SemiBold"}}>Logout</Text>
+                        </MenuOption>
+                      </MenuOptions>
+                  </Menu>
+                </View>
               </View>
+              <View style={{ backgroundColor: "#1F1F1F", marginVertical: 14, borderRadius: 10}}>
+                <Text style={{ color: "#C62828", fontFamily: "Inter_18pt-SemiBold", fontSize: 14, padding: 10}}>Active Rides</Text>
+              </View>
+              <View style={{ width: "100%", height: 1, backgroundColor: "#1F1F1F" }} />
+              <FlatList
+                data={userForums}
+                keyExtractor={(item) => item._id.toString()}
+                renderItem={({ item }) => <ForumCard item={item} />}
+              />
             </View>
+
             <View>
               <View style={{ width: "100%", height: 1, backgroundColor: "#1F1F1F", marginTop: 10 }} />
               <View style={{
-                borderRadius: 20,
                 overflow: 'hidden',
               }}>
                 
@@ -179,12 +240,31 @@ export function UserProfileContent() {
                     setIsFirst(currentPage === 0);
                     setIsLast(currentPage === vehicles.length - 1);
                   }}
+                  ListEmptyComponent={loadingVehicles ? 
+                    <View style={{justifyContent: "center", alignItems: "center", flexDirection: "row", height: 70, backgroundColor: "#121212", width: screenWidth}}>
+                      <LottieView source={require('../../assets/loading/MotorcycleDetails.json')} autoPlay loop style={{ width: 50, height: 50, marginRight: 6 }} />
+                      <Text style={{ color:"#424242", fontFamily: "Inter_18pt-Regular", fontSize: 12}}>Loading up your rides..</Text>
+                    </View>
+                    : 
+                    <TouchableOpacity style={{justifyContent: "center", alignItems: "center", flexDirection: "row", height: 70, backgroundColor: "#121212", width: screenWidth}}>
+                      <Text style={{ color:"#C62828", fontFamily: "Inter_18pt-SemiBold", fontSize: 12, marginRight: 6}}>Start by adding your ride to the garage</Text>
+                      <MaterialCommunityIcons name="plus-circle" size={24} color="#C62828" />
+                    </TouchableOpacity>
+                  }
                 />
               </View>
               <View style={{ width: "100%", height: 1, backgroundColor: "#1F1F1F", marginBottom: 10 }} />
             </View>
           </View>
           <ReportBug visible={reportBugVisible} loading={loadingReport} onClose={()=>{setReportBugVisible(false)}} setLoading={setLoadingReport}/>
+          <VehicleDetailsModal onClose={()=>{
+            setSelectedVehicle("")
+            setvehicleDetailsModal(false)
+          }}
+          visible={vehicleDetailsModal}
+          vehicle={selectedVehicle}
+          />
+          <AddVehicleModal visible={addVehicleModal} onClose={()=>setAddVehicleModal(false)}/>
         </SafeScreenWrapper>
       </View>
     </MenuProvider>
