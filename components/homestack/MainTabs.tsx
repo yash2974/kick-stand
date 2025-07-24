@@ -82,7 +82,6 @@ export default function MainTabs() {
       <Tab.Screen name="Host" component={Host}/>
       <Tab.Screen name="Garage" component={Garage} />
       <Tab.Screen name="User" component={UserProfile} />
-      {/* Add more tabs as needed */}
     </Tab.Navigator>
   );
 }

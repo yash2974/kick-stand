@@ -8,17 +8,18 @@ import { IOS_CLIENT_ID, WEB_CLIENT_ID } from './key'; // Replace with your actua
 
 
 
-GoogleSignin.configure({
-  webClientId: WEB_CLIENT_ID, // Required for getting the ID token
-  iosClientId: IOS_CLIENT_ID, // For iOS apps (optional but recommended)
-  offlineAccess: true, // Enables server-side API calls
-});
+// GoogleSignin.configure({
+//   webClientId: WEB_CLIENT_ID, // Required for getting the ID token
+//   iosClientId: IOS_CLIENT_ID, // For iOS apps (optional but recommended)
+//   offlineAccess: true, // Enables server-side API calls
+// });
 
 export const signIn = async (setUserInfo: (user: any) => void) => {
 
   console.log("geg")
   
   try {
+    await GoogleSignin.hasPlayServices({ showPlayServicesUpdateDialog: true });
     // Prompt user to sign in with Google
     await GoogleSignin.hasPlayServices();
     const userSignIn = await GoogleSignin.signIn();

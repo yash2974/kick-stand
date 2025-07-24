@@ -211,7 +211,10 @@ export default function Invitations({ visible, onClose, ride_id}: InvitationsPro
                         loading ? (
                             <Text style={{ color: '#ECEFF1', textAlign: 'center' }}>Loading Invites...</Text>
                         ) : (
-                            <Text style={{ color: '#ECEFF1', textAlign: 'center', margin: 20, fontFamily: "Inter_18pt-Regular", fontSize: 10 }}>Your throttle buddies haven't called yet.</Text>
+                            <View style={{margin: 20, alignItems: "center"}}>
+                                <Text style={{ color: '#9E9E9E', textAlign: 'center',fontFamily: "Inter_18pt-Regular", fontSize: 10, margin: 20 }}>Your throttle buddies haven't called yet.</Text>
+                                <MaterialCommunityIcons name="ghost" size={40} color="#9E9E9E" />
+                            </View>
                         )
                         }
                     />
@@ -228,7 +231,10 @@ export default function Invitations({ visible, onClose, ride_id}: InvitationsPro
                         loading ? (
                             <Text style={{ color: '#ECEFF1', textAlign: 'center' }}>Loading Invites...</Text>
                         ) : (
-                            <Text style={{ color: '#ECEFF1', textAlign: 'center', margin: 20, fontFamily: "Inter_18pt-Regular", fontSize: 10 }}>Your throttle buddies haven't called yet.</Text>
+                            <View style={{margin: 20, alignItems: "center"}}>
+                                <Text style={{ color: '#9E9E9E', textAlign: 'center',fontFamily: "Inter_18pt-Regular", fontSize: 10, margin: 20 }}>No one is sending you requests bro</Text>
+                                <MaterialCommunityIcons name="ghost" size={40} color="#9E9E9E" />
+                            </View>
                         )
                         }
                     />
@@ -254,6 +260,8 @@ const styles = StyleSheet.create({
     paddingVertical: 10,
     backgroundColor: "#1F1F1F",
     borderRadius: 10,
+    borderWidth: 1,
+    borderColor: "#C62828"
   },
   title: {
     fontSize: 24,

@@ -1,5 +1,5 @@
-import React, { use, useEffect } from "react";
-import {View, Text, TextInput, Image, TouchableOpacity, StyleSheet, FlatList, Button, Modal, Linking} from "react-native";
+import React, { use, useEffect, useState } from "react";
+import {View, Text, TextInput, Image, TouchableOpacity, StyleSheet, FlatList, Button, Modal, Linking, RefreshControl} from "react-native";
 import Clipboard from '@react-native-clipboard/clipboard';
 import { AuthContext } from "../authstack/AuthContext";
 import { get } from "react-native/Libraries/TurboModule/TurboModuleRegistry";
@@ -52,8 +52,15 @@ function HostContent() {
     const [loading, setLoading] = React.useState(true);
     const [selectedRideId, setSelectedRideId] = React.useState<number | null>(null);
     const [selectedRideIdDelete, setSelectedRideIdDelete] = React.useState<number | null>(null);
+    const [refreshing, setRefreshing] = useState(false);
     const rootNavigation = useNavigation<RootNavigationProp>();
     const hostNavigation = useNavigation<HostNavigationProp>();
+
+    const onRefresh = async () => {
+      setRefreshing(true);
+      await getRides(userInfo?.user.id);
+      setRefreshing(false);
+    };
 
     const getRides = async (userId?: string) => {
       const token = await getValidAccessToken();
@@ -220,6 +227,13 @@ function HostContent() {
                             <Text style={{ color: '#9c908f', fontFamily: "Inter_18pt-Bold", fontSize: 10}}>Lift your Kickstand by hitting Create Ride!</Text>
                           </View>
                         )
+                    }
+                    refreshControl={
+                      <RefreshControl refreshing={refreshing}
+                      onRefresh={onRefresh}
+                      colors={["#C62828"]}
+                      progressBackgroundColor="#121212"
+                      progressViewOffset={50} />
                     }
                 />
                 </View>

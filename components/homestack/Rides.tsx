@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import { View, Text, TextInput, FlatList, StyleSheet, Image, TouchableOpacity, Linking, KeyboardAvoidingView, Platform, RefreshControl} from "react-native";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import SafeScreenWrapper from "./SafeScreenWrapper";
@@ -11,8 +11,9 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import Clipboard from "@react-native-clipboard/clipboard";
 import ReportRide from "../Elements/ReportRide";
 import LottieView from "lottie-react-native";
+import RideModal from "../Elements/RideModal";
 
-type Ride = {
+export type Ride = {
   ride_id: number;
   image_url: string;
   title: string;
@@ -40,9 +41,15 @@ export default function Rides() {
   const [debouncedSearch, setDebouncedSearch] = React.useState("");
   const [selectedRideReport, setSelectedRideReport] = React.useState<Ride | null>(null); 
   const [refreshing, setRefreshing] = useState(false); 
+  const [joinedByCode, setJoinedByCode] = React.useState<Ride|null>(null);
+  const [rideModalCodeVisible, setRideModalCodeVisible] = useState(false);
+  const [code, setCode] = useState("");
   const user_id = userInfo?.user.id
   const navigation = useNavigation();
   const insets = useSafeAreaInsets();
+  const inputRef = React.useRef<TextInput>(null);
+
+
 
   const onRefresh = async () => {
     setRefreshing(true);
@@ -75,6 +82,7 @@ export default function Rides() {
             console.log("error fetching details")
     }
   }
+
   const fetchRides = async (debouncedSearch: string) => {
     const accessToken = await getValidAccessToken();
       if (!accessToken){
@@ -99,6 +107,37 @@ export default function Rides() {
     }
   };
 
+  const joinByCode = async () => {
+    const accessToken = await getValidAccessToken();
+      if (!accessToken){
+          handleLogout(navigation, setUserInfo)
+    }
+    try {
+      const response = await fetch(`https://kick-stand.onrender.com/join-ride-code/${code}`,{
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${accessToken}`,
+        }
+      }
+      );
+      if (!response.ok){
+        console.error("Error fetching rides:");
+        alert("aleardy joined")
+        return;
+      }
+      const data = await response.json();
+      console.log(data);
+      setJoinedByCode(data);
+      setRideModalCodeVisible(true);
+    } catch (error) {
+      console.error("Error fetching rides:", error);
+    } 
+    // finally {
+    //   setLoading(false);
+    // }
+  }
+
   useEffect(()=>{
     const delayDebounce = setTimeout(()=>{
       setDebouncedSearch(search);
@@ -116,7 +155,6 @@ export default function Rides() {
   const renderRide = ({ item }: { item: Ride }) => (
     <View>
     { user_id != item.created_by && !participatedRides.includes(item.ride_id) &&
-    // fetch ride participants via api and condtinal render to show only rides not joined
       <View style={styles.card}>
         <View>
             <View style={{ flexDirection: 'row', alignItems: "center", justifyContent: "space-between" }}>
@@ -174,11 +212,6 @@ export default function Rides() {
             </View>
             
             <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-              <TouchableOpacity onPress={()=>Clipboard.setString(item.code)}>
-                <View style={{backgroundColor: "#121212", paddingVertical: 2, paddingHorizontal: 5, marginRight: 15, width: 70, justifyContent: "center", alignItems: "center"}}>
-                  <Text style={{fontFamily: "Inter_18pt-Bold", color: "#66BB6A", fontSize: 13}}>{item.code}</Text>
-                </View>
-              </TouchableOpacity>
               <MaterialCommunityIcons name="account-group" size={20} color="#9c908f" />
               <Text style={{ color:"#9c908f", fontFamily: "Inter_18pt-Regular"}}> {item.current_riders}</Text>
             </View>
@@ -261,12 +294,20 @@ useEffect(()=>{
             </View>
         </View>  
         <View style={{flexDirection:"row",backgroundColor:"#121212", borderColor: "#C62828", borderWidth: 1, paddingHorizontal: 20, alignItems:"center", borderRadius: 10, paddingVertical: 5}}>
-          <TextInput placeholder="Enter code (XYJWQB)" style={{flex: 1, fontFamily: "Inter_18pt-Bold", color:"#424242"}} placeholderTextColor="#424242"/>
-          <MaterialCommunityIcons name="motorbike" size={24} color="#C62828" />
-
+          <TextInput placeholder="Enter code (XYJWQB)" style={{flex: 1, fontFamily: "Inter_18pt-Bold", color:"#424242"}} placeholderTextColor="#424242" value={code} onChangeText={setCode} ref={inputRef}/>
+          <TouchableOpacity onPress={()=>joinByCode()}>
+            <MaterialCommunityIcons name="motorbike" size={24} color="#C62828" />
+          </TouchableOpacity>
         </View>
     </View>
-    
+    {joinedByCode &&<RideModal ride={joinedByCode} loading={loading} setLoading={setLoading} onClose={()=>{
+        fetchRides(debouncedSearch)
+        userRides()
+        setRideModalCodeVisible(false)
+        setCode("")
+        setJoinedByCode(null)
+        inputRef.current?.blur()
+        }} visible={rideModalCodeVisible}/>}
     </SafeScreenWrapper>
     </View>
     </KeyboardAvoidingView>

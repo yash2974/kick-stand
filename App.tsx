@@ -38,6 +38,13 @@ const AppContent = () => {
   const {userInfo, isAuthLoading} = React.useContext(AuthContext);
   const [isLoading, setisLoading] = useState(true);
   const text = "Be respectful — hate speech or harassment will be flagged.";
+  useEffect(() => {
+    GoogleSignin.configure({
+      webClientId: WEB_CLIENT_ID,
+      iosClientId: IOS_CLIENT_ID,
+      offlineAccess: true,
+    });
+  }, []);
 
   useEffect(() => {
   if (!isAuthLoading) {
