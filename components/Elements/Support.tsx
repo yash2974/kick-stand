@@ -3,12 +3,15 @@ import React from 'react'
 import SafeScreenWrapper from '../homestack/SafeScreenWrapper'
 import LottieView from 'lottie-react-native';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import { useNavigation } from '@react-navigation/native';
+
 
 const Support = () => {
 
   const upiId = "9310597897@pthdfc"; // replace with your UPI ID
   const name = "Yash Bisht";
   const amount = ""; // optional, can leave empty
+  const navigation = useNavigation();
 
   const handleUpiPayment = () => {
     const url = `upi://pay?pa=${upiId}&pn=${name}&am=${amount}&cu=INR`;
@@ -26,7 +29,9 @@ const Support = () => {
         <View style={{flex: 1, justifyContent: "space-between"}}>
           <View style={{ padding: 15}}>
             <View style={{flexDirection: "row", alignItems: "center"}}>
-              <MaterialCommunityIcons name="arrow-left" size={20} color="#C62828" style={{marginRight: 10 }}/>
+              <TouchableOpacity onPress={()=>navigation.goBack()}>
+                <MaterialCommunityIcons name="arrow-left" size={20} color="#C62828" style={{marginRight: 10 }}/>
+              </TouchableOpacity>
               <Text style={{color: "#C62828", fontFamily: "Inter_18pt-Bold", fontSize: 20}}>Support The Developer</Text>
             </View>
             <Text  style={{color: "#EF6C00", fontFamily: "Inter_18pt-SemiBoldItalic", fontSize: 10, marginTop: 10}}>This project is an independently funded initiative that operates within the constraints of limited resources, which may at times affect overall performance and restrict functionalities such as image uploads. Despite these limitations, our goal remains to provide a reliable and evolving platform for the community. Your support plays a vital role in ensuring the sustainability and growth of this project. Contributions can take various forms—whether through donations via UPI, active collaboration on the codebase if you are a developer, or simply by engaging with sponsored content and advertisements that help offset operational costs. Every form of support, no matter how small, directly contributes to maintaining the platform, improving its capabilities, and ensuring that it remains accessible to all who benefit from it. Together, we can continue building and strengthening this community, fostering innovation and collaboration even in the face of resource limitations.</Text>

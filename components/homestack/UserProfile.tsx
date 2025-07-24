@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Button, Linking, Text, View, Image, TouchableOpacity, TouchableWithoutFeedback, Dimensions } from "react-native";
+import { Button, Linking, Text, View, Image, TouchableOpacity, TouchableWithoutFeedback, Dimensions, RefreshControl } from "react-native";
 import SafeScreenWrapper from "./SafeScreenWrapper"; // adjust the path
 import { useNavigation } from "@react-navigation/native";
 import { AuthContext } from "../authstack/AuthContext";
@@ -27,6 +27,7 @@ import AddVehicle from "../Elements/AddVehicleModal";
 import AddVehicleModal from "../Elements/AddVehicleModal";
 import type { Forums } from "./Forums";
 import { ForumCard } from "../Elements/ForumCard";
+import ForumPost from "./ForumPost";
 
 type Vehicle = {
   vehicle_id: string;
@@ -38,6 +39,7 @@ type Vehicle = {
 export type UserProfileStackParamList = {
   UserProfileContent: undefined;
   Support: undefined;
+  ForumPost: {item: Forums, time: string, aspectRatio: number};
 }
 export type UserProfileNavigationProp = NativeStackNavigationProp<UserProfileStackParamList>;
 const UserProfileStack = createNativeStackNavigator<UserProfileStackParamList>();
@@ -60,6 +62,7 @@ export function UserProfileContent() {
   const [addVehicleModal, setAddVehicleModal] = useState(false);
   const [userForums, setUserForums] = useState<Forums[]> ([]);
   const [loadingForums, setLoadingForums] = useState(false);
+  const [refreshing, setRefreshing] = useState(false);
   const user_image_url = userInfo?.user.photo;
 
   const getUserVehicles = async () => {
@@ -91,6 +94,13 @@ export function UserProfileContent() {
     }
     
   }
+
+  const onRefresh = async () => {
+    console.log("refresh")
+      setRefreshing(true);
+      await getUserForums();
+      setRefreshing(false);
+    };
 
   const getUserForums = async () => {
     setLoadingForums(true);
@@ -162,13 +172,13 @@ export function UserProfileContent() {
     <MenuProvider>
       <View style={{flex: 1, backgroundColor: "#121212"}}>
         <SafeScreenWrapper>
-          <View style={{flex: 1, padding: 15, justifyContent: "space-between"}}>
-            <View>
+          <View style={{flex: 1, paddingTop: 15, paddingLeft: 15, paddingRight: 15, justifyContent: "space-between"}}>
+            <View style={{flex: 1}}>
             <View style={{flexDirection: "row", justifyContent: "space-between"}}>
               <View style={{flexDirection: "row", alignItems: "center"}}>
                 <Image source={user_image_url ? { uri: user_image_url } : require("../../assets/photos/racer.png")} style={{width: 80, height: 80, borderRadius: 50, borderWidth: 2, borderColor: "#C62828", marginRight: 14}}/>
                 <View>
-                  <Text style={{ color: "#ECEFF1", fontFamily: "Inter_18pt-SemiBold", fontSize: 14}}>{userInfo?.user.givenName}</Text>
+                  <Text style={{ color: "#ECEFF1", fontFamily: "Inter_18pt-SemiBold", fontSize: 14}}>{userInfo?.user.givenName} {userInfo?.user.familyName}</Text>
                   <Text style={{ color: "#ECEFF1", fontFamily: "Inter_18pt-SemiBold", fontSize: 14}}>RPM</Text>
                 </View>
               </View>
@@ -176,7 +186,7 @@ export function UserProfileContent() {
                   <Menu>
                     <MenuTrigger 
                       customStyles={{
-                      TriggerTouchableComponent: TouchableWithoutFeedback // disables default touchable feedback
+                      TriggerTouchableComponent: TouchableWithoutFeedback 
                     }}>
                       <MaterialCommunityIcons name="cog" size={20} style={{color: "#C62828", marginHorizontal: 3}}/>
                     </MenuTrigger>
@@ -207,19 +217,9 @@ export function UserProfileContent() {
                   </Menu>
                 </View>
               </View>
-              <View style={{ backgroundColor: "#1F1F1F", marginVertical: 14, borderRadius: 10}}>
+              <TouchableOpacity style={{ backgroundColor: "#1F1F1F", marginTop: 14, borderRadius: 10, marginBottom: 6}}>
                 <Text style={{ color: "#C62828", fontFamily: "Inter_18pt-SemiBold", fontSize: 14, padding: 10}}>Active Rides</Text>
-              </View>
-              <View style={{ width: "100%", height: 1, backgroundColor: "#1F1F1F" }} />
-              <FlatList
-                data={userForums}
-                keyExtractor={(item) => item._id.toString()}
-                renderItem={({ item }) => <ForumCard item={item} />}
-              />
-            </View>
-
-            <View>
-              <View style={{ width: "100%", height: 1, backgroundColor: "#1F1F1F", marginTop: 10 }} />
+              </TouchableOpacity>
               <View style={{
                 overflow: 'hidden',
               }}>
@@ -253,7 +253,33 @@ export function UserProfileContent() {
                   }
                 />
               </View>
-              <View style={{ width: "100%", height: 1, backgroundColor: "#1F1F1F", marginBottom: 10 }} />
+              <FlatList
+                data={userForums}
+                keyExtractor={(item) => item._id.toString()}
+                renderItem={({ item }) => <ForumCard item={item} />}
+                showsVerticalScrollIndicator={false}
+                ListEmptyComponent={
+                  loadingForums ? (
+                    <View style={{justifyContent: "center", alignItems: "center", marginVertical: 100}}>
+                      <LottieView source={require('../../assets/loading/loadingAnimation.json')} autoPlay loop style={{ width: 100, height: 100 }} />
+                      <Text style={{ color: '#9c908f', fontFamily: "Inter_18pt-Bold", fontSize: 10}}>Getting your forums</Text>
+                    </View>
+                  ) : (
+                    <View style={{justifyContent: "center", alignItems: "center", marginVertical: 100}}>
+                      <MaterialCommunityIcons name="engine-off" size={40} color="#9c908f"/>
+                      <Text style={{ color: '#9c908f', fontFamily: "Inter_18pt-Bold", fontSize: 10}}>No rides yet :)</Text>
+                      <Text style={{ color: '#9c908f', fontFamily: "Inter_18pt-Bold", fontSize: 10}}>Lift your Kickstand by hitting Create Ride!</Text>
+                    </View>
+                  )
+                }
+                refreshControl={
+                  <RefreshControl refreshing={refreshing}
+                  onRefresh={onRefresh}
+                  colors={["#C62828"]}
+                  progressBackgroundColor="#121212"
+                  progressViewOffset={50} />
+                }
+              />
             </View>
           </View>
           <ReportBug visible={reportBugVisible} loading={loadingReport} onClose={()=>{setReportBugVisible(false)}} setLoading={setLoadingReport}/>
@@ -285,6 +311,11 @@ export default function UserProfile() {
           component={Support}
           options={{ headerShown: false}}
         />
+        <UserProfileStack.Screen
+        name="ForumPost"
+        component={ForumPost}
+        options={{ headerShown: false}}
+      />
         
       </UserProfileStack.Navigator>
   )

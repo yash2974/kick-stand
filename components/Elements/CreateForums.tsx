@@ -1,4 +1,4 @@
-import { View, Text, TouchableOpacity } from 'react-native'
+import { View, Text, TouchableOpacity, ActivityIndicator } from 'react-native'
 import React, { useContext, useState } from 'react'
 import type { Forums } from '../homestack/Forums'
 import type { RootNavigationProp } from '../../App'
@@ -218,7 +218,7 @@ const CreateForums = () => {
             >
               Post
             </Text>
-            <MaterialCommunityIcons name="send" size={12} style={{color: "#ECEFF1"}}/>
+            { loading ? <ActivityIndicator size="small" color="#ECEFF1"/> : <MaterialCommunityIcons name="send" size={12} style={{color: "#ECEFF1"}}/>}         
           </TouchableOpacity>
         </View>
 

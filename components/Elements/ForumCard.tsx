@@ -9,11 +9,18 @@ import type { HomeStackParamList, Forums } from "../homestack/Forums";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 dayjs.extend(relativeTime);
 
-type NavigationProp = NativeStackNavigationProp<HomeStackParamList, "ForumPost">;
+type ForumPostParams = {
+  item: Forums;
+  time: string;
+  aspectRatio: number;
+};
+type GenericNavigationProp = {
+  navigate: (screen: "ForumPost", params: ForumPostParams) => void;
+};
 
 export const ForumCard = ({ item }: { item: Forums }) => {
   const [aspectRatio, setAspectRatio] = useState(1);
-  const navigation = useNavigation<NavigationProp>();
+   const navigation = useNavigation<GenericNavigationProp>();
  
   useEffect(() => {
     if (item.image_url) {
@@ -30,7 +37,7 @@ export const ForumCard = ({ item }: { item: Forums }) => {
   }, [item.image_url]);
   const time = dayjs(item.created_at + "Z").fromNow();
   return (
-    <TouchableHighlight onPress={()=>{navigation.navigate("ForumPost", {item, time, aspectRatio})}}>
+    <TouchableHighlight onPress={()=>{navigation.navigate("ForumPost", {item, time, aspectRatio})}} underlayColor="transparent" activeOpacity={1}>
         <View style={{ marginVertical: 2 }}>
         <View style={{ width: "100%", height: 1, backgroundColor: "#1F1F1F" }} />
         <View style={{ marginVertical: 4 }}>

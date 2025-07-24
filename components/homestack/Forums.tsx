@@ -157,7 +157,7 @@ export function ForumsContent() {
               colors={["#C62828"]}
               progressBackgroundColor="#121212"
               progressViewOffset={50} />
-        }
+            }
           />
         </View>
       </SafeScreenWrapper>
