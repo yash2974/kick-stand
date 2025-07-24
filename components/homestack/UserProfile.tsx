@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Button, Linking, Text, View, Image, TouchableOpacity, TouchableWithoutFeedback } from "react-native";
+import { Button, Linking, Text, View, Image, TouchableOpacity, TouchableWithoutFeedback, Dimensions } from "react-native";
 import SafeScreenWrapper from "./SafeScreenWrapper"; // adjust the path
 import { useNavigation } from "@react-navigation/native";
 import { AuthContext } from "../authstack/AuthContext";
@@ -38,6 +38,7 @@ const UserProfileStack = createNativeStackNavigator<UserProfileStackParamList>()
 
 
 export function UserProfileContent() {
+  const screenWidth = Dimensions.get("window").width - 30;
   const rootnavigation = useNavigation<RootNavigationProp>();
   const userprofilenavigation = useNavigation<UserProfileNavigationProp>();
   const hostNavigation = useNavigation<HostNavigationProp>();
@@ -45,6 +46,8 @@ export function UserProfileContent() {
   const [reportBugVisible, setReportBugVisible] = useState(false);
   const [loadingReport, setLoadingReport] = useState(false);
   const [loadingVehicles, setLoadingVehicles] = useState(false);
+  const [isLast, setIsLast] = useState(false);
+  const [isFirst, setIsFirst] = useState(true);
   const [vehicles, setVehicles] = useState([]);
   const user_image_url = userInfo?.user.photo;
 
@@ -83,9 +86,24 @@ export function UserProfileContent() {
   }, []);
 
   const renderVehicles = ({item}: {item: Vehicle}) => (
-    <View style={{backgroundColor: "#1F1F1F"}}>
-      <Image source={require('../../assets/photos/racer.png')} style={{ width: 25, height: 25 }}/> 
-      <Text>{item.model_name}</Text>
+    <View style={{backgroundColor: "#121212", width: screenWidth, flexDirection: "row", paddingHorizontal: 10, alignItems: "center",padding: 10, justifyContent: "space-between"}}>
+      <MaterialCommunityIcons name="arrow-left-circle" size={24} color= {isFirst ? "#424242" : "#C62828"} />
+      <View style={{flexDirection: "row", alignItems: "center"}}>
+        <Image source={require('../../assets/photos/motorbike.png')} style={{ width: 50, height: 50, marginHorizontal: 10 }}/> 
+        <View style={{ alignItems: "center", marginHorizontal: 10}}>
+          <Text>
+          <Text style={{fontFamily: "Inter_18pt-SemiBold", color: "#424242", fontSize: 10}}>Model: </Text><Text style={{fontFamily: "Inter_18pt-SemiBold", color: "#424242", fontSize: 10}}>{item.model_name}</Text>
+          </Text>
+          <Text>
+            <Text style={{fontFamily: "Inter_18pt-SemiBold", color: "#424242", fontSize: 10}}>Vehicle No: </Text><Text style={{fontFamily: "Inter_18pt-SemiBold", color: "#424242", fontSize: 10}}>{item.vehicle_id}</Text>
+          </Text>
+        </View>
+      </View>
+      { isLast ? 
+        <TouchableOpacity>
+          <MaterialCommunityIcons name="plus-circle" size={24} color="#C62828" />
+        </TouchableOpacity> 
+        : <MaterialCommunityIcons name="arrow-right-circle" size={24} color="#C62828" />}
     </View>
   )
 
@@ -94,13 +112,13 @@ export function UserProfileContent() {
     <MenuProvider>
       <View style={{flex: 1, backgroundColor: "#121212"}}>
         <SafeScreenWrapper>
-          <View style={{flex: 1, padding: 15}}>
+          <View style={{flex: 1, padding: 15, justifyContent: "space-between"}}>
             <View style={{flexDirection: "row", justifyContent: "space-between"}}>
               <View style={{flexDirection: "row", alignItems: "center"}}>
                 <Image source={user_image_url ? { uri: user_image_url } : require("../../assets/photos/racer.png")} style={{width: 80, height: 80, borderRadius: 50, borderWidth: 2, borderColor: "#C62828", marginRight: 14}}/>
                 <View>
-                  <Text style={{ color: "#424242", fontFamily: "Inter_18pt-SemiBold"}}>{userInfo?.user.givenName}</Text>
-                  <Text style={{ color: "#424242", fontFamily: "Inter_18pt-SemiBold"}}>RPM</Text>
+                  <Text style={{ color: "#ECEFF1", fontFamily: "Inter_18pt-SemiBold"}}>{userInfo?.user.givenName}</Text>
+                  <Text style={{ color: "#ECEFF1", fontFamily: "Inter_18pt-SemiBold"}}>RPM</Text>
                 </View>
               </View>
               <View>
@@ -139,14 +157,31 @@ export function UserProfileContent() {
               </View>
             </View>
             <View>
-              <FlatList
-                data = {vehicles}
-                renderItem={renderVehicles}
-                keyExtractor={(item) => item.vehicle_id}
-                contentContainerStyle={{ paddingBottom: 20 }}
-                horizontal
-                showsHorizontalScrollIndicator={false}
+              <View style={{ width: "100%", height: 1, backgroundColor: "#1F1F1F", marginTop: 10 }} />
+              <View style={{
+                borderRadius: 20,
+                overflow: 'hidden',
+              }}>
+                
+                <FlatList
+                  data={vehicles}
+                  renderItem={renderVehicles}
+                  keyExtractor={(item) => item.vehicle_id}
+                  contentContainerStyle={{}}
+                  horizontal
+                  showsHorizontalScrollIndicator={false}
+                  pagingEnabled
+                  style={{backgroundColor: "#1F1F1F"}} 
+                  onMomentumScrollEnd={(e) => {
+                    const offsetX = e.nativeEvent.contentOffset.x;
+                    const currentPage = Math.round(offsetX / screenWidth);
+
+                    setIsFirst(currentPage === 0);
+                    setIsLast(currentPage === vehicles.length - 1);
+                  }}
                 />
+              </View>
+              <View style={{ width: "100%", height: 1, backgroundColor: "#1F1F1F", marginBottom: 10 }} />
             </View>
           </View>
           <ReportBug visible={reportBugVisible} loading={loadingReport} onClose={()=>{setReportBugVisible(false)}} setLoading={setLoadingReport}/>

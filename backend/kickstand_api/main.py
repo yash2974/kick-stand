@@ -125,21 +125,14 @@ def create_vehicle(vehicle: schema.VehicleCreate, db: Session = Depends(get_db),
     return db_vehicle
 
 
-@app.get("/vehicles_details")
-async def get_vehicle_details( db: Session = Depends(get_db), token_data: dict = Depends(verify_token)):
-    user_id = token_data["sub"]
-    vehicle = db.query(models.Vehicle).filter(models.Vehicle.user_id == user_id).first()
-    if not vehicle:
-        raise HTTPException(status_code=404, detail="Vehicle not found")
-    name = vehicle.model_name.strip()
-    details = await vehicles_collection.find_one({"model_name": name})
-    
-    if not details:
-        raise HTTPException(status_code=404, detail="Vehicle details not found")
-
-    # Convert ObjectId to string and ensure all values are serializable
-    details["_id"] = str(details["_id"])
-    return details
+@app.get("/vehicles_details/{model_name}")
+async def get_vehicle_details(model_name: str, db: Session = Depends(get_db), token_data: dict = Depends(verify_token)):
+    result = await vehicles_collection.find_one({
+        "model_name": model_name
+    })
+    if result and "_id" in result:
+        result["_id"] = str(result["_id"])
+    return result
 
 @app.post("/expenses/", response_model=schema.ExpenseCreate)
 def create_expense(expense: schema.ExpenseCreate, db: Session = Depends(get_db), token_data: dict = Depends(verify_token)):
