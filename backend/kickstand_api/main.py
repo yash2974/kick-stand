@@ -59,6 +59,8 @@ vehicles_collection = db["bike_data"]
 upvotes_collection = db["forumUpvotes"]
 downvotes_collection = db["forumDownvotes"]
 reports_collection = db["report"]
+service_reviews_collection = db["serviceReviews"]
+service_reviews_helpful_collection = db["serviceReviewsHelpful"]
 
 def get_db():
     db = database.SessionLocal()
@@ -737,6 +739,55 @@ async def report_ride(ride: schema.ReportRide):
         "message": "reported user" + ride.user_id,
         "report_id": str(result.inserted_id)
     })
+
+@app.post("/service-review")
+async def post_service_review(review: schema.ServiceReviews, token_data: dict = Depends(verify_token)):
+    user_id = token_data["sub"]
+    service = review.model_dump()
+    service["user_id"] = user_id
+    result = await service_reviews_collection.insert_one(service)
+    return ({
+        "message": "submitted successfully",
+        "id": str(result.inserted_id)
+    })
+
+@app.post("/service-review-helpful/{review_id}")
+async def helpful(review_id: str, token_data: dict = Depends(verify_token)):
+    user_id = token_data["sub"]
+    existing = await service_reviews_helpful_collection.find_one({
+        "user_id": user_id,
+        "review_id": review_id
+    })
+
+    if existing:
+        await service_reviews_helpful_collection.delete_one({
+            "user_id": user_id,
+            "review_id": review_id
+        })
+        await service_reviews_collection.update_one(
+            {"_id": ObjectId(review_id)},
+            {"$inc": {"helpful": -1}}
+        )
+        return {"message": "Removed helpful mark"}
+    await service_reviews_helpful_collection.insert_one({
+        "user_id": user_id,
+        "review_id": review_id
+    })
+    await service_reviews_collection.update_one(
+        {"_id": ObjectId(review_id)},
+        {"$inc": {"helpful": 1}}
+    )
+    return {"message": "Marked as helpful"}
+
+@app.get("/service-review")
+async def service_review(token_data: dict = Depends(verify_token)):
+    reviews = []
+    result = service_reviews_collection.find()
+    async for review in result:
+        review["_id"] = str(review["_id"])
+        reviews.append(review)
+    return reviews
+    
 
 
 

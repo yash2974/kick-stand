@@ -28,6 +28,7 @@ import AddVehicleModal from "../Elements/AddVehicleModal";
 import type { Forums } from "./Forums";
 import { ForumCard } from "../Elements/ForumCard";
 import ForumPost from "./ForumPost";
+import ServiceReviews from "./ServiceReviews";
 
 type Vehicle = {
   vehicle_id: string;
@@ -40,6 +41,10 @@ export type UserProfileStackParamList = {
   UserProfileContent: undefined;
   Support: undefined;
   ForumPost: {item: Forums, time: string, aspectRatio: number};
+  ServiceReviews: undefined;
+  ActiveRides: undefined;
+  ServiceAlerts: undefined;
+  
 }
 export type UserProfileNavigationProp = NativeStackNavigationProp<UserProfileStackParamList>;
 const UserProfileStack = createNativeStackNavigator<UserProfileStackParamList>();
@@ -141,7 +146,7 @@ export function UserProfileContent() {
 
   const renderVehicles = ({item}: {item: Vehicle}) => (
     <View style={{backgroundColor: "#121212", width: screenWidth, flexDirection: "row", paddingHorizontal: 10, alignItems: "center",padding: 10, justifyContent: "space-between"}}>
-      <MaterialCommunityIcons name="arrow-left-circle" size={24} color= {isFirst ? "#424242" : "#C62828"} />
+      <MaterialCommunityIcons name="arrow-left-circle" size={20} color= {isFirst ? "#424242" : "#C62828"} />
       <TouchableOpacity style={{flexDirection: "row", alignItems: "center"}} onPress={()=>{
           setSelectedVehicle(item.model_name)
           setvehicleDetailsModal(true)}}>
@@ -161,9 +166,9 @@ export function UserProfileContent() {
       </TouchableOpacity>
       { isLast ? 
         <TouchableOpacity onPress={()=>setAddVehicleModal(true)}>
-          <MaterialCommunityIcons name="plus-circle" size={24} color="#C62828" />
+          <MaterialCommunityIcons name="plus-circle" size={20} color="#C62828" />
         </TouchableOpacity> 
-        : <MaterialCommunityIcons name="arrow-right-circle" size={24} color="#C62828" />}
+        : <MaterialCommunityIcons name="arrow-right-circle" size={20} color="#C62828" />}
     </View>
   )
 
@@ -217,9 +222,61 @@ export function UserProfileContent() {
                   </Menu>
                 </View>
               </View>
-              <TouchableOpacity style={{ backgroundColor: "#1F1F1F", marginTop: 14, borderRadius: 10, marginBottom: 6}}>
-                <Text style={{ color: "#C62828", fontFamily: "Inter_18pt-SemiBold", fontSize: 14, padding: 10}}>Active Rides</Text>
-              </TouchableOpacity>
+              <View style={{ flexDirection: "row", justifyContent: "space-between", marginTop: 14 }}>
+                <TouchableOpacity
+                  onPress={() => userprofilenavigation.navigate("ActiveRides")}
+                  style={{
+                    backgroundColor: "#1F1F1F",
+                    borderRadius: 10,
+                    height: 80,
+                    flex: 1,
+                    marginHorizontal: 4,
+                    justifyContent: "center",
+                    alignItems: "center",
+                  }}
+                >
+                  <MaterialCommunityIcons name="motorbike" size={20} color="#C62828" style={{ marginBottom: 6 }} />
+                  <Text style={{ color: "#C62828", fontFamily: "Inter_18pt-SemiBold", fontSize: 12, textAlign: "center" }}>
+                    Active Rides
+                  </Text>
+                </TouchableOpacity>
+
+                <TouchableOpacity
+                  onPress={() => userprofilenavigation.navigate("ServiceAlerts")}
+                  style={{
+                    backgroundColor: "#1F1F1F",
+                    borderRadius: 10,
+                    height: 80,
+                    flex: 1,
+                    marginHorizontal: 4,
+                    justifyContent: "center",
+                    alignItems: "center",
+                  }}
+                >
+                  <MaterialCommunityIcons name="bell-alert" size={20} color="#C62828" style={{ marginBottom: 6 }} />
+                  <Text style={{ color: "#C62828", fontFamily: "Inter_18pt-SemiBold", fontSize: 12, textAlign: "center" }}>
+                    Service Alerts
+                  </Text>
+                </TouchableOpacity>
+
+                <TouchableOpacity
+                  onPress={() => userprofilenavigation.navigate("ServiceReviews")}
+                  style={{
+                    backgroundColor: "#1F1F1F",
+                    borderRadius: 10,
+                    height: 80,
+                    flex: 1,
+                    marginHorizontal: 4,
+                    justifyContent: "center",
+                    alignItems: "center",
+                  }}
+                >
+                  <MaterialCommunityIcons name="star-circle" size={20} color="#C62828" style={{ marginBottom: 6 }} />
+                  <Text style={{ color: "#C62828", fontFamily: "Inter_18pt-SemiBold", fontSize: 12, textAlign: "center" }}>
+                    Service Reviews
+                  </Text>
+                </TouchableOpacity>
+              </View>
               <View style={{
                 overflow: 'hidden',
               }}>
@@ -248,7 +305,7 @@ export function UserProfileContent() {
                     : 
                     <TouchableOpacity style={{justifyContent: "center", alignItems: "center", flexDirection: "row", height: 70, backgroundColor: "#121212", width: screenWidth}}>
                       <Text style={{ color:"#C62828", fontFamily: "Inter_18pt-SemiBold", fontSize: 12, marginRight: 6}}>Start by adding your ride to the garage</Text>
-                      <MaterialCommunityIcons name="plus-circle" size={24} color="#C62828" />
+                      <MaterialCommunityIcons name="plus-circle" size={20} color="#C62828" />
                     </TouchableOpacity>
                   }
                 />
@@ -315,7 +372,22 @@ export default function UserProfile() {
         name="ForumPost"
         component={ForumPost}
         options={{ headerShown: false}}
-      />
+        />
+        <UserProfileStack.Screen
+        name="ServiceReviews"
+        component={ServiceReviews}
+        options={{ headerShown: false}}
+        />
+        <UserProfileStack.Screen
+        name="ActiveRides"
+        component={ServiceReviews}
+        options={{ headerShown: false}}
+        />
+        <UserProfileStack.Screen
+        name="ServiceAlerts"
+        component={ServiceReviews}
+        options={{ headerShown: false}}
+        />
         
       </UserProfileStack.Navigator>
   )

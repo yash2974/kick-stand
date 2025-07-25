@@ -150,3 +150,13 @@ class ReportRide(BaseModel):
 class DeleteForum(BaseModel):
     post_id: str
     user_id: str
+
+class ServiceReviews(BaseModel):
+    service_centre: str
+    map_url: str
+    review: str
+    rating: int
+    helpful: Optional[int] = 0
+    created_at: Optional[datetime] = Field(default_factory=datetime.now)   
+
+

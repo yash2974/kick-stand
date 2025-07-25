@@ -1,0 +1,1737 @@
+[{
+  "_id": {
+    "$oid": "6827964032ccc7d8307a6524"
+  },
+  "Brand": "Royal Enfield",
+  "Price": "Rs.1.95 - 2.33 Lakh",
+  "Engine Capacity": "349 cc",
+  "model_name": "Royal Enfield Classic 350"
+},
+{
+  "_id": {
+    "$oid": "6827964032ccc7d8307a6525"
+  },
+  "Brand": "Royal Enfield",
+  "Price": "Rs.1.50 - 1.82 Lakh",
+  "Engine Capacity": "349 cc",
+  "model_name": "Royal Enfield Hunter 350"
+},
+{
+  "_id": {
+    "$oid": "6827964032ccc7d8307a6526"
+  },
+  "Brand": "Royal Enfield",
+  "Price": "Rs.3.23 - 3.49 Lakh",
+  "Engine Capacity": "647.95 cc",
+  "model_name": "Royal Enfield Continental GT 650"
+},
+{
+  "_id": {
+    "$oid": "6827964032ccc7d8307a6527"
+  },
+  "Brand": "Royal Enfield",
+  "Price": "Rs.1.75 - 2.18 Lakh",
+  "Engine Capacity": "349 cc",
+  "model_name": "Royal Enfield Bullet 350"
+},
+{
+  "_id": {
+    "$oid": "6827964032ccc7d8307a6528"
+  },
+  "Brand": "Royal Enfield",
+  "Price": "Rs.2.08 - 2.33 Lakh",
+  "Engine Capacity": "349 cc",
+  "model_name": "Royal Enfield Meteor 350"
+},
+{
+  "_id": {
+    "$oid": "6827964032ccc7d8307a6529"
+  },
+  "Brand": "Royal Enfield",
+  "Price": "Rs.2.39 - 2.54 Lakh",
+  "Engine Capacity": "452 cc",
+  "model_name": "Royal Enfield Guerrilla 450"
+},
+{
+  "_id": {
+    "$oid": "6827964032ccc7d8307a652a"
+  },
+  "Brand": "Royal Enfield",
+  "Price": "Rs.2.85 - 2.98 Lakh",
+  "Engine Capacity": "452 cc",
+  "model_name": "Royal Enfield Himalayan 450"
+},
+{
+  "_id": {
+    "$oid": "6827964032ccc7d8307a652b"
+  },
+  "Brand": "Royal Enfield",
+  "Price": "Rs.3.37 - 3.50 Lakh",
+  "Engine Capacity": "647.95 cc",
+  "model_name": "Royal Enfield Classic 650"
+},
+{
+  "_id": {
+    "$oid": "6827964032ccc7d8307a652c"
+  },
+  "Brand": "Royal Enfield",
+  "Price": "Rs.3.43 - 3.63 Lakh",
+  "Engine Capacity": "648 cc",
+  "model_name": "Royal Enfield Bear 650"
+},
+{
+  "_id": {
+    "$oid": "6827964032ccc7d8307a652d"
+  },
+  "Brand": "Royal Enfield",
+  "Price": "Rs.3.06 - 3.35 Lakh",
+  "Engine Capacity": "647.95 cc",
+  "model_name": "Royal Enfield Interceptor 650"
+},
+{
+  "_id": {
+    "$oid": "6827964032ccc7d8307a652e"
+  },
+  "Brand": "Royal Enfield",
+  "Price": "Rs.3.64 - 3.77 Lakh",
+  "Engine Capacity": "648 cc",
+  "model_name": "Royal Enfield Shotgun 650"
+},
+{
+  "_id": {
+    "$oid": "6827964032ccc7d8307a652f"
+  },
+  "Brand": "Royal Enfield",
+  "Price": "Rs.3.68 - 3.99 Lakh",
+  "Engine Capacity": "648 cc",
+  "model_name": "Royal Enfield Super Meteor 650"
+},
+{
+  "_id": {
+    "$oid": "6827964032ccc7d8307a6530"
+  },
+  "Brand": "Royal Enfield",
+  "Price": "Rs.2.35 - 2.38 Lakh",
+  "Engine Capacity": "349 cc",
+  "model_name": "Royal Enfield Goan Classic 350"
+},
+{
+  "_id": {
+    "$oid": "6827964032ccc7d8307a6531"
+  },
+  "Brand": "Royal Enfield",
+  "Price": "Rs.2.08 - 2.15 Lakh",
+  "Engine Capacity": "443 cc",
+  "model_name": "Royal Enfield Scram 440"
+},
+{
+  "_id": {
+    "$oid": "6827964032ccc7d8307a6532"
+  },
+  "Brand": "Honda",
+  "Price": "Rs.89,468 - 1 Lakh",
+  "Engine Capacity": "123.94 cc",
+  "model_name": "Honda SP 125"
+},
+{
+  "_id": {
+    "$oid": "6827964032ccc7d8307a6533"
+  },
+  "Brand": "Honda",
+  "Price": "Rs.83,251 - 89,772",
+  "Engine Capacity": "123.94 cc",
+  "model_name": "Honda Shine"
+},
+{
+  "_id": {
+    "$oid": "6827964032ccc7d8307a6534"
+  },
+  "Brand": "Honda",
+  "Price": "Rs.1.43 - 1.57 Lakh",
+  "Engine Capacity": "184.4 cc",
+  "model_name": "Honda Hornet 2.0"
+},
+{
+  "_id": {
+    "$oid": "6827964032ccc7d8307a6535"
+  },
+  "Brand": "Honda",
+  "Price": "Rs.1.21 - 1.28 Lakh",
+  "Engine Capacity": "162.71 cc",
+  "model_name": "Honda SP160"
+},
+{
+  "_id": {
+    "$oid": "6827964032ccc7d8307a6536"
+  },
+  "Brand": "Honda",
+  "Price": "Rs.2.11 - 2.16 Lakh",
+  "Engine Capacity": "348.36 cc",
+  "model_name": "Honda Hness CB350"
+},
+{
+  "_id": {
+    "$oid": "6827964032ccc7d8307a6537"
+  },
+  "Brand": "Honda",
+  "Price": "Rs.1.20 Lakh",
+  "Engine Capacity": "162.71 cc",
+  "model_name": "Honda Unicorn"
+},
+{
+  "_id": {
+    "$oid": "6827964032ccc7d8307a6538"
+  },
+  "Brand": "Honda",
+  "Price": "Rs.2 - 2.18 Lakh",
+  "Engine Capacity": "348.36 cc",
+  "model_name": "Honda CB350"
+},
+{
+  "_id": {
+    "$oid": "6827964032ccc7d8307a6539"
+  },
+  "Brand": "Honda",
+  "Price": "Rs.2.16 - 2.19 Lakh",
+  "Engine Capacity": "348.36 cc",
+  "model_name": "Honda CB350RS"
+},
+{
+  "_id": {
+    "$oid": "6827964032ccc7d8307a653a"
+  },
+  "Brand": "Honda",
+  "Price": "Rs.81,651 - 85,651",
+  "Engine Capacity": "109.51 cc",
+  "model_name": "Honda Livo"
+},
+{
+  "_id": {
+    "$oid": "6827964032ccc7d8307a653b"
+  },
+  "Brand": "Honda",
+  "Price": "Rs.66,900 - 68,794",
+  "Engine Capacity": "98.98 cc",
+  "model_name": "Honda Shine 100"
+},
+{
+  "_id": {
+    "$oid": "6827964032ccc7d8307a653c"
+  },
+  "Brand": "Honda",
+  "Price": "Rs.10.40 Lakh",
+  "Engine Capacity": "649 cc",
+  "model_name": "Honda CBR650R"
+},
+{
+  "_id": {
+    "$oid": "6827964032ccc7d8307a653d"
+  },
+  "Brand": "Honda",
+  "Price": "Rs.1.51 Lakh",
+  "Engine Capacity": "184.4 cc",
+  "model_name": "Honda CB200X"
+},
+{
+  "_id": {
+    "$oid": "6827964032ccc7d8307a653e"
+  },
+  "Brand": "Honda",
+  "Price": "Rs.76,401",
+  "Engine Capacity": "109.51 cc",
+  "model_name": "Honda CD 110 Dream"
+},
+{
+  "_id": {
+    "$oid": "6827964032ccc7d8307a653f"
+  },
+  "Brand": "Honda",
+  "Price": "Rs.2.40 Lakh",
+  "Engine Capacity": "286.01 cc",
+  "model_name": "Honda CB300R"
+},
+{
+  "_id": {
+    "$oid": "6827964032ccc7d8307a6540"
+  },
+  "Brand": "Honda",
+  "Price": "Rs.1.70 Lakh",
+  "Engine Capacity": "293.52 cc",
+  "model_name": "Honda CB300F"
+},
+{
+  "_id": {
+    "$oid": "6827964032ccc7d8307a6541"
+  },
+  "Brand": "Honda",
+  "Price": "Rs.9.60 Lakh",
+  "Engine Capacity": "649 cc",
+  "model_name": "Honda CB650R"
+},
+{
+  "_id": {
+    "$oid": "6827964032ccc7d8307a6542"
+  },
+  "Brand": "Honda",
+  "Price": "Rs.1.69 Lakh",
+  "Engine Capacity": "184.4 cc",
+  "model_name": "Honda NX200"
+},
+{
+  "_id": {
+    "$oid": "6827964032ccc7d8307a6543"
+  },
+  "Brand": "Honda",
+  "Price": "Rs.39.16 Lakh",
+  "Engine Capacity": "1833 cc",
+  "model_name": "Honda Gold Wing"
+},
+{
+  "_id": {
+    "$oid": "6827964032ccc7d8307a6544"
+  },
+  "Brand": "Honda",
+  "Price": "Rs.5.90 Lakh",
+  "Engine Capacity": "471 cc",
+  "model_name": "Honda NX500"
+},
+{
+  "_id": {
+    "$oid": "6827964032ccc7d8307a6545"
+  },
+  "Brand": "Honda",
+  "Price": "Rs.1.70 Lakh",
+  "Engine Capacity": "293.52 cc",
+  "model_name": "Honda CB300F Flex-Fuel"
+},
+{
+  "_id": {
+    "$oid": "6827964032ccc7d8307a6546"
+  },
+  "Brand": "Honda",
+  "Price": "Rs.15.97 - 17.51 Lakh",
+  "Engine Capacity": "1082.96 cc",
+  "model_name": "Honda CRF1100L Africa Twin"
+},
+{
+  "_id": {
+    "$oid": "6827964032ccc7d8307a6547"
+  },
+  "Brand": "Honda",
+  "Price": "Rs.11 Lakh",
+  "Engine Capacity": "755 cc",
+  "model_name": "Honda XL750 Transalp"
+},
+{
+  "_id": {
+    "$oid": "6827964032ccc7d8307a6548"
+  },
+  "Brand": "TVS",
+  "Price": "Rs.87,010 - 1.02 Lakh",
+  "Engine Capacity": "124.8 cc",
+  "model_name": "TVS Raider"
+},
+{
+  "_id": {
+    "$oid": "6827964032ccc7d8307a6549"
+  },
+  "Brand": "TVS",
+  "Price": "Rs.1.21 - 1.31 Lakh",
+  "Engine Capacity": "160 cc",
+  "model_name": "TVS Apache RTR 160"
+},
+{
+  "_id": {
+    "$oid": "6827964032ccc7d8307a654a"
+  },
+  "Brand": "TVS",
+  "Price": "Rs.1.25 - 1.40 Lakh",
+  "Engine Capacity": "159.7 cc",
+  "model_name": "TVS Apache RTR 160 4V"
+},
+{
+  "_id": {
+    "$oid": "6827964032ccc7d8307a654b"
+  },
+  "Brand": "TVS",
+  "Price": "Rs.1.36 - 1.73 Lakh",
+  "Engine Capacity": "225.9 cc",
+  "model_name": "TVS Ronin"
+},
+{
+  "_id": {
+    "$oid": "6827964032ccc7d8307a654c"
+  },
+  "Brand": "TVS",
+  "Price": "Rs.2.78 - 3 Lakh",
+  "Engine Capacity": "312.2 cc",
+  "model_name": "TVS Apache RR 310"
+},
+{
+  "_id": {
+    "$oid": "6827964032ccc7d8307a654d"
+  },
+  "Brand": "TVS",
+  "Price": "Rs.59,881 - 71,785",
+  "Engine Capacity": "109.7 cc",
+  "model_name": "TVS Sport"
+},
+{
+  "_id": {
+    "$oid": "6827964032ccc7d8307a654e"
+  },
+  "Brand": "TVS",
+  "Price": "Rs.2.50 - 2.72 Lakh",
+  "Engine Capacity": "312.12 cc",
+  "model_name": "TVS Apache RTR 310"
+},
+{
+  "_id": {
+    "$oid": "6827964032ccc7d8307a654f"
+  },
+  "Brand": "TVS",
+  "Price": "Rs.1.49 Lakh",
+  "Engine Capacity": "197.75 cc",
+  "model_name": "TVS Apache RTR 200 4V"
+},
+{
+  "_id": {
+    "$oid": "6827964032ccc7d8307a6550"
+  },
+  "Brand": "TVS",
+  "Price": "Rs.1.35 Lakh",
+  "Engine Capacity": "177.4 cc",
+  "model_name": "TVS Apache RTR 180"
+},
+{
+  "_id": {
+    "$oid": "6827964032ccc7d8307a6551"
+  },
+  "Brand": "TVS",
+  "Price": "Rs.59,880 - 83,384",
+  "Engine Capacity": "109.7 cc",
+  "model_name": "TVS Radeon"
+},
+{
+  "_id": {
+    "$oid": "6827964032ccc7d8307a6552"
+  },
+  "Brand": "TVS",
+  "Price": "Rs.76,791 - 79,791",
+  "Engine Capacity": "109.7 cc",
+  "model_name": "TVS Star City Plus"
+},
+{
+  "_id": {
+    "$oid": "6827964032ccc7d8307a6553"
+  },
+  "Brand": "Yamaha",
+  "Price": "Rs.1.70 - 1.74 Lakh",
+  "Engine Capacity": "155 cc",
+  "model_name": "Yamaha MT 15 V2"
+},
+{
+  "_id": {
+    "$oid": "6827964032ccc7d8307a6554"
+  },
+  "Brand": "Yamaha",
+  "Price": "Rs.1.84 - 2.12 Lakh",
+  "Engine Capacity": "155 cc",
+  "model_name": "Yamaha R15 V4"
+},
+{
+  "_id": {
+    "$oid": "6827964032ccc7d8307a6555"
+  },
+  "Brand": "Yamaha",
+  "Price": "Rs.1.50 - 1.53 Lakh",
+  "Engine Capacity": "155 cc",
+  "model_name": "Yamaha Aerox 155"
+},
+{
+  "_id": {
+    "$oid": "6827964032ccc7d8307a6556"
+  },
+  "Brand": "Yamaha",
+  "Price": "Rs.1.35 - 1.45 Lakh",
+  "Engine Capacity": "149 cc",
+  "model_name": "2025 Yamaha FZ-S Fi"
+},
+{
+  "_id": {
+    "$oid": "6827964032ccc7d8307a6557"
+  },
+  "Brand": "Yamaha",
+  "Price": "Rs.1.31 - 1.31 Lakh",
+  "Engine Capacity": "149 cc",
+  "model_name": "Yamaha FZS-FI V4"
+},
+{
+  "_id": {
+    "$oid": "6827964032ccc7d8307a6558"
+  },
+  "Brand": "Yamaha",
+  "Price": "Rs.1.67 Lakh",
+  "Engine Capacity": "155 cc",
+  "model_name": "Yamaha R15S"
+},
+{
+  "_id": {
+    "$oid": "6827964032ccc7d8307a6559"
+  },
+  "Brand": "Yamaha",
+  "Price": "Rs.86,430 - 99,970",
+  "Engine Capacity": "125 cc",
+  "model_name": "Yamaha RayZR 125 Fi Hybrid"
+},
+{
+  "_id": {
+    "$oid": "6827964032ccc7d8307a655a"
+  },
+  "Brand": "Yamaha",
+  "Price": "Rs.1.18 Lakh",
+  "Engine Capacity": "149 cc",
+  "model_name": "Yamaha FZ-FI V3"
+},
+{
+  "_id": {
+    "$oid": "6827964032ccc7d8307a655b"
+  },
+  "Brand": "Yamaha",
+  "Price": "Rs.80,430 - 96,650",
+  "Engine Capacity": "125 cc",
+  "model_name": "Yamaha Fascino 125 Fi Hybrid"
+},
+{
+  "_id": {
+    "$oid": "6827964032ccc7d8307a655c"
+  },
+  "Brand": "Yamaha",
+  "Price": "Rs.1.38 - 1.42 Lakh",
+  "Engine Capacity": "149 cc",
+  "model_name": "Yamaha FZ X"
+},
+{
+  "_id": {
+    "$oid": "6827964032ccc7d8307a655d"
+  },
+  "Brand": "Yamaha",
+  "Price": "Rs.3.50 Lakh",
+  "Engine Capacity": "321 cc",
+  "model_name": "Yamaha MT-03"
+},
+{
+  "_id": {
+    "$oid": "6827964032ccc7d8307a655e"
+  },
+  "Brand": "Yamaha",
+  "Price": "Rs.1.23 - 1.24 Lakh",
+  "Engine Capacity": "149 cc",
+  "model_name": "Yamaha FZS-FI V3"
+},
+{
+  "_id": {
+    "$oid": "6827964032ccc7d8307a655f"
+  },
+  "Brand": "Yamaha",
+  "Price": "Rs.3.60 Lakh",
+  "Engine Capacity": "321 cc",
+  "model_name": "Yamaha R3"
+},
+{
+  "_id": {
+    "$oid": "6827964032ccc7d8307a6560"
+  },
+  "Brand": "Hero",
+  "Price": "Rs.77,176 - 80,176",
+  "Engine Capacity": "97.2 cc",
+  "model_name": "Hero Splendor Plus"
+},
+{
+  "_id": {
+    "$oid": "6827964032ccc7d8307a6561"
+  },
+  "Brand": "Hero",
+  "Price": "Rs.96,425 - 1.02 Lakh",
+  "Engine Capacity": "124.7 cc",
+  "model_name": "Hero Xtreme 125R"
+},
+{
+  "_id": {
+    "$oid": "6827964032ccc7d8307a6562"
+  },
+  "Brand": "Hero",
+  "Price": "Rs.81,001 - 86,051",
+  "Engine Capacity": "97.2 cc",
+  "model_name": "Hero Splendor Plus XTEC"
+},
+{
+  "_id": {
+    "$oid": "6827964032ccc7d8307a6563"
+  },
+  "Brand": "Hero",
+  "Price": "Rs.59,998 - 69,518",
+  "Engine Capacity": "97.2 cc",
+  "model_name": "Hero HF Deluxe"
+},
+{
+  "_id": {
+    "$oid": "6827964032ccc7d8307a6564"
+  },
+  "Brand": "Hero",
+  "Price": "Rs.1.80 Lakh",
+  "Engine Capacity": "249.03 cc",
+  "model_name": "Hero Xtreme 250R"
+},
+{
+  "_id": {
+    "$oid": "6827964032ccc7d8307a6565"
+  },
+  "Brand": "Hero",
+  "Price": "Rs.1.52 - 1.68 Lakh",
+  "Engine Capacity": "199.6 cc",
+  "model_name": "Hero XPulse 200 4V"
+},
+{
+  "_id": {
+    "$oid": "6827964032ccc7d8307a6566"
+  },
+  "Brand": "Hero",
+  "Price": "Rs.1.12 - 1.13 Lakh",
+  "Engine Capacity": "163.2 cc",
+  "model_name": "Hero Xtreme 160R"
+},
+{
+  "_id": {
+    "$oid": "6827964032ccc7d8307a6567"
+  },
+  "Brand": "Hero",
+  "Price": "Rs.1.76 - 1.86 Lakh",
+  "Engine Capacity": "210 cc",
+  "model_name": "Hero XPulse 210"
+},
+{
+  "_id": {
+    "$oid": "6827964032ccc7d8307a6568"
+  },
+  "Brand": "Hero",
+  "Price": "Rs.86,128 - 92,028",
+  "Engine Capacity": "124.7 cc",
+  "model_name": "Hero Super Splendor XTEC"
+},
+{
+  "_id": {
+    "$oid": "6827964032ccc7d8307a6569"
+  },
+  "Brand": "Hero",
+  "Price": "Rs.84,698 - 90,698",
+  "Engine Capacity": "125 cc",
+  "model_name": "Hero Glamour"
+},
+{
+  "_id": {
+    "$oid": "6827964032ccc7d8307a656a"
+  },
+  "Brand": "Hero",
+  "Price": "Rs.80,450 - 91,700",
+  "Engine Capacity": "124.6 cc",
+  "model_name": "Hero Destini 125"
+},
+{
+  "_id": {
+    "$oid": "6827964032ccc7d8307a656b"
+  },
+  "Brand": "Hero",
+  "Price": "Rs.89,998 - 94,598",
+  "Engine Capacity": "124.7 cc",
+  "model_name": "Hero Glamour XTEC"
+},
+{
+  "_id": {
+    "$oid": "6827964032ccc7d8307a656c"
+  },
+  "Brand": "Hero",
+  "Price": "Rs.80,848 - 84,748",
+  "Engine Capacity": "124.7 cc",
+  "model_name": "Hero Super Splendor"
+},
+{
+  "_id": {
+    "$oid": "6827964032ccc7d8307a656d"
+  },
+  "Brand": "Hero",
+  "Price": "Rs.1.81 - 2.02 Lakh",
+  "Engine Capacity": "210 cc",
+  "model_name": "Hero Karizma XMR"
+},
+{
+  "_id": {
+    "$oid": "6827964032ccc7d8307a656e"
+  },
+  "Brand": "Hero",
+  "Price": "Rs.72,284 - 84,017",
+  "Engine Capacity": "110.9 cc",
+  "model_name": "Hero Xoom 110"
+},
+{
+  "_id": {
+    "$oid": "6827964032ccc7d8307a656f"
+  },
+  "Brand": "Hero",
+  "Price": "Rs.86,900 - 92,900",
+  "Engine Capacity": "124.6 cc",
+  "model_name": "Hero Xoom 125"
+},
+{
+  "_id": {
+    "$oid": "6827964032ccc7d8307a6570"
+  },
+  "Brand": "Hero",
+  "Price": "Rs.2 - 2.25 Lakh",
+  "Engine Capacity": "440 cc",
+  "model_name": "Hero Mavrick 440"
+},
+{
+  "_id": {
+    "$oid": "6827964032ccc7d8307a6571"
+  },
+  "Brand": "Hero",
+  "Price": "Rs.71,763 - 83,813",
+  "Engine Capacity": "110.9 cc",
+  "model_name": "Hero Pleasure Plus"
+},
+{
+  "_id": {
+    "$oid": "6827964032ccc7d8307a6572"
+  },
+  "Brand": "Hero",
+  "Price": "Rs.79,901 - 81,651",
+  "Engine Capacity": "97.2 cc",
+  "model_name": "Hero Passion Plus"
+},
+{
+  "_id": {
+    "$oid": "6827964032ccc7d8307a6573"
+  },
+  "Brand": "Hero",
+  "Price": "Rs.1.39 - 1.41 Lakh",
+  "Engine Capacity": "163.2 cc",
+  "model_name": "Hero Xtreme 160R 4V"
+},
+{
+  "_id": {
+    "$oid": "6827964032ccc7d8307a6574"
+  },
+  "Brand": "Hero",
+  "Price": "Rs.1.49 Lakh",
+  "Engine Capacity": "156 cc",
+  "model_name": "Hero Xoom 160"
+},
+{
+  "_id": {
+    "$oid": "6827964032ccc7d8307a6575"
+  },
+  "Brand": "Hero",
+  "Price": "Rs.59,018 - 60,118",
+  "Engine Capacity": "97.2 cc",
+  "model_name": "Hero HF 100"
+},
+{
+  "_id": {
+    "$oid": "6827964032ccc7d8307a6576"
+  },
+  "Brand": "Hero",
+  "Price": "Rs.72,799 - 74,199",
+  "Engine Capacity": "124.6 cc",
+  "model_name": "Hero Destini Prime"
+},
+{
+  "_id": {
+    "$oid": "6827964032ccc7d8307a6577"
+  },
+  "Brand": "Bajaj",
+  "Price": "Rs.1.60 Lakh",
+  "Engine Capacity": "199.5 cc",
+  "model_name": "Bajaj Pulsar NS200"
+},
+{
+  "_id": {
+    "$oid": "6827964032ccc7d8307a6578"
+  },
+  "Brand": "Bajaj",
+  "Price": "Rs.1.84 Lakh",
+  "Engine Capacity": "199.5 cc",
+  "model_name": "Bajaj Pulsar RS200"
+},
+{
+  "_id": {
+    "$oid": "6827964032ccc7d8307a6579"
+  },
+  "Brand": "Bajaj",
+  "Price": "Rs.1.35 - 1.40 Lakh",
+  "Engine Capacity": "N/A",
+  "model_name": "Bajaj Chetak 3501"
+},
+{
+  "_id": {
+    "$oid": "6827964032ccc7d8307a657a"
+  },
+  "Brand": "Bajaj",
+  "Price": "Rs.1.49 Lakh",
+  "Engine Capacity": "160.3 cc",
+  "model_name": "Bajaj Pulsar NS160"
+},
+{
+  "_id": {
+    "$oid": "6827964032ccc7d8307a657b"
+  },
+  "Brand": "Bajaj",
+  "Price": "Rs.1.13 - 1.20 Lakh",
+  "Engine Capacity": "149.5 cc",
+  "model_name": "Bajaj Pulsar 150"
+},
+{
+  "_id": {
+    "$oid": "6827964032ccc7d8307a657c"
+  },
+  "Brand": "Bajaj",
+  "Price": "Rs.1.22 - 1.43 Lakh",
+  "Engine Capacity": "164.82 cc",
+  "model_name": "Bajaj Pulsar N160"
+},
+{
+  "_id": {
+    "$oid": "6827964032ccc7d8307a657d"
+  },
+  "Brand": "Bajaj",
+  "Price": "Rs.1.86 Lakh",
+  "Engine Capacity": "373.27 cc",
+  "model_name": "Bajaj Pulsar NS400Z"
+},
+{
+  "_id": {
+    "$oid": "6827964032ccc7d8307a657e"
+  },
+  "Brand": "Bajaj",
+  "Price": "Rs.85,549 - 93,613",
+  "Engine Capacity": "124.4 cc",
+  "model_name": "Bajaj Pulsar 125"
+},
+{
+  "_id": {
+    "$oid": "6827964032ccc7d8307a657f"
+  },
+  "Brand": "Bajaj",
+  "Price": "Rs.99,994 - 1.07 Lakh",
+  "Engine Capacity": "124.45 cc",
+  "model_name": "Bajaj Pulsar NS 125"
+},
+{
+  "_id": {
+    "$oid": "6827964032ccc7d8307a6580"
+  },
+  "Brand": "Bajaj",
+  "Price": "Rs.90,272 - 1.10 Lakh",
+  "Engine Capacity": "124.58 cc",
+  "model_name": "Bajaj Freedom 125"
+},
+{
+  "_id": {
+    "$oid": "6827964032ccc7d8307a6581"
+  },
+  "Brand": "Bajaj",
+  "Price": "Rs.2.33 Lakh",
+  "Engine Capacity": "373.3 cc",
+  "model_name": "Bajaj Dominar 400"
+},
+{
+  "_id": {
+    "$oid": "6827964032ccc7d8307a6582"
+  },
+  "Brand": "Bajaj",
+  "Price": "Rs.1.25 Lakh",
+  "Engine Capacity": "149.68 cc",
+  "model_name": "Bajaj Pulsar N150"
+},
+{
+  "_id": {
+    "$oid": "6827964032ccc7d8307a6583"
+  },
+  "Brand": "Bajaj",
+  "Price": "Rs.1.42 Lakh",
+  "Engine Capacity": "220 cc",
+  "model_name": "Bajaj Pulsar 220 F"
+},
+{
+  "_id": {
+    "$oid": "6827964032ccc7d8307a6584"
+  },
+  "Brand": "Bajaj",
+  "Price": "Rs.1.53 Lakh",
+  "Engine Capacity": "249.07 cc",
+  "model_name": "Bajaj Pulsar N250"
+},
+{
+  "_id": {
+    "$oid": "6827964032ccc7d8307a6585"
+  },
+  "Brand": "Bajaj",
+  "Price": "Rs.71,558 - 74,214",
+  "Engine Capacity": "115.45 cc",
+  "model_name": "Bajaj Platina 110"
+},
+{
+  "_id": {
+    "$oid": "6827964032ccc7d8307a6586"
+  },
+  "Brand": "Bajaj",
+  "Price": "Rs.93,158 - 98,355",
+  "Engine Capacity": "124.58 cc",
+  "model_name": "Bajaj Pulsar N125"
+},
+{
+  "_id": {
+    "$oid": "6827964032ccc7d8307a6587"
+  },
+  "Brand": "Bajaj",
+  "Price": "Rs.68,890",
+  "Engine Capacity": "102 cc",
+  "model_name": "Bajaj Platina 100"
+},
+{
+  "_id": {
+    "$oid": "6827964032ccc7d8307a6588"
+  },
+  "Brand": "Bajaj",
+  "Price": "Rs.1.86 Lakh",
+  "Engine Capacity": "248.77 cc",
+  "model_name": "Bajaj Dominar 250"
+},
+{
+  "_id": {
+    "$oid": "6827964032ccc7d8307a6589"
+  },
+  "Brand": "Bajaj",
+  "Price": "Rs.70,381",
+  "Engine Capacity": "115.45 cc",
+  "model_name": "Bajaj CT 110X"
+},
+{
+  "_id": {
+    "$oid": "6827964032ccc7d8307a658a"
+  },
+  "Brand": "Bajaj",
+  "Price": "Rs.1.20 Lakh",
+  "Engine Capacity": "160 cc",
+  "model_name": "Bajaj Avenger Street 160"
+},
+{
+  "_id": {
+    "$oid": "6827964032ccc7d8307a658b"
+  },
+  "Brand": "Bajaj",
+  "Price": "Rs.1.02 - 1.06 Lakh",
+  "Engine Capacity": "N/A",
+  "model_name": "Bajaj Chetak 2903"
+},
+{
+  "_id": {
+    "$oid": "6827964032ccc7d8307a658c"
+  },
+  "Brand": "Bajaj",
+  "Price": "Rs.1.10 Lakh",
+  "Engine Capacity": "N/A",
+  "model_name": "Bajaj Chetak 3503"
+},
+{
+  "_id": {
+    "$oid": "6827964032ccc7d8307a658d"
+  },
+  "Brand": "Bajaj",
+  "Price": "Rs.1.23 - 1.28 Lakh",
+  "Engine Capacity": "N/A",
+  "model_name": "Bajaj Chetak 3502"
+},
+{
+  "_id": {
+    "$oid": "6827964032ccc7d8307a658e"
+  },
+  "Brand": "Bajaj",
+  "Price": "Rs.1.47 Lakh",
+  "Engine Capacity": "220 cc",
+  "model_name": "Bajaj Avenger Cruise 220"
+},
+{
+  "_id": {
+    "$oid": "6827964032ccc7d8307a658f"
+  },
+  "Brand": "Bajaj",
+  "Price": "Rs.1.43 Lakh",
+  "Engine Capacity": "220 cc",
+  "model_name": "Bajaj Avenger 220 Street"
+},
+{
+  "_id": {
+    "$oid": "6827964032ccc7d8307a6590"
+  },
+  "Brand": "KTM",
+  "Price": "Rs.2.07 Lakh",
+  "Engine Capacity": "199.5 cc",
+  "model_name": "KTM 200 Duke"
+},
+{
+  "_id": {
+    "$oid": "6827964032ccc7d8307a6591"
+  },
+  "Brand": "KTM",
+  "Price": "Rs.2.97 Lakh",
+  "Engine Capacity": "398.63 cc",
+  "model_name": "KTM Duke 390"
+},
+{
+  "_id": {
+    "$oid": "6827964032ccc7d8307a6592"
+  },
+  "Brand": "KTM",
+  "Price": "Rs.2.30 Lakh",
+  "Engine Capacity": "249.07 cc",
+  "model_name": "KTM 250 Duke"
+},
+{
+  "_id": {
+    "$oid": "6827964032ccc7d8307a6593"
+  },
+  "Brand": "KTM",
+  "Price": "Rs.3.23 Lakh",
+  "Engine Capacity": "373.27 cc",
+  "model_name": "KTM RC 390"
+},
+{
+  "_id": {
+    "$oid": "6827964032ccc7d8307a6594"
+  },
+  "Brand": "KTM",
+  "Price": "Rs.3.68 Lakh",
+  "Engine Capacity": "398.63 cc",
+  "model_name": "KTM 390 Adventure"
+},
+{
+  "_id": {
+    "$oid": "6827964032ccc7d8307a6595"
+  },
+  "Brand": "KTM",
+  "Price": "Rs.22.96 Lakh",
+  "Engine Capacity": "1350 cc",
+  "model_name": "KTM 1390 Super Duke R"
+},
+{
+  "_id": {
+    "$oid": "6827964032ccc7d8307a6596"
+  },
+  "Brand": "KTM",
+  "Price": "Rs.2.60 Lakh",
+  "Engine Capacity": "249.07 cc",
+  "model_name": "KTM 250 Adventure"
+},
+{
+  "_id": {
+    "$oid": "6827964032ccc7d8307a6597"
+  },
+  "Brand": "KTM",
+  "Price": "Rs.2.23 Lakh",
+  "Engine Capacity": "199.5 cc",
+  "model_name": "KTM RC 200"
+},
+{
+  "_id": {
+    "$oid": "6827964032ccc7d8307a6598"
+  },
+  "Brand": "KTM",
+  "Price": "Rs.3.39 Lakh",
+  "Engine Capacity": "399 cc",
+  "model_name": "KTM 390 Enduro R"
+},
+{
+  "_id": {
+    "$oid": "6827964032ccc7d8307a6599"
+  },
+  "Brand": "KTM",
+  "Price": "Rs.2.91 Lakh",
+  "Engine Capacity": "398.63 cc",
+  "model_name": "KTM 390 Adventure X"
+},
+{
+  "_id": {
+    "$oid": "6827964032ccc7d8307a659a"
+  },
+  "Brand": "KTM",
+  "Price": "Rs.14.50 Lakh",
+  "Engine Capacity": "889 cc",
+  "model_name": "KTM 890 Duke"
+},
+{
+  "_id": {
+    "$oid": "6827964032ccc7d8307a659b"
+  },
+  "Brand": "KTM",
+  "Price": "Rs.12.96 Lakh",
+  "Engine Capacity": "349.7 cc",
+  "model_name": "KTM 350 EXC-F"
+},
+{
+  "_id": {
+    "$oid": "6827964032ccc7d8307a659c"
+  },
+  "Brand": "KTM",
+  "Price": "Rs.9.58 Lakh",
+  "Engine Capacity": "249.9 cc",
+  "model_name": "KTM 250 SX-F"
+},
+{
+  "_id": {
+    "$oid": "6827964032ccc7d8307a659d"
+  },
+  "Brand": "KTM",
+  "Price": "Rs.10.25 Lakh",
+  "Engine Capacity": "449.9 cc",
+  "model_name": "KTM 450 SX-F"
+},
+{
+  "_id": {
+    "$oid": "6827964032ccc7d8307a659e"
+  },
+  "Brand": "KTM",
+  "Price": "Rs.5.47 Lakh",
+  "Engine Capacity": "64.9 cc",
+  "model_name": "KTM 65 SX"
+},
+{
+  "_id": {
+    "$oid": "6827964032ccc7d8307a659f"
+  },
+  "Brand": "KTM",
+  "Price": "Rs.22.74 Lakh",
+  "Engine Capacity": "1301 cc",
+  "model_name": "KTM 1290 Super Adventure S"
+},
+{
+  "_id": {
+    "$oid": "6827964032ccc7d8307a65a0"
+  },
+  "Brand": "KTM",
+  "Price": "Rs.4.75 Lakh",
+  "Engine Capacity": "49.9 cc",
+  "model_name": "KTM 50 SX"
+},
+{
+  "_id": {
+    "$oid": "6827964032ccc7d8307a65a1"
+  },
+  "Brand": "KTM",
+  "Price": "Rs.6.69 Lakh",
+  "Engine Capacity": "84.9 cc",
+  "model_name": "KTM 85 SX"
+},
+{
+  "_id": {
+    "$oid": "6827964032ccc7d8307a65a2"
+  },
+  "Brand": "KTM",
+  "Price": "Rs.15.80 Lakh",
+  "Engine Capacity": "889 cc",
+  "model_name": "KTM 890 Adventure R"
+},
+{
+  "_id": {
+    "$oid": "6827964032ccc7d8307a65a3"
+  },
+  "Brand": "Aprilia",
+  "Price": "Rs.4.23 Lakh",
+  "Engine Capacity": "457 cc",
+  "model_name": "Aprilia RS 457"
+},
+{
+  "_id": {
+    "$oid": "6827964032ccc7d8307a65a4"
+  },
+  "Brand": "Aprilia",
+  "Price": "Rs.3.95 Lakh",
+  "Engine Capacity": "457 cc",
+  "model_name": "Aprilia Tuono 457"
+},
+{
+  "_id": {
+    "$oid": "6827964032ccc7d8307a65a5"
+  },
+  "Brand": "Aprilia",
+  "Price": "Rs.1.32 - 1.41 Lakh",
+  "Engine Capacity": "160.03 cc",
+  "model_name": "Aprilia SR 160"
+},
+{
+  "_id": {
+    "$oid": "6827964032ccc7d8307a65a6"
+  },
+  "Brand": "Aprilia",
+  "Price": "Rs.31.26 Lakh",
+  "Engine Capacity": "1099 cc",
+  "model_name": "Aprilia RSV4"
+},
+{
+  "_id": {
+    "$oid": "6827964032ccc7d8307a65a7"
+  },
+  "Brand": "Aprilia",
+  "Price": "Rs.17.74 Lakh",
+  "Engine Capacity": "659 cc",
+  "model_name": "Aprilia RS 660"
+},
+{
+  "_id": {
+    "$oid": "6827964032ccc7d8307a65a8"
+  },
+  "Brand": "Aprilia",
+  "Price": "Rs.1.23 Lakh",
+  "Engine Capacity": "124.45 cc",
+  "model_name": "Aprilia SR 125"
+},
+{
+  "_id": {
+    "$oid": "6827964032ccc7d8307a65a9"
+  },
+  "Brand": "Aprilia",
+  "Price": "Rs.1.44 Lakh",
+  "Engine Capacity": "160.03 cc",
+  "model_name": "Aprilia SXR 160"
+},
+{
+  "_id": {
+    "$oid": "6827964032ccc7d8307a65aa"
+  },
+  "Brand": "Aprilia",
+  "Price": "Rs.1.33 Lakh",
+  "Engine Capacity": "125 cc",
+  "model_name": "Aprilia SXR 125"
+},
+{
+  "_id": {
+    "$oid": "6827964032ccc7d8307a65ab"
+  },
+  "Brand": "Aprilia",
+  "Price": "Rs.18.85 - 19.16 Lakh",
+  "Engine Capacity": "659 cc",
+  "model_name": "Aprilia Tuareg 660"
+},
+{
+  "_id": {
+    "$oid": "6827964032ccc7d8307a65ac"
+  },
+  "Brand": "Aprilia",
+  "Price": "Rs.1.15 Lakh",
+  "Engine Capacity": "124.49 cc",
+  "model_name": "Aprilia SR Storm"
+},
+{
+  "_id": {
+    "$oid": "6827964032ccc7d8307a65ad"
+  },
+  "Brand": "Aprilia",
+  "Price": "Rs.17.74 Lakh",
+  "Engine Capacity": "659 cc",
+  "model_name": "Aprilia Tuono 660"
+},
+{
+  "_id": {
+    "$oid": "6827964032ccc7d8307a65ae"
+  },
+  "Brand": "BMW",
+  "Price": "Rs.3.05 Lakh",
+  "Engine Capacity": "312.12 cc",
+  "model_name": "BMW G 310 RR"
+},
+{
+  "_id": {
+    "$oid": "6827964032ccc7d8307a65af"
+  },
+  "Brand": "BMW",
+  "Price": "Rs.20.75 - 25.60 Lakh",
+  "Engine Capacity": "999 cc",
+  "model_name": "BMW S 1000 RR"
+},
+{
+  "_id": {
+    "$oid": "6827964032ccc7d8307a65b0"
+  },
+  "Brand": "BMW",
+  "Price": "Rs.11.50 Lakh",
+  "Engine Capacity": "350 cc",
+  "model_name": "BMW C 400 GT"
+},
+{
+  "_id": {
+    "$oid": "6827964032ccc7d8307a65b1"
+  },
+  "Brand": "BMW",
+  "Price": "Rs.49 - 55 Lakh",
+  "Engine Capacity": "999 cc",
+  "model_name": "BMW M 1000 RR"
+},
+{
+  "_id": {
+    "$oid": "6827964032ccc7d8307a65b2"
+  },
+  "Brand": "BMW",
+  "Price": "Rs.21.20 Lakh",
+  "Engine Capacity": "1300 cc",
+  "model_name": "BMW R 1300 GS"
+},
+{
+  "_id": {
+    "$oid": "6827964032ccc7d8307a65b3"
+  },
+  "Brand": "BMW",
+  "Price": "Rs.4.50 Lakh",
+  "Engine Capacity": "N/A",
+  "model_name": "BMW CE 02"
+},
+{
+  "_id": {
+    "$oid": "6827964032ccc7d8307a65b4"
+  },
+  "Brand": "BMW",
+  "Price": "Rs.33.33 Lakh",
+  "Engine Capacity": "1649 cc",
+  "model_name": "BMW K 1600 Grand America"
+},
+{
+  "_id": {
+    "$oid": "6827964032ccc7d8307a65b5"
+  },
+  "Brand": "BMW",
+  "Price": "Rs.21.10 Lakh",
+  "Engine Capacity": "1170 cc",
+  "model_name": "BMW R 12 nineT"
+},
+{
+  "_id": {
+    "$oid": "6827964032ccc7d8307a65b6"
+  },
+  "Brand": "BMW",
+  "Price": "Rs.33.33 Lakh",
+  "Engine Capacity": "1649 cc",
+  "model_name": "BMW K 1600 GTL"
+},
+{
+  "_id": {
+    "$oid": "6827964032ccc7d8307a65b7"
+  },
+  "Brand": "BMW",
+  "Price": "Rs.24.95 Lakh",
+  "Engine Capacity": "1254 cc",
+  "model_name": "BMW R 1250 RT"
+},
+{
+  "_id": {
+    "$oid": "6827964032ccc7d8307a65b8"
+  },
+  "Brand": "BMW",
+  "Price": "Rs.32.50 Lakh",
+  "Engine Capacity": "1802 cc",
+  "model_name": "BMW R 18 Transcontinental"
+},
+{
+  "_id": {
+    "$oid": "6827964032ccc7d8307a65b9"
+  },
+  "Brand": "BMW",
+  "Price": "Rs.19 - 23.30 Lakh",
+  "Engine Capacity": "999 cc",
+  "model_name": "BMW S 1000 R"
+},
+{
+  "_id": {
+    "$oid": "6827964032ccc7d8307a65ba"
+  },
+  "Brand": "BMW",
+  "Price": "Rs.33 - 38 Lakh",
+  "Engine Capacity": "999 cc",
+  "model_name": "BMW M 1000 R"
+},
+{
+  "_id": {
+    "$oid": "6827964032ccc7d8307a65bb"
+  },
+  "Brand": "BMW",
+  "Price": "Rs.33.33 Lakh",
+  "Engine Capacity": "1649 cc",
+  "model_name": "BMW K 1600 Bagger"
+},
+{
+  "_id": {
+    "$oid": "6827964032ccc7d8307a65bc"
+  },
+  "Brand": "BMW",
+  "Price": "Rs.22.95 - 26.25 Lakh",
+  "Engine Capacity": "1300 cc",
+  "model_name": "BMW R 1300 GS Adventure"
+},
+{
+  "_id": {
+    "$oid": "6827964032ccc7d8307a65bd"
+  },
+  "Brand": "BMW",
+  "Price": "Rs.22.75 Lakh",
+  "Engine Capacity": "999 cc",
+  "model_name": "BMW S 1000 XR"
+},
+{
+  "_id": {
+    "$oid": "6827964032ccc7d8307a65be"
+  },
+  "Brand": "BMW",
+  "Price": "Rs.45.50 Lakh",
+  "Engine Capacity": "999 cc",
+  "model_name": "BMW M 1000 XR"
+},
+{
+  "_id": {
+    "$oid": "6827964032ccc7d8307a65bf"
+  },
+  "Brand": "BMW",
+  "Price": "Rs.12.55 Lakh",
+  "Engine Capacity": "895 cc",
+  "model_name": "BMW F 900 XR"
+},
+{
+  "_id": {
+    "$oid": "6827964032ccc7d8307a65c0"
+  },
+  "Brand": "BMW",
+  "Price": "Rs.15.25 Lakh",
+  "Engine Capacity": "N/A",
+  "model_name": "BMW CE 04"
+},
+{
+  "_id": {
+    "$oid": "6827964032ccc7d8307a65c1"
+  },
+  "Brand": "BMW",
+  "Price": "Rs.13.75 - 14.75 Lakh",
+  "Engine Capacity": "895 cc",
+  "model_name": "BMW F 900 GS"
+},
+{
+  "_id": {
+    "$oid": "6827964032ccc7d8307a65c2"
+  },
+  "Brand": "BMW",
+  "Price": "Rs.20.10 Lakh",
+  "Engine Capacity": "1170 cc",
+  "model_name": "BMW R 12"
+},
+{
+  "_id": {
+    "$oid": "6827964032ccc7d8307a65c3"
+  },
+  "Brand": "Ducati",
+  "Price": "Rs.29.99 - 36.50 Lakh",
+  "Engine Capacity": "1103 cc",
+  "model_name": "Ducati Panigale V4"
+},
+{
+  "_id": {
+    "$oid": "6827964032ccc7d8307a65c4"
+  },
+  "Brand": "Ducati",
+  "Price": "Rs.12.95 - 15.95 Lakh",
+  "Engine Capacity": "937 cc",
+  "model_name": "Ducati Monster"
+},
+{
+  "_id": {
+    "$oid": "6827964032ccc7d8307a65c5"
+  },
+  "Brand": "Ducati",
+  "Price": "Rs.24.62 - 28 Lakh",
+  "Engine Capacity": "1103 cc",
+  "model_name": "Ducati Streetfighter V4"
+},
+{
+  "_id": {
+    "$oid": "6827964032ccc7d8307a65c6"
+  },
+  "Brand": "Ducati",
+  "Price": "Rs.27.21 Lakh",
+  "Engine Capacity": "1158 cc",
+  "model_name": "Ducati Diavel V4"
+},
+{
+  "_id": {
+    "$oid": "6827964032ccc7d8307a65c7"
+  },
+  "Brand": "Ducati",
+  "Price": "Rs.9.97 - 12.60 Lakh",
+  "Engine Capacity": "803 cc",
+  "model_name": "Ducati Scrambler 800"
+},
+{
+  "_id": {
+    "$oid": "6827964032ccc7d8307a65c8"
+  },
+  "Brand": "Ducati",
+  "Price": "Rs.16.06 - 19.11 Lakh",
+  "Engine Capacity": "937 cc",
+  "model_name": "Ducati SuperSport 950"
+},
+{
+  "_id": {
+    "$oid": "6827964032ccc7d8307a65c9"
+  },
+  "Brand": "Ducati",
+  "Price": "Rs.16.35 - 18.99 Lakh",
+  "Engine Capacity": "937 cc",
+  "model_name": "Ducati Multistrada V2"
+},
+{
+  "_id": {
+    "$oid": "6827964032ccc7d8307a65ca"
+  },
+  "Brand": "Ducati",
+  "Price": "Rs.18.33 - 23.71 Lakh",
+  "Engine Capacity": "937 cc",
+  "model_name": "Ducati DesertX"
+},
+{
+  "_id": {
+    "$oid": "6827964032ccc7d8307a65cb"
+  },
+  "Brand": "Ducati",
+  "Price": "Rs.16 - 19.05 Lakh",
+  "Engine Capacity": "937 cc",
+  "model_name": "Ducati Hypermotard 950"
+},
+{
+  "_id": {
+    "$oid": "6827964032ccc7d8307a65cc"
+  },
+  "Brand": "Ducati",
+  "Price": "Rs.18.50 Lakh",
+  "Engine Capacity": "955 cc",
+  "model_name": "Ducati Streetfighter V2"
+},
+{
+  "_id": {
+    "$oid": "6827964032ccc7d8307a65cd"
+  },
+  "Brand": "Ducati",
+  "Price": "Rs.13.40 - 15.99 Lakh",
+  "Engine Capacity": "1079 cc",
+  "model_name": "Ducati Scrambler 1100"
+},
+{
+  "_id": {
+    "$oid": "6827964032ccc7d8307a65ce"
+  },
+  "Brand": "Ducati",
+  "Price": "Rs.20.98 - 24.13 Lakh",
+  "Engine Capacity": "955 cc",
+  "model_name": "Ducati Panigale V2"
+},
+{
+  "_id": {
+    "$oid": "6827964032ccc7d8307a65cf"
+  },
+  "Brand": "Ducati",
+  "Price": "Rs.16.50 - 17.50 Lakh",
+  "Engine Capacity": "659 cc",
+  "model_name": "Ducati Hypermotard 698 Mono"
+},
+{
+  "_id": {
+    "$oid": "6827964032ccc7d8307a65d0"
+  },
+  "Brand": "Ducati",
+  "Price": "Rs.21.48 - 40.67 Lakh",
+  "Engine Capacity": "1103 cc",
+  "model_name": "Ducati Multistrada V4"
+},
+{
+  "_id": {
+    "$oid": "6827964032ccc7d8307a65d1"
+  },
+  "Brand": "Jawa",
+  "Price": "Rs.2.10 - 2.30 Lakh",
+  "Engine Capacity": "334 cc",
+  "model_name": "Jawa 42 Bobber"
+},
+{
+  "_id": {
+    "$oid": "6827964032ccc7d8307a65d2"
+  },
+  "Brand": "Jawa",
+  "Price": "Rs.2.10 - 2.20 Lakh",
+  "Engine Capacity": "334 cc",
+  "model_name": "Jawa 42 FJ"
+},
+{
+  "_id": {
+    "$oid": "6827964032ccc7d8307a65d3"
+  },
+  "Brand": "Jawa",
+  "Price": "Rs.1.73 - 1.98 Lakh",
+  "Engine Capacity": "294.72 cc",
+  "model_name": "Jawa 42"
+},
+{
+  "_id": {
+    "$oid": "6827964032ccc7d8307a65d4"
+  },
+  "Brand": "Jawa",
+  "Price": "Rs.2.40 Lakh",
+  "Engine Capacity": "334 cc",
+  "model_name": "Jawa Perak"
+},
+{
+  "_id": {
+    "$oid": "6827964032ccc7d8307a65d5"
+  },
+  "Brand": "Jawa",
+  "Price": "Rs.1.99 - 2.29 Lakh",
+  "Engine Capacity": "334 cc",
+  "model_name": "Jawa 350"
+},
+{
+  "_id": {
+    "$oid": "6827964032ccc7d8307a65d6"
+  },
+  "Brand": "Yezdi",
+  "Price": "Rs.2.06 - 2.13 Lakh",
+  "Engine Capacity": "334 cc",
+  "model_name": "Yezdi Roadster"
+},
+{
+  "_id": {
+    "$oid": "6827964032ccc7d8307a65d7"
+  },
+  "Brand": "Yezdi",
+  "Price": "Rs.2.10 - 2.20 Lakh",
+  "Engine Capacity": "334 cc",
+  "model_name": "Yezdi Adventure"
+},
+{
+  "_id": {
+    "$oid": "6827964032ccc7d8307a65d8"
+  },
+  "Brand": "Yezdi",
+  "Price": "Rs.2.10 - 2.16 Lakh",
+  "Engine Capacity": "334 cc",
+  "model_name": "Yezdi Scrambler"
+},
+{
+  "_id": {
+    "$oid": "6827964032ccc7d8307a65d9"
+  },
+  "Brand": "Husqvarna",
+  "Price": "Rs.2.24 Lakh",
+  "Engine Capacity": "249.07 cc",
+  "model_name": "Husqvarna Vitpilen 250"
+},
+{
+  "_id": {
+    "$oid": "6827964032ccc7d8307a65da"
+  },
+  "Brand": "Husqvarna",
+  "Price": "Rs.2.97 Lakh",
+  "Engine Capacity": "398.63 cc",
+  "model_name": "Husqvarna Svartpilen 401"
+},
+{
+  "_id": {
+    "$oid": "6827964032ccc7d8307a65db"
+  },
+  "Brand": "Harley Davidson",
+  "Price": "Rs.2.40 - 2.80 Lakh",
+  "Engine Capacity": "440 cc",
+  "model_name": "Harley Davidson X440"
+},
+{
+  "_id": {
+    "$oid": "6827964032ccc7d8307a65dc"
+  },
+  "Brand": "Harley Davidson",
+  "Price": "Rs.16.49 Lakh",
+  "Engine Capacity": "1252 cc",
+  "model_name": "Harley Davidson Sportster S"
+},
+{
+  "_id": {
+    "$oid": "6827964032ccc7d8307a65dd"
+  },
+  "Brand": "Harley Davidson",
+  "Price": "Rs.25.69 Lakh",
+  "Engine Capacity": "1868 cc",
+  "model_name": "Harley Davidson Fat Boy 114"
+},
+{
+  "_id": {
+    "$oid": "6827964032ccc7d8307a65de"
+  },
+  "Brand": "Harley Davidson",
+  "Price": "Rs.13.39 - 14.09 Lakh",
+  "Engine Capacity": "975 cc",
+  "model_name": "Harley Davidson Nightster"
+},
+{
+  "_id": {
+    "$oid": "6827964032ccc7d8307a65df"
+  },
+  "Brand": "Harley Davidson",
+  "Price": "Rs.21.49 Lakh",
+  "Engine Capacity": "1868 cc",
+  "model_name": "Harley Davidson Fat Bob 114"
+},
+{
+  "_id": {
+    "$oid": "6827964032ccc7d8307a65e0"
+  },
+  "Brand": "Harley Davidson",
+  "Price": "Rs.30.99 Lakh",
+  "Engine Capacity": "1923 cc",
+  "model_name": "Harley-Davidson Breakout 117"
+},
+{
+  "_id": {
+    "$oid": "6827964032ccc7d8307a65e1"
+  },
+  "Brand": "Harley Davidson",
+  "Price": "Rs.24.64 Lakh",
+  "Engine Capacity": "1252 cc",
+  "model_name": "Harley Davidson Pan America 1250"
+},
+{
+  "_id": {
+    "$oid": "6827964032ccc7d8307a65e2"
+  },
+  "Brand": "Harley Davidson",
+  "Price": "Rs.41.79 Lakh",
+  "Engine Capacity": "1868 cc",
+  "model_name": "Harley Davidson Road Glide"
+},
+{
+  "_id": {
+    "$oid": "6827964032ccc7d8307a65e3"
+  },
+  "Brand": "Harley Davidson",
+  "Price": "Rs.27.19 Lakh",
+  "Engine Capacity": "1868 cc",
+  "model_name": "Harley Davidson Heritage Classic"
+},
+{
+  "_id": {
+    "$oid": "6827964032ccc7d8307a65e4"
+  },
+  "Brand": "Harley Davidson",
+  "Price": "Rs.38.79 Lakh",
+  "Engine Capacity": "1868 cc",
+  "model_name": "Harley Davidson Street Glide"
+}]

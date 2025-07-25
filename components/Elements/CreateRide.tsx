@@ -180,7 +180,7 @@ const CreateRide = () => {
                 }}
                 />
                 <TextInput
-                placeholder="Description"
+                placeholder="Description (Describe riding style)"
                 value={description}
                 onChangeText={setDescription}
                 multiline
@@ -189,7 +189,7 @@ const CreateRide = () => {
                 style={{
                     color: "#ECEFF1",
                     fontSize: 15,
-                    marginVertical: 8,
+                    marginBottom: 8,
                     textAlignVertical: "top",
                     fontFamily: "Inter_18pt-Regular",
                 }}
