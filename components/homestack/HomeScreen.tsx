@@ -53,7 +53,10 @@ export default function HomeScreen() {
         handleLogout(navigation, setUserInfo)
     }
     try {
-      if (!userInfo) return;
+      console.log(userInfo)
+      if (!userInfo){
+        return;
+      } 
       const response = await fetch(`https://kick-stand.onrender.com/users/`,{
         method: "GET",
         headers: {

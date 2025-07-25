@@ -212,8 +212,8 @@ export default function Invitations({ visible, onClose, ride_id}: InvitationsPro
                             <Text style={{ color: '#ECEFF1', textAlign: 'center' }}>Loading Invites...</Text>
                         ) : (
                             <View style={{margin: 20, alignItems: "center"}}>
-                                <Text style={{ color: '#9E9E9E', textAlign: 'center',fontFamily: "Inter_18pt-Regular", fontSize: 10, margin: 20 }}>Your throttle buddies haven't called yet.</Text>
-                                <MaterialCommunityIcons name="ghost" size={40} color="#9E9E9E" />
+                                <Text style={{ color: '#9E9E9E', textAlign: 'center',fontFamily: "Inter_18pt-Regular", fontSize: 10, margin: 4 }}>Your throttle buddies haven't called yet.</Text>
+                                <MaterialCommunityIcons name="ghost" size={20} color="#9E9E9E" />
                             </View>
                         )
                         }
@@ -232,8 +232,8 @@ export default function Invitations({ visible, onClose, ride_id}: InvitationsPro
                             <Text style={{ color: '#ECEFF1', textAlign: 'center' }}>Loading Invites...</Text>
                         ) : (
                             <View style={{margin: 20, alignItems: "center"}}>
-                                <Text style={{ color: '#9E9E9E', textAlign: 'center',fontFamily: "Inter_18pt-Regular", fontSize: 10, margin: 20 }}>No one is sending you requests bro</Text>
-                                <MaterialCommunityIcons name="ghost" size={40} color="#9E9E9E" />
+                                <Text style={{ color: '#9E9E9E', textAlign: 'center',fontFamily: "Inter_18pt-Regular", fontSize: 10, margin: 4 }}>No one is sending you requests bro</Text>
+                                <MaterialCommunityIcons name="ghost" size={20} color="#9E9E9E" />
                             </View>
                         )
                         }

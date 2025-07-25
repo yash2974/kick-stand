@@ -100,12 +100,10 @@ def create_user(user: schema.UserCreate, db: Session = Depends(get_db), token_da
     db.refresh(db_user)
     return db_user
 
-@app.get("/users/", response_model=schema.UserOut)
+@app.get("/users/", response_model=Optional[schema.UserOut])
 def read_user( db: Session = Depends(get_db), token_data: dict = Depends(verify_token)):
     user_id = token_data["sub"]
     db_user = db.query(models.User).filter(models.User.user_id == user_id).first()
-    if db_user is None:
-        return None
     return db_user
 
 @app.get("/vehicles", response_model=List[schema.VehicleOut])

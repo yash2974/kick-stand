@@ -158,5 +158,6 @@ class ServiceReviews(BaseModel):
     rating: int
     helpful: Optional[int] = 0
     created_at: Optional[datetime] = Field(default_factory=datetime.now)   
+    approved: Optional[bool] = False
 
 
