@@ -58,7 +58,7 @@ const ServiceReviews = () => {
             return;
         }
         try {
-            let url = `https://kick-stand.onrender.com/service-review?limit=10&query=${debouncedSearch}`
+            let url = `https://kick-stand.onrender.com/service-review?limit=10&searchquery=${debouncedSearch}`
             if (lastReview) url += `&after=${lastReview}`;
             const response = await fetch (url, {
                 method: "GET",
@@ -170,8 +170,11 @@ const ServiceReviews = () => {
         return ()=> clearTimeout(delayDebounce)
     }, [search])
     useEffect(()=>{
+        setReviews([]);
+        setLastReview("");
+        setHasMore(true);
         getReviews(debouncedSearch);
-    }, [])
+    }, [debouncedSearch])
 
     return (
         <View style={{flex: 1, backgroundColor : "#121212"}}> 

@@ -784,8 +784,7 @@ async def service_review(searchquery: str, limit: int = Query(10, gt=0), after: 
     if searchquery.strip():
         query["$or"] = [
                 {"service_centre": {"$regex": searchquery, "$options": "i"}},
-                {"review": {"$regex": searchquery, "$options": "i"}},
-                {"user_id": {"$regex": searchquery, "$options": "i"}}
+                {"review": {"$regex": searchquery, "$options": "i"}}
             ]
     if after:
         query["_id"] = {"$lt": ObjectId(after)}
