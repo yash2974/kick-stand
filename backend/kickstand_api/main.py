@@ -778,14 +778,17 @@ async def helpful(review_id: str, token_data: dict = Depends(verify_token)):
     return {"message": "Marked as helpful"}
 
 @app.get("/service-review")
-async def service_review(token_data: dict = Depends(verify_token)):
+async def service_review(limit: int = Query(15, gt=0), after: str | None = None, token_data: dict = Depends(verify_token)):
+    query = {}
+    if after:
+        query["_id"] = {"$lt": ObjectId(after)}
+    cursor = service_reviews_collection.find(query).sort("_id", -1).limit(limit)
     reviews = []
-    result = service_reviews_collection.find()
-    async for review in result:
+    async for review in cursor:
         review["_id"] = str(review["_id"])
         reviews.append(review)
-    return reviews
-    
+    next_cursor = reviews[-1]["_id"] if len(reviews) == limit else None
+    return {"data": reviews, "nextCursor": next_cursor}
 
 
 

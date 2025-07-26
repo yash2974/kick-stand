@@ -179,7 +179,8 @@ function HostContent() {
     }, []);
   
     return (
-        <View style={{flex: 4, backgroundColor : "#121212"}}>
+        <View style={{flex: 1, backgroundColor : "#121212"}}> 
+        {/* flex 4 to 1  */}
           <SafeScreenWrapper>
             {selectedRideId && (
               <Invitations
@@ -204,7 +205,7 @@ function HostContent() {
               <View style={{ flex:3, marginBottom: 8 }}>
                 <View style={{marginBottom: 8}}>
                     <Text style={{ fontSize: 24, fontFamily: "Inter_18pt-Bold", color: "#C62828"}}>
-                        Active Rides
+                        Hosted Rides
                     </Text>
                 </View>
                 <View style={{ flex: 1, borderRadius: 10}}>

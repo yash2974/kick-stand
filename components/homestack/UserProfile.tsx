@@ -141,7 +141,7 @@ export function UserProfileContent() {
   }, [vehicles]);
   useEffect(()=> {
    getUserForums();
-  }, [userForums]);
+  }, []);
 
 
   const renderVehicles = ({item}: {item: Vehicle}) => (
