@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { Button, Linking, Text, View, Image, TouchableOpacity, TouchableWithoutFeedback, Dimensions, RefreshControl } from "react-native";
 import SafeScreenWrapper from "./SafeScreenWrapper"; // adjust the path
-import { useNavigation } from "@react-navigation/native";
+import { useFocusEffect, useNavigation } from "@react-navigation/native";
 import { AuthContext } from "../authstack/AuthContext";
 import { GoogleSignin } from "@react-native-google-signin/google-signin";
 import * as Keychain from 'react-native-keychain'
@@ -142,9 +142,13 @@ export function UserProfileContent() {
   useEffect(()=> {
    getUserVehicles();
   }, [vehicles]);
-  useEffect(()=> {
-   getUserForums();
-  }, []);
+  useFocusEffect(
+      useCallback(() => {
+        setUserForums([]);
+        getUserForums();
+      }, [])
+    );
+  
 
 
   const renderVehicles = ({item}: {item: Vehicle}) => (

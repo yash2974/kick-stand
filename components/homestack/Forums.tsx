@@ -58,7 +58,7 @@ export function ForumsContent() {
     };
 
   //fetch forums
-  const fetchForums = useCallback(async (query: string) => {
+  const fetchForums = async (query: string) => {
     setLoading(true);
     const accessToken = await getValidAccessToken();
     if (!accessToken){
@@ -90,7 +90,7 @@ export function ForumsContent() {
     finally{
       setLoading(false)
     }
-  }, [navigationRoot, setUserInfo]);
+  }
   //
   const screenWidth = Dimensions.get('window').width;
   // const renderForums
@@ -101,10 +101,11 @@ export function ForumsContent() {
   }
 
   useFocusEffect(
-  useCallback(() => {
-    fetchForums("");
-  }, [fetchForums])
-);
+    useCallback(() => {
+      setForums([]);
+      fetchForums("");
+    }, [])
+  );
 
 
 
