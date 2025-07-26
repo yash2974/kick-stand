@@ -19,6 +19,7 @@ type ServiceReview = {
   helpful: number;
   created_at: string;
   user_id: string;
+  marked: boolean
 };
 
 const ServiceReviews = () => {
@@ -26,8 +27,11 @@ const ServiceReviews = () => {
     const {setUserInfo} = useContext(AuthContext);
     const [search, setSearch] = useState("");
     const [loadingReviews, setLoadingReviews] = useState(false);
+    const [loadingHelpful, setLoadingHelpful] = useState(false);
+    // const [helpful, setHelpful] = useState<boolean | null>(null);
     const [reviews, setReviews] = useState<ServiceReview[]>([]);
     const rootNavigation = useNavigation<RootNavigationProp>();
+    const [selectedReview, setSelectedReview] = useState<string|null>(null);
     const [lastReview, setLastReview] = useState("");
     const [hasMore, setHasMore] = useState(true);
     const [refreshing, setRefreshing] = useState(false);
@@ -82,6 +86,41 @@ const ServiceReviews = () => {
         }
     }
 
+    const makeHelpful = async (id: string) => {
+        setLoadingHelpful(true);
+        const access_token = await getValidAccessToken();
+        if (!access_token) {
+            setLoadingHelpful(false);
+            handleLogout(rootNavigation, setUserInfo)
+            return;
+        }
+        try {
+            const response = await fetch (`https://kick-stand.onrender.com/service-review-helpful/${id}`,{
+                method: "POST",
+                headers: {
+                    Authorization: `Bearer ${access_token}`
+                }
+            })
+            if (!response.ok){
+                console.log("error");
+                setLoadingHelpful(false);
+                return;
+            }
+            const data = await response.json();
+            setReviews(prevReviews =>
+            prevReviews.map(r =>
+                r._id === id ? { ...r, marked: data } : r
+            )
+            );
+        }
+        catch (error){
+            console.log("error");
+        }
+        finally{(setLoadingHelpful(false))}
+    }
+
+    
+
     const renderReviews = ({item}: {item: ServiceReview}) => (
         <View style={{backgroundColor: "#1F1F1F", marginVertical: 4, borderRadius: 10, padding: 10 }}>
             <Text style={{
@@ -96,7 +135,7 @@ const ServiceReviews = () => {
             <View style={{flexDirection: "row", justifyContent: "space-between", alignItems: "center"}}>
                 <View style={{flexDirection: "row", alignItems: "center"}}>
                     {Array.from({ length: item.rating }).map((_, index) => (
-                        <MaterialCommunityIcons key={index} name="star" size={20} color="#EF6C00" />
+                            <MaterialCommunityIcons key={index} name="star" size={20} color="#EF6C00" />
                     ))}
                 </View>
                 <View style={{flexDirection: "row", alignItems: "center"}}>
@@ -105,7 +144,9 @@ const ServiceReviews = () => {
                     color: "#424242",
                     fontSize: 12,
                     marginRight: 6}}>{item.helpful}</Text>
-                    <MaterialCommunityIcons name="thumb-up" size={15} color="#424242"/>
+                    <TouchableOpacity onPress={()=>makeHelpful(item._id)}>
+                        <MaterialCommunityIcons name="thumb-up" size={15} color= {item.marked ? "#EF6C00" : "#424242" }/>
+                    </TouchableOpacity>
                 </View>
             </View>
             
@@ -147,7 +188,9 @@ const ServiceReviews = () => {
                                     <Text style={{ color: '#9c908f', fontFamily: "Inter_18pt-Bold", fontSize: 10}}>Bringing in experiences…</Text>
                                     </View>
                                 ) : (
-                                    <View style={{justifyContent: "center", alignItems: "center", marginVertical: 100}}>
+                                    
+                                    <View style={{justifyContent: "center", alignItems: "center", marginVertical: 10}}>
+                                    <View style={{width: "100%", height: 1, backgroundColor: "#1F1F1F", marginBottom: 10}}/>
                                     {/* <MaterialCommunityIcons name="engine-off" size={40} color="#9c908f"/> */}
                                     <Text style={{ color: '#9c908f', fontFamily: "Inter_18pt-Bold", fontSize: 10}}>You’ve reached the end. Contribute your experience!</Text>
                                     </View>

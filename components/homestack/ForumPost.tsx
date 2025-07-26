@@ -55,6 +55,8 @@ const ForumPost = () => {
             });
             if (!response.ok){
                 console.log("error");
+                setLoading(false);
+                return;
             }
             const data = await response.json();
             console.log(data);

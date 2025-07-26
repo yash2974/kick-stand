@@ -233,6 +233,7 @@ const CreateForums = () => {
         <View style={{ flex: 1, paddingHorizontal: 15 }}>
           <TextInput
             placeholder="Title"
+            placeholderTextColor="#9E9E9E"
             value={title}
             onChangeText={setTitle}
             multiline
@@ -279,6 +280,7 @@ const CreateForums = () => {
 
           <TextInput
             placeholder="Body text"
+            placeholderTextColor="#9E9E9E"
             value={content}
             onChangeText={setContent}
             multiline

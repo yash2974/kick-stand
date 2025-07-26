@@ -23,7 +23,6 @@ const CreateReviews = () => {
   const [rating, setRating] = useState(0);
   const [map_url, setMap_url] = useState("");
   const user_id = userInfo?.user.id;
-  const username = userInfo?.user.name;
 
   const submitForum = async () => {
     setLoading(true);
@@ -63,6 +62,7 @@ const CreateReviews = () => {
       const data = await response.json();
       console.log("Ride created successfully:", data);
       resetForm();
+      alert("Review submitted for approval!!")
       userprofilenavigation.reset({
         index: 1, 
         routes: [
@@ -149,6 +149,7 @@ const CreateReviews = () => {
         <View style={{ flex: 1, paddingHorizontal: 15 }}>
           <TextInput
             placeholder="Service Center Name"
+            placeholderTextColor="#9E9E9E"
             value={name}
             onChangeText={setName}
             multiline
@@ -207,6 +208,7 @@ const CreateReviews = () => {
 
           <TextInput
             placeholder="Review"
+            placeholderTextColor="#9E9E9E"
             value={review}
             onChangeText={setReview}
             multiline

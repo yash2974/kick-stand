@@ -245,7 +245,7 @@ useEffect(()=>{
             <View >
               <View style={{flexDirection:"row",backgroundColor:"#424242", paddingHorizontal: 20, alignItems:"center", borderRadius: 10, marginBottom: 8}}>
                   <MaterialCommunityIcons name="map-marker" size={20} color="#FFFFFF"/>
-                  <TextInput placeholder="Search Locations" style={{flex: 1}} onChangeText={setSearch} value={search}></TextInput>
+                  <TextInput placeholder="Search Locations" placeholderTextColor="#9E9E9E" style={{flex: 1}} onChangeText={setSearch} value={search}></TextInput>
               </View>
             </View>
             <View style={{paddingBottom: insets.bottom + 70}}>

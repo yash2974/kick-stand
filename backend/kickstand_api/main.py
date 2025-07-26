@@ -766,7 +766,7 @@ async def helpful(review_id: str, token_data: dict = Depends(verify_token)):
             {"_id": ObjectId(review_id)},
             {"$inc": {"helpful": -1}}
         )
-        return {"message": "Removed helpful mark"}
+        return False
     await service_reviews_helpful_collection.insert_one({
         "user_id": user_id,
         "review_id": review_id
@@ -775,10 +775,11 @@ async def helpful(review_id: str, token_data: dict = Depends(verify_token)):
         {"_id": ObjectId(review_id)},
         {"$inc": {"helpful": 1}}
     )
-    return {"message": "Marked as helpful"}
+    return True
 
 @app.get("/service-review")
 async def service_review(limit: int = Query(10, gt=0), after: str | None = None, token_data: dict = Depends(verify_token)):
+    user_id = token_data["sub"]
     query = {"approved": True}
     if after:
         query["_id"] = {"$lt": ObjectId(after)}
@@ -787,8 +788,32 @@ async def service_review(limit: int = Query(10, gt=0), after: str | None = None,
     async for review in cursor:
         review["_id"] = str(review["_id"])
         reviews.append(review)
+
+    review_ids = [r["_id"] for r in reviews]
+
+    # Find all likes by the user in one query
+    liked_docs = await service_reviews_helpful_collection.find(
+        {"review_id": {"$in": review_ids}, "user_id": user_id}
+    ).to_list(length=None)
+    liked_ids = {doc["review_id"] for doc in liked_docs}
+
+    # Add `liked` field to each review
+    for r in reviews:
+        r["marked"] = r["_id"] in liked_ids
     next_cursor = reviews[-1]["_id"] if len(reviews) == limit else None
     return {"data": reviews, "nextCursor": next_cursor}
+
+@app.get("/service-helpful-user/{review_id}")
+async def helpful_user (review_id: str, token_data: dict = Depends(verify_token)):
+    user_id = token_data["sub"]
+    result = await service_reviews_helpful_collection.find_one({
+        "review_id": review_id,
+        "user_id": user_id
+    })
+    if result:
+        return True
+    return False
+
 
 
 

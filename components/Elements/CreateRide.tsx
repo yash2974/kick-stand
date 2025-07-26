@@ -166,6 +166,7 @@ const CreateRide = () => {
             <View style={{ flex: 1, paddingHorizontal: 15 }}>
                 <TextInput
                 placeholder="Title"
+                placeholderTextColor="#9E9E9E"
                 value={title}
                 onChangeText={setTitle}
                 multiline
@@ -181,6 +182,7 @@ const CreateRide = () => {
                 />
                 <TextInput
                 placeholder="Description (Describe riding style)"
+                placeholderTextColor="#9E9E9E"
                 value={description}
                 onChangeText={setDescription}
                 multiline
@@ -198,6 +200,7 @@ const CreateRide = () => {
                 <View style={{justifyContent: "space-evenly", flexDirection: "row"}}>
                     <TextInput
                     placeholder='Start Point'
+                    placeholderTextColor="#9E9E9E"
                     value={startLocation}
                     onChangeText={setStartLocation}
                     maxLength={100}
@@ -214,6 +217,7 @@ const CreateRide = () => {
                     <View style={{width: 1, backgroundColor: "#1F1F1F"}}/>
                     <TextInput
                     placeholder='End Point'
+                    placeholderTextColor="#9E9E9E"
                     value={endLocation}
                     onChangeText={setEndLocation}
                     maxLength={100}

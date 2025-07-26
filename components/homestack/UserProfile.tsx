@@ -31,6 +31,7 @@ import ForumPost from "./ForumPost";
 import ServiceReviews from "./ServiceReviews";
 import CreateReviews from "../Elements/CreateReviews";
 
+
 type Vehicle = {
   vehicle_id: string;
   model_name: string;
@@ -352,6 +353,7 @@ export function UserProfileContent() {
           <AddVehicleModal visible={addVehicleModal} onClose={()=>setAddVehicleModal(false)}/>
         </SafeScreenWrapper>
       </View>
+      
     </MenuProvider>
   );
 }
@@ -395,6 +397,7 @@ export default function UserProfile() {
         component={CreateReviews}
         options={{ headerShown: false}}
         />
+        
         
       </UserProfileStack.Navigator>
   )
