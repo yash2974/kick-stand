@@ -29,6 +29,7 @@ import type { Forums } from "./Forums";
 import { ForumCard } from "../Elements/ForumCard";
 import ForumPost from "./ForumPost";
 import ServiceReviews from "./ServiceReviews";
+import CreateReviews from "../Elements/CreateReviews";
 
 type Vehicle = {
   vehicle_id: string;
@@ -44,6 +45,7 @@ export type UserProfileStackParamList = {
   ServiceReviews: undefined;
   ActiveRides: undefined;
   ServiceAlerts: undefined;
+  CreateReviews: undefined;
   
 }
 export type UserProfileNavigationProp = NativeStackNavigationProp<UserProfileStackParamList>;
@@ -386,6 +388,11 @@ export default function UserProfile() {
         <UserProfileStack.Screen
         name="ServiceAlerts"
         component={ServiceReviews}
+        options={{ headerShown: false}}
+        />
+        <UserProfileStack.Screen
+        name="CreateReviews"
+        component={CreateReviews}
         options={{ headerShown: false}}
         />
         

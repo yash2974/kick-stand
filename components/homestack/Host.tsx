@@ -179,8 +179,7 @@ function HostContent() {
     }, []);
   
     return (
-        <View style={{flex: 1, backgroundColor : "#121212"}}> 
-        {/* flex 4 to 1  */}
+        <View style={{flex: 4, backgroundColor : "#121212"}}> 
           <SafeScreenWrapper>
             {selectedRideId && (
               <Invitations

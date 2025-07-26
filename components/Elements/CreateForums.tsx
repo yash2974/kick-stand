@@ -9,6 +9,8 @@ import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityI
 import { TextInput } from 'react-native-gesture-handler'
 import {launchImageLibrary, launchCamera} from 'react-native-image-picker';
 import { AuthContext } from '../authstack/AuthContext'
+import { handleLogout } from '../../Auth/handleLogout'
+import { getValidAccessToken } from '../../Auth/checkToken'
 
 
 const CreateForums = () => {
@@ -18,7 +20,7 @@ const CreateForums = () => {
   const [title, setTitle] = useState("");
   const [tags, setTags] = useState<string[]>([]);
   const [content, setContent] = useState("");
-  const {userInfo} = useContext(AuthContext);
+  const {userInfo, setUserInfo} = useContext(AuthContext);
   const user_id = userInfo?.user.id;
   const username = userInfo?.user.name;
 
@@ -38,70 +40,75 @@ const CreateForums = () => {
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
 
   const submitForum = async () => {
-  setLoading(true);
-  if (!title || !content){
-    alert("dont leave title/comment empty!!!")
-    setLoading(false);
-    return;
-  }
-  try {
-    console.log("Submitting forum post...");
-
-    const formData = new FormData();
-    formData.append('title', title);
-    formData.append('content', content);
-    if (user_id && username) {
-      formData.append('user_id', user_id);
-      formData.append('username', username);
-    } else {
-      alert("contact devlopers :(")
+    setLoading(true);
+    if (!title || !content){
+      alert("dont leave title/comment empty!!!")
+      setLoading(false);
+      return;
     }
-    if (tags){
-      for (const tag of tags){
-        formData.append('tags', tag)
+    const access_token = await getValidAccessToken();
+    if (!access_token){
+      setLoading(false);
+      handleLogout(rootNavigation, setUserInfo);
+    }
+    try {
+      console.log("Submitting forum post...");
+
+      const formData = new FormData();
+      formData.append('title', title);
+      formData.append('content', content);
+      if (user_id && username) {
+        formData.append('user_id', user_id);
+        formData.append('username', username);
+      } else {
+        alert("contact devlopers :(")
       }
-    }
-    formData.append('upvote', '0');
-    formData.append('downvote', '0');
-    formData.append('comments', '0');
+      if (tags){
+        for (const tag of tags){
+          formData.append('tags', tag)
+        }
+      }
+      formData.append('upvote', '0');
+      formData.append('downvote', '0');
+      formData.append('comments', '0');
 
-    if (selectedImage) {
-      const imageFile: any = {
-        uri: selectedImage,
-        type: 'image/jpeg',
-        name: 'forum-image.jpg',
-      };
-      formData.append('image', imageFile);
-    }
+      if (selectedImage) {
+        const imageFile: any = {
+          uri: selectedImage,
+          type: 'image/jpeg',
+          name: 'forum-image.jpg',
+        };
+        formData.append('image', imageFile);
+      }
 
-    const response = await fetch('https://kick-stand.onrender.com/create-forum/', {
-      method: 'POST',
-      body: formData,
-      headers: {
-        'Content-Type': 'multipart/form-data',
-      },
-    });
-
-    const data = await response.json();
-    console.log("Server response:", data);
-
-    if (response.ok) {
-      console.log("Forum post created successfully!", data);
-      resetForm();
-      homenavigation.reset({
-        index: 0,
-        routes: [{ name: 'ForumsContent' }],
+      const response = await fetch('https://kick-stand.onrender.com/create-forum/', {
+        method: 'POST',
+        body: formData,
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
       });
-    } else {
-      console.error("Error creating forum:", data);
+
+      const data = await response.json();
+      console.log("Server response:", data);
+
+      if (response.ok) {
+        console.log("Forum post created successfully!", data);
+        resetForm();
+        homenavigation.reset({
+          index: 0,
+          routes: [{ name: 'ForumsContent' }],
+        });
+      } else {
+        console.error("Error creating forum:", data);
+      }
+    } catch (err) {
+      console.error("submitForm error:", err);
     }
-  } catch (err) {
-    console.error("submitForm error:", err);
-  }
-  finally {
-    setLoading(false);
-    rootNavigation.navigate("Support");
-  }
+    finally {
+      setLoading(false);
+      rootNavigation.navigate("Support");
+    }
 };
 
 
