@@ -778,9 +778,15 @@ async def helpful(review_id: str, token_data: dict = Depends(verify_token)):
     return True
 
 @app.get("/service-review")
-async def service_review(limit: int = Query(10, gt=0), after: str | None = None, token_data: dict = Depends(verify_token)):
+async def service_review(searchquery: str, limit: int = Query(10, gt=0), after: str | None = None, token_data: dict = Depends(verify_token)):
     user_id = token_data["sub"]
     query = {"approved": True}
+    if searchquery.strip():
+        query["$or"] = [
+                {"service_centre": {"$regex": searchquery, "$options": "i"}},
+                {"review": {"$regex": searchquery, "$options": "i"}},
+                {"user_id": {"$regex": searchquery, "$options": "i"}}
+            ]
     if after:
         query["_id"] = {"$lt": ObjectId(after)}
     cursor = service_reviews_collection.find(query).sort("_id", -1).limit(limit)
@@ -791,15 +797,14 @@ async def service_review(limit: int = Query(10, gt=0), after: str | None = None,
 
     review_ids = [r["_id"] for r in reviews]
 
-    # Find all likes by the user in one query
     liked_docs = await service_reviews_helpful_collection.find(
         {"review_id": {"$in": review_ids}, "user_id": user_id}
     ).to_list(length=None)
     liked_ids = {doc["review_id"] for doc in liked_docs}
 
-    # Add `liked` field to each review
     for r in reviews:
         r["marked"] = r["_id"] in liked_ids
+    
     next_cursor = reviews[-1]["_id"] if len(reviews) == limit else None
     return {"data": reviews, "nextCursor": next_cursor}
 

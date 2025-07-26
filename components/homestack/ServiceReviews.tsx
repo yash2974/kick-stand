@@ -26,6 +26,7 @@ const ServiceReviews = () => {
     const userprofilenavigation = useNavigation<UserProfileNavigationProp>();
     const {setUserInfo} = useContext(AuthContext);
     const [search, setSearch] = useState("");
+    const [debouncedSearch, setDebouncedSearch] = React.useState("");
     const [loadingReviews, setLoadingReviews] = useState(false);
     const [loadingHelpful, setLoadingHelpful] = useState(false);
     // const [helpful, setHelpful] = useState<boolean | null>(null);
@@ -41,11 +42,11 @@ const ServiceReviews = () => {
       setReviews([]); 
       setLastReview("");
       setHasMore(true);
-      await getReviews();
+      await getReviews(debouncedSearch);
       setRefreshing(false);
     };
 
-    const getReviews = async () => {
+    const getReviews = async (debouncedSearch: string) => {
         if(loadingReviews || !hasMore){
             return;
         }
@@ -57,7 +58,7 @@ const ServiceReviews = () => {
             return;
         }
         try {
-            let url = "https://kick-stand.onrender.com/service-review?limit=10"
+            let url = `https://kick-stand.onrender.com/service-review?limit=10&query=${debouncedSearch}`
             if (lastReview) url += `&after=${lastReview}`;
             const response = await fetch (url, {
                 method: "GET",
@@ -109,7 +110,16 @@ const ServiceReviews = () => {
             const data = await response.json();
             setReviews(prevReviews =>
             prevReviews.map(r =>
-                r._id === id ? { ...r, marked: data } : r
+                r._id === id 
+                    ? { 
+                        ...r, 
+                        marked: data, 
+                        helpful: data ? 
+                            r.helpful + 1   
+                            : 
+                            r.helpful - 1   
+                      } 
+                    : r
             )
             );
         }
@@ -138,13 +148,13 @@ const ServiceReviews = () => {
                             <MaterialCommunityIcons key={index} name="star" size={20} color="#EF6C00" />
                     ))}
                 </View>
-                <View style={{flexDirection: "row", alignItems: "center"}}>
+                <View style={{flexDirection: "row", alignItems: "baseline"}}>
                     <Text style={{
                     fontFamily: "Inter_18pt-Regular",
                     color: "#424242",
-                    fontSize: 12,
-                    marginRight: 6}}>{item.helpful}</Text>
-                    <TouchableOpacity onPress={()=>makeHelpful(item._id)}>
+                    fontSize: 10,
+                    marginRight: 6}}>{item.helpful} found helpful</Text>
+                    <TouchableOpacity onPress={()=>makeHelpful(item._id)} disabled={loadingHelpful}>
                         <MaterialCommunityIcons name="thumb-up" size={15} color= {item.marked ? "#EF6C00" : "#424242" }/>
                     </TouchableOpacity>
                 </View>
@@ -152,8 +162,15 @@ const ServiceReviews = () => {
             
         </View>
     )
+
     useEffect(()=>{
-        getReviews();
+        const delayDebounce = setTimeout(()=>{
+            setDebouncedSearch(search);
+        }, 500)
+        return ()=> clearTimeout(delayDebounce)
+    }, [search])
+    useEffect(()=>{
+        getReviews(debouncedSearch);
     }, [])
 
     return (
@@ -178,7 +195,7 @@ const ServiceReviews = () => {
                             data={reviews}
                             renderItem={renderReviews}
                             keyExtractor={item => item._id}
-                            onEndReached={getReviews}
+                            onEndReached={()=>getReviews(debouncedSearch)}
                             onEndReachedThreshold={0.5}
                             showsVerticalScrollIndicator={false}
                             ListFooterComponent={ loadingReviews ?
